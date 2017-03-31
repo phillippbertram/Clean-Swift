@@ -9,9 +9,9 @@
 import RxSwift
 
 public final class SendMessageUseCase {
-    
+
     public func build() -> Observable<Void> {
         return Observable.empty()
     }
-    
+
 }

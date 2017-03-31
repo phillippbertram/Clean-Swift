@@ -9,9 +9,9 @@
 import RxSwift
 
 public protocol ChatRepositoryType {
-    
+
     func getAllChats() -> Observable<[Chat]>
-    
+
     func create(chat: Chat) -> Observable<Chat>
-    
+
 }

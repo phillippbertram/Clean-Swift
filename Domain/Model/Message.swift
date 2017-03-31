@@ -9,15 +9,15 @@
 import Foundation
 
 public struct Message {
-    
+
     public enum `Type` {
         case text(String)
         case image(Data)
     }
-    
+
     public var sender: Contact
     public var type: Type
     public var isIncoming: Bool
     public var timestamp: Date
-    
+
 }

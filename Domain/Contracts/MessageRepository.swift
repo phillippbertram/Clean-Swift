@@ -9,7 +9,7 @@
 import RxSwift
 
 public protocol MessageRepositoryType {
-    
+
     func getMessages(`for` chat: Chat) -> Observable<[Message]>
-    
+
 }

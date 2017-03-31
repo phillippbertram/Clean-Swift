@@ -18,24 +18,24 @@ class ChatListViewController: UIViewController {
     lazy var getChatsUseCase: GetChatsUseCase = {
         return GetChatsUseCase(chatRepository: self.chatRepository)
     }()
-    
+
     lazy var viewModel: ChatListViewModel = {
         return ChatListViewModel(getChatsUseCase: self.getChatsUseCase)
     }()
-    
+
     private let disposeBag = DisposeBag()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
-        viewModel.chats.asObservable().do(onNext: printChats).subscribe().addDisposableTo(disposeBag)
-        
+        setupBinding()
     }
 
-    private func printChats(_ chats: [Chat]) {
-        print("\(chats)")
+    private func setupBinding() {
+        let printChats: (([Chat]) -> Void) = { chats in
+            print("\(chats)")
+        }
+        viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
+        viewModel.chats.asObservable().do(onNext: printChats).subscribe().addDisposableTo(disposeBag)
     }
 
 }

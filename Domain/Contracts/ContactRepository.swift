@@ -9,7 +9,7 @@
 import RxSwift
 
 public protocol ContactRepositoryType {
-    
+
     func getAllContacts() -> Observable<[Contact]>
-    
+
 }

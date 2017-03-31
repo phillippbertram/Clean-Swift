@@ -9,9 +9,9 @@
 import RxSwift
 
 final class ChatService {
-    
+
     func getChats() -> Observable<[ChatDTO]> {
         return Observable.just([ChatDTO(), ChatDTO()])
     }
-    
+
 }

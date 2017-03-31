@@ -9,18 +9,18 @@
 import RxSwift
 
 public final class CreateChatUseCase {
-    
+
     private let chatRepository: ChatRepositoryType
-    
+
     public init(chatRepository: ChatRepositoryType) {
         self.chatRepository = chatRepository
     }
-    
+
     public func build(withUser userId: String) -> Observable<Chat> {
         let contact = Contact(firstName: "", lastName: "")
         let chat = Chat(participant: contact)
         return chatRepository.create(chat: chat)
     }
-    
-    
+
+
 }

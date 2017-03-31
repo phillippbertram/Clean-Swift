@@ -1,11 +1,12 @@
 platform :ios, '9.0'
-use_frameworks!
 
 def rx_swift
   pod 'RxSwift'
 end
 
 target 'Clean' do
+  use_frameworks!
+
   # Pods for Clean
   rx_swift
   pod 'RxCocoa'
@@ -18,6 +19,8 @@ target 'Clean' do
 end
 
 target 'Data' do
+  use_frameworks!
+
   # Pods for Data
   rx_swift
 
@@ -29,6 +32,8 @@ target 'Data' do
 end
 
 target 'Domain' do
+  use_frameworks!
+  
   # Pods for Domain
   rx_swift
 

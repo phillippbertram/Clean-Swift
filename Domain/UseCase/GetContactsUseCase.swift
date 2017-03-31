@@ -9,15 +9,15 @@
 import RxSwift
 
 public final class GetContactsUseCase {
-    
+
     private let contactRepository: ContactRepositoryType
-    
+
     init(contactRepository: ContactRepositoryType) {
         self.contactRepository = contactRepository
     }
-    
+
     public func build() -> Observable<[Contact]> {
         return contactRepository.getAllContacts()
     }
-    
+
 }

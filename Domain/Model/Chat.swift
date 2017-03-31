@@ -9,12 +9,12 @@
 import Foundation
 
 public struct Chat {
-    
+
     public var participant: Contact
     public var lastMessage: Message?
-    
+
     public init(participant: Contact) {
         self.participant = participant
     }
-    
+
 }
