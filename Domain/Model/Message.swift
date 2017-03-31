@@ -10,13 +10,21 @@ import Foundation
 
 public struct Message {
 
-    public enum `Type` {
+    public enum Content {
         case text(String)
         case image(Data)
     }
+    
+    public enum Status {
+        case sending
+        case failure(Error)
+        case delivered
+    }
 
+    public var content: Content
+    public var status: Status
+    
     public var sender: Contact
-    public var type: Type
     public var isIncoming: Bool
     public var timestamp: Date
 

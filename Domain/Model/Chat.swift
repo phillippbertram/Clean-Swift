@@ -10,7 +10,7 @@ import Foundation
 
 public struct Chat {
 
-    public var participant: Contact
+    public let participant: Contact
     public var lastMessage: Message?
 
     public init(participant: Contact) {

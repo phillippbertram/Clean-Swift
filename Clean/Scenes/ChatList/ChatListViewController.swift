@@ -32,7 +32,9 @@ class ChatListViewController: UIViewController {
 
     private func setupBinding() {
         let printChats: (([Chat]) -> Void) = { chats in
+            print("==== CHATS ==========")
             print("\(chats)")
+            print("=====================")
         }
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
         viewModel.chats.asObservable().do(onNext: printChats).subscribe().addDisposableTo(disposeBag)
