@@ -8,10 +8,18 @@
 
 import RxSwift
 
+public enum ChatRepositoryError: Error {
+
+    case chatNotFound(id: String)
+
+}
+
 public protocol ChatRepositoryType {
 
     func getAllChats() -> Observable<[Chat]>
 
     func create(chat: Chat) -> Observable<Chat>
+
+    func findChat(withId: String) -> Observable<Chat>
 
 }

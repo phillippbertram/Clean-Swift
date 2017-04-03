@@ -26,9 +26,13 @@ public final class SendMessageUseCase {
         self.messageService = messageService
     }
 
-    public func build(userName: String, messageText: String) -> Observable<MessageResult> {
-        return messageRepository
-                .create(message: messageText, sender: userName, status: .sending)
+    public func build(user: Contact, messageText: String) -> Observable<MessageResult> {
+        return createChatUseCase
+                .build(withUser: user.userName)
+                .flatMap { chat in
+                    self.messageRepository
+                            .create(message: messageText, sender: user, chat: chat, status: .sending)
+                }
                 .flatMap { message in
                     return self.messageService
                             .send(message: message)

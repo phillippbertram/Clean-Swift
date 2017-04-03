@@ -12,7 +12,7 @@ public protocol MessageRepositoryType {
 
     func getAll(`for` chat: Chat) -> Observable<[Message]>
 
-    func create(message: String, sender: String, status: Message.Status) -> Observable<Message>
+    func create(message: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message>
 
     func update(message: Message) -> Observable<Message>
 

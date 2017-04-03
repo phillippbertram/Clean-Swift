@@ -9,11 +9,11 @@
 import Swinject
 
 final class Bootstrapper {
-    
+
     static func bootstrap() -> Container {
         let container = Container()
         _ = try! Assembler(assemblies: [ViewAssembly(), DomainAssembly()], container: container)
         return container
     }
-    
+
 }

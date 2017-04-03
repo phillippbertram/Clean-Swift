@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 public protocol ChatServiceType {
-    
+
     func getChats() -> Observable<[Chat]>
-    
+
 }

@@ -10,6 +10,7 @@ import Foundation
 
 struct ChatDTO {
 
+    let id: String
     let initiator: String
     let receiver: String
 

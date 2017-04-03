@@ -10,8 +10,8 @@ import Domain
 import RxSwift
 
 final class MessageService: MessageServiceType {
-    
-    func sendMessage(message: Message) -> Observable<Message> {
+
+    func send(message: Message) -> Observable<Message> {
         return Observable.empty()
     }
 }

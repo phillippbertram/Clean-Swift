@@ -37,11 +37,12 @@ final class ChatService: ChatServiceType {
 
     private func map(chatDTO: ChatDTO, participant: ContactDTO) -> Chat {
         let participant = map(contactDTO: participant)
-        return Chat(participant: participant)
+        return Chat(id: chatDTO.id, participant: participant, lastMessage: nil)
     }
 
     private func map(contactDTO: ContactDTO) -> Contact {
-        return Contact(firstName: contactDTO.firstName,
+        return Contact(userName: contactDTO.userName,
+                       firstName: contactDTO.firstName,
                        lastName: contactDTO.lastName)
     }
 

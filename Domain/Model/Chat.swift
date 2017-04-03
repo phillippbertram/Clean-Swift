@@ -10,11 +10,31 @@ import Foundation
 
 public struct Chat {
 
+    public let id: String
     public let participant: Contact
-    public var lastMessage: Message?
+    public let lastMessage: Message?
 
-    public init(participant: Contact) {
+    public init(id: String, participant: Contact, lastMessage: Message?) {
+        self.id = id
         self.participant = participant
+        self.lastMessage = lastMessage
+    }
+
+}
+
+// MARK: - Comparable
+
+extension Chat: Comparable {
+
+    public static func <(lhs: Chat, rhs: Chat) -> Bool {
+        guard let lhsLastMessage = lhs.lastMessage, let rhsLastMessage = rhs.lastMessage else {
+            return false
+        }
+        return lhsLastMessage < rhsLastMessage
+    }
+
+    public static func ==(lhs: Chat, rhs: Chat) -> Bool {
+        return lhs.id == rhs.id
     }
 
 }

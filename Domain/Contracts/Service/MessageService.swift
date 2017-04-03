@@ -10,6 +10,6 @@ import RxSwift
 
 public protocol MessageServiceType {
 
-    func sendMessage(message: Message) -> Observable<Message>
-    
+    func send(message: Message) -> Observable<Message>
+
 }

@@ -11,8 +11,10 @@ import RxSwift
 
 public final class ChatRepository {
 
+    fileprivate var data: [String: Chat] = [:]
+
     public init() {
-        
+
     }
 
 }
@@ -22,11 +24,24 @@ public final class ChatRepository {
 extension ChatRepository: ChatRepositoryType {
 
     public func getAllChats() -> Observable<[Chat]> {
-        return Observable.just([])
+        return Observable.just(Array(data.values))
     }
 
     public func create(chat: Chat) -> Observable<Chat> {
-        return Observable.empty()
+        return Observable.deferred {
+            self.data[chat.id] = chat
+            return Observable.just(chat)
+        }
     }
+
+    public func findChat(withId chatId: String) -> Observable<Chat> {
+        return Observable.deferred {
+            if let chat = self.data[chatId] {
+                return Observable.just(chat)
+            }
+            return Observable.error(ChatRepositoryError.chatNotFound(id: chatId))
+        }
+    }
+
 
 }

@@ -11,9 +11,11 @@ import RxSwift
 public final class GetChatsUseCase {
 
     private let chatRepository: ChatRepositoryType
+    private let chatService: ChatServiceType
 
-    public init(chatRepository: ChatRepositoryType) {
+    public init(chatRepository: ChatRepositoryType, chatService: ChatServiceType) {
         self.chatRepository = chatRepository
+        self.chatService = chatService
     }
 
     public func build() -> Observable<[Chat]> {
