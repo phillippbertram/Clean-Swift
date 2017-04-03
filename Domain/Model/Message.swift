@@ -14,16 +14,17 @@ public struct Message {
         case text(String)
         case image(Data)
     }
-    
+
     public enum Status {
         case sending
         case failure(Error)
         case delivered
     }
 
+    public var id: String
     public var content: Content
     public var status: Status
-    
+
     public var sender: Contact
     public var isIncoming: Bool
     public var timestamp: Date

@@ -1,16 +1,36 @@
 PODS:
+  - Material (2.6.2):
+    - Material/Core (= 2.6.2)
+  - Material/Core (2.6.2)
+  - Realm (2.5.0):
+    - Realm/Headers (= 2.5.0)
+  - Realm/Headers (2.5.0)
+  - RealmSwift (2.5.0):
+    - Realm (= 2.5.0)
   - RxCocoa (3.3.1):
     - RxSwift (~> 3.3)
   - RxSwift (3.3.1)
+  - Swinject (2.0.0)
+  - SwinjectStoryboard (1.0.0):
+    - Swinject (= 2.0.0)
 
 DEPENDENCIES:
+  - Material
+  - RealmSwift
   - RxCocoa
   - RxSwift
+  - Swinject
+  - SwinjectStoryboard
 
 SPEC CHECKSUMS:
+  Material: d602e144b303de8de88456caed3d5771f2b1adc0
+  Realm: 62abce501668580092d2be9b6ba7324a3d5f906a
+  RealmSwift: 9f1a8f624f2f153410115c2cb7d486be9976565d
   RxCocoa: 7dcb7a1860fc9cd0e23dae67ab105fc2916670b6
   RxSwift: 8fc9f2de6275a9101d518444e00bf32f1a42caac
+  Swinject: 2e964a80d70ab09b3949c99032711f89147bfd60
+  SwinjectStoryboard: 8e0d3c0202b64172bdf915d55e8dc83d9c4e7863
 
-PODFILE CHECKSUM: c8582a31ccf045ccd6375ddc0b49f52d0f2e3b1d
+PODFILE CHECKSUM: ee2b82bc8c179b30e600a924e84ec7fcb2d53908
 
 COCOAPODS: 1.1.0

@@ -12,7 +12,7 @@ import RxSwift
 public final class ChatRepository {
 
     public init() {
-
+        
     }
 
 }
@@ -22,9 +22,7 @@ public final class ChatRepository {
 extension ChatRepository: ChatRepositoryType {
 
     public func getAllChats() -> Observable<[Chat]> {
-        let contact1 = Contact(firstName: "Phillipp", lastName: "Phillipp")
-        let chat1 = Chat(participant: contact1)
-        return Observable.just([chat1])
+        return Observable.just([])
     }
 
     public func create(chat: Chat) -> Observable<Chat> {

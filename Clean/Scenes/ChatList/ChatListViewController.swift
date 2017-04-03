@@ -11,33 +11,48 @@ import Domain
 import Data
 import RxSwift
 import RxCocoa
+import Material
 
-class ChatListViewController: UIViewController {
+public class ChatListViewController: TableViewController {
 
-    let chatRepository: ChatRepositoryType = ChatRepository()
-    lazy var getChatsUseCase: GetChatsUseCase = {
-        return GetChatsUseCase(chatRepository: self.chatRepository)
-    }()
-
-    lazy var viewModel: ChatListViewModel = {
-        return ChatListViewModel(getChatsUseCase: self.getChatsUseCase)
-    }()
+    var viewModel: ChatListViewModel!
 
     private let disposeBag = DisposeBag()
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
     }
 
+    // MARK: DataSource
+
+    public override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.chats.value.count
+    }
+
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath)
+        let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
+        cell.textLabel?.text = cellViewModel.text
+        return cell
+    }
+
+
+
+    // MARK - Setup
+
+    public override func prepare() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "chatCell")
+        super.prepare()
+    }
+
     private func setupBinding() {
-        let printChats: (([Chat]) -> Void) = { chats in
-            print("==== CHATS ==========")
-            print("\(chats)")
-            print("=====================")
-        }
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
-        viewModel.chats.asObservable().do(onNext: printChats).subscribe().addDisposableTo(disposeBag)
+        viewModel.chats.asObservable().subscribe().addDisposableTo(disposeBag)
     }
 
 }

@@ -13,29 +13,36 @@ public final class SendMessageUseCase {
     public enum MessageResult {
         case sending(progress: Double)
     }
-    
+
     private let createChatUseCase: CreateChatUseCase
-    
-    init(createChatUseCase: CreateChatUseCase) {
+    private let messageRepository: MessageRepositoryType
+    private let messageService: MessageServiceType
+
+    init(createChatUseCase: CreateChatUseCase,
+            messageRepository: MessageRepositoryType,
+            messageService: MessageServiceType) {
         self.createChatUseCase = createChatUseCase
+        self.messageRepository = messageRepository
+        self.messageService = messageService
     }
-    
-    public func build(userName: String) -> Observable<MessageResult> {
-        return Observable.create { observer in
-            
-            Thread.sleep(forTimeInterval: 0.5)
-            observer.on(.next(.sending(progress: 0)))
-            Thread.sleep(forTimeInterval: 0.5)
-            observer.on(.next(.sending(progress: 0.25)))
-            Thread.sleep(forTimeInterval: 0.5)
-            observer.on(.next(.sending(progress: 0.50)))
-            Thread.sleep(forTimeInterval: 0.5)
-            observer.on(.next(.sending(progress: 0.75)))
-            Thread.sleep(forTimeInterval: 0.5)
-            
-            observer.on(.completed)
-            return Disposables.create()
-        }
+
+    public func build(userName: String, messageText: String) -> Observable<MessageResult> {
+        return messageRepository
+                .create(message: messageText, sender: userName, status: .sending)
+                .flatMap { message in
+                    return self.messageService
+                            .send(message: message)
+                            .catchError { error in
+                                return self.handleError(error, forMessage: message)
+                            }
+                }
+                .map({ _ in MessageResult.sending(progress: 1) })
+    }
+
+    private func handleError(_ error: Error, forMessage message: Message) -> Observable<Message> {
+        var modifiedMessage = message
+        modifiedMessage.status = .failure(error)
+        return messageRepository.update(message: modifiedMessage)
     }
 
 }

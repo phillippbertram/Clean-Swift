@@ -10,6 +10,9 @@ target 'Clean' do
   # Pods for Clean
   rx_swift
   pod 'RxCocoa'
+  pod 'Swinject'
+  pod 'SwinjectStoryboard'
+  pod 'Material'
 
   target 'CleanTests' do
     inherit! :search_paths
@@ -23,6 +26,7 @@ target 'Data' do
 
   # Pods for Data
   rx_swift
+  pod 'RealmSwift'
 
   target 'DataTests' do
     inherit! :search_paths

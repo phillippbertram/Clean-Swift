@@ -10,7 +10,7 @@ import Domain
 import RxSwift
 import RxCocoa
 
-final class ChatListViewModel {
+public final class ChatListViewModel {
 
     let title: Variable<String> = Variable("Chats")
     let chats: Variable<[Chat]> = Variable([])
@@ -19,13 +19,20 @@ final class ChatListViewModel {
 
     private let getChatsUseCase: GetChatsUseCase
 
-    init(getChatsUseCase: GetChatsUseCase) {
+    public init(getChatsUseCase: GetChatsUseCase) {
         self.getChatsUseCase = getChatsUseCase
 
         getChatsUseCase
                 .build()
                 .bindTo(chats)
                 .addDisposableTo(disposeBag)
+    }
+
+    public func cellViewModel(forIndexPath indexPath: IndexPath) -> ChatListCellViewModel {
+        let chat = chats.value[indexPath.item]
+        let vm = ChatListCellViewModel()
+        vm.text = chat.participant.firstName
+        return vm
     }
 
 }
