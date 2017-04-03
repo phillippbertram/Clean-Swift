@@ -6,11 +6,11 @@
 import Domain
 import RxSwift
 
-final class CurrentUserRepository {
+public final class CurrentUserRepository {
 
     fileprivate var currentUser: CurrentUser?
 
-    init() {
+    public init() {
 
     }
 
@@ -20,7 +20,7 @@ final class CurrentUserRepository {
 
 extension CurrentUserRepository: CurrentUserRepositoryType {
 
-    func login(withUserName username: String, andPassword password: String) -> Observable<CurrentUser> {
+    public func login(withUserName username: String, andPassword password: String) -> Observable<CurrentUser> {
         return Observable.deferred {
             if username != "pbe" && password != "pbe" {
                 return Observable.error(CurrentUserRepositoryError.invalidCredentials)
@@ -30,14 +30,14 @@ extension CurrentUserRepository: CurrentUserRepositoryType {
         }
     }
 
-    func logout() -> Observable<Void> {
+    public func logout() -> Observable<Void> {
         return Observable.deferred {
             self.currentUser = nil
             return Observable.just()
         }
     }
 
-    func getCurrentUser() -> Observable<CurrentUser> {
+    public func getCurrentUser() -> Observable<CurrentUser> {
         return Observable.deferred {
 
             guard let currentUser = self.currentUser else {
@@ -48,7 +48,7 @@ extension CurrentUserRepository: CurrentUserRepositoryType {
         }
     }
 
-    func isLoggedIn() -> Observable<Bool> {
+    public func isLoggedIn() -> Observable<Bool> {
         return Observable.deferred {
             if self.currentUser != nil {
                 return Observable.just(true)

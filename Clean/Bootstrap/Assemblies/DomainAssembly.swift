@@ -18,11 +18,20 @@ final class DomainAssembly: Assembly {
             let chatService = resolver.resolve(ChatServiceType.self)!
             return GetChatsUseCase(chatRepository: chatRepository, chatService: chatService)
         }
-
+        
+        container.register(LoginUseCase.self) { resolver in
+            let currentUserRepository = resolver.resolve(CurrentUserRepositoryType.self)!
+            return LoginUseCase(currentUserRepository: currentUserRepository)
+        }
+        
         // Repositories
 
         container.register(ChatRepositoryType.self) { _ in
             return ChatRepository()
+        }
+        
+        container.register(CurrentUserRepositoryType.self) { resolver in
+            return CurrentUserRepository()
         }
     }
 

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gcl-Hy-I3H">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Chat List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ChatListViewController" customModule="Clean" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatList" id="BYZ-38-t0r" customClass="ChatListViewController" customModule="Clean" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -25,7 +26,83 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="980" y="38.23088455772114"/>
+            <point key="canvasLocation" x="975" y="50"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="68O-se-Yyi">
+            <objects>
+                <viewController id="Kya-qD-XX9" customClass="LoginViewController" customModule="Clean" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3yQ-Lj-zbY"/>
+                        <viewControllerLayoutGuide type="bottom" id="A7l-gV-y3y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KDO-KL-wG2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s27-8n-f8o">
+                                <rect key="frame" x="16" y="72" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gFx-lh-gid">
+                                <rect key="frame" x="16" y="110" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfS-VM-nt4" customClass="RaisedButton" customModule="Material">
+                                <rect key="frame" x="16" y="148" width="343" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="AuN-og-YcW"/>
+                                </constraints>
+                                <state key="normal" title="Login"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="s27-8n-f8o" firstAttribute="top" secondItem="3yQ-Lj-zbY" secondAttribute="bottom" constant="8" id="0vp-Yu-Byr"/>
+                            <constraint firstItem="gFx-lh-gid" firstAttribute="top" secondItem="s27-8n-f8o" secondAttribute="bottom" constant="8" id="4dY-cu-USI"/>
+                            <constraint firstItem="AfS-VM-nt4" firstAttribute="top" secondItem="gFx-lh-gid" secondAttribute="bottom" constant="8" id="50F-yM-8O7"/>
+                            <constraint firstItem="gFx-lh-gid" firstAttribute="leading" secondItem="KDO-KL-wG2" secondAttribute="leadingMargin" id="6Ii-t5-TtN"/>
+                            <constraint firstItem="gFx-lh-gid" firstAttribute="trailing" secondItem="KDO-KL-wG2" secondAttribute="trailingMargin" id="CoO-ug-xR4"/>
+                            <constraint firstItem="AfS-VM-nt4" firstAttribute="top" secondItem="gFx-lh-gid" secondAttribute="bottom" constant="8" id="F97-b8-akd"/>
+                            <constraint firstItem="s27-8n-f8o" firstAttribute="leading" secondItem="KDO-KL-wG2" secondAttribute="leadingMargin" id="GDF-Ac-QDD"/>
+                            <constraint firstItem="AfS-VM-nt4" firstAttribute="trailing" secondItem="KDO-KL-wG2" secondAttribute="trailingMargin" id="RM6-Dc-nEj"/>
+                            <constraint firstItem="AfS-VM-nt4" firstAttribute="leading" secondItem="KDO-KL-wG2" secondAttribute="leadingMargin" id="oam-zp-Pbq"/>
+                            <constraint firstItem="s27-8n-f8o" firstAttribute="trailing" secondItem="KDO-KL-wG2" secondAttribute="trailingMargin" id="qjZ-Yp-2Vp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="y3G-TC-9jm"/>
+                    <connections>
+                        <outlet property="loginButton" destination="AfS-VM-nt4" id="Tra-Xx-PXm"/>
+                        <outlet property="passwordTextField" destination="gFx-lh-gid" id="P5h-gU-YG5"/>
+                        <outlet property="userNameTextField" destination="s27-8n-f8o" id="jfh-ht-WNq"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="chatList" id="XoF-qL-dCZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Rl-W6-uqI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="50"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4qZ-p0-R8q">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gcl-Hy-I3H" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wIE-Wl-Aje">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Kya-qD-XX9" kind="relationship" relationship="rootViewController" id="Bhj-mK-2Ks"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z7Y-su-ZfS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-750" y="50"/>
         </scene>
     </scenes>
 </document>

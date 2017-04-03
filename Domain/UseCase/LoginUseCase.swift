@@ -5,15 +5,15 @@
 
 import RxSwift
 
-final class LoginUseCase {
+public final class LoginUseCase {
 
     private let currentUserRepository: CurrentUserRepositoryType
 
-    init(currentUserRepository: CurrentUserRepositoryType) {
+    public init(currentUserRepository: CurrentUserRepositoryType) {
         self.currentUserRepository = currentUserRepository
     }
 
-    func build(withUserName userName: String, andPassword password: String) -> Observable<CurrentUser> {
+    public func build(withUserName userName: String, andPassword password: String) -> Observable<CurrentUser> {
         return currentUserRepository.login(withUserName: userName, andPassword: password)
     }
 

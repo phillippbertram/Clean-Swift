@@ -1,7 +1,13 @@
 PODS:
+  - Action (2.2.1):
+    - RxCocoa (~> 3.0)
+    - RxSwift (~> 3.0)
   - Material (2.6.2):
     - Material/Core (= 2.6.2)
   - Material/Core (2.6.2)
+  - R.swift (3.2.0):
+    - R.swift.Library (~> 3.0.2)
+  - R.swift.Library (3.0.2)
   - Realm (2.5.0):
     - Realm/Headers (= 2.5.0)
   - Realm/Headers (2.5.0)
@@ -15,7 +21,9 @@ PODS:
     - Swinject (= 2.0.0)
 
 DEPENDENCIES:
+  - Action
   - Material
+  - R.swift (~> 3.2.0)
   - RealmSwift
   - RxCocoa
   - RxSwift
@@ -23,7 +31,10 @@ DEPENDENCIES:
   - SwinjectStoryboard
 
 SPEC CHECKSUMS:
+  Action: 93c6c9eec95eb76428b2d49a6d260466c2f71b7e
   Material: d602e144b303de8de88456caed3d5771f2b1adc0
+  R.swift: 207a372a2b5977caef440c696a368009460641d1
+  R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
   Realm: 62abce501668580092d2be9b6ba7324a3d5f906a
   RealmSwift: 9f1a8f624f2f153410115c2cb7d486be9976565d
   RxCocoa: 7dcb7a1860fc9cd0e23dae67ab105fc2916670b6
@@ -31,6 +42,6 @@ SPEC CHECKSUMS:
   Swinject: 2e964a80d70ab09b3949c99032711f89147bfd60
   SwinjectStoryboard: 8e0d3c0202b64172bdf915d55e8dc83d9c4e7863
 
-PODFILE CHECKSUM: ee2b82bc8c179b30e600a924e84ec7fcb2d53908
+PODFILE CHECKSUM: 3868f59ce4d1e71092164045f7224fa1c9961916
 
 COCOAPODS: 1.1.0

@@ -10,9 +10,11 @@ target 'Clean' do
   # Pods for Clean
   rx_swift
   pod 'RxCocoa'
+  pod 'Action'
   pod 'Swinject'
   pod 'SwinjectStoryboard'
   pod 'Material'
+  pod 'R.swift', '~> 3.2.0'
 
   target 'CleanTests' do
     inherit! :search_paths
