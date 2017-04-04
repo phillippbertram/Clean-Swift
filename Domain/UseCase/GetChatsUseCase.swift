@@ -19,7 +19,7 @@ public final class GetChatsUseCase {
     }
 
     public func build() -> Observable<[Chat]> {
-        return chatRepository.getAllChats()
+        return chatRepository.getAllChats().map({$0.sorted(by: <)})
     }
 
 }

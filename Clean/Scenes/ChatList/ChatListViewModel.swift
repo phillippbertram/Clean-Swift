@@ -18,14 +18,26 @@ public final class ChatListViewModel {
     private let disposeBag = DisposeBag()
 
     private let getChatsUseCase: GetChatsUseCase
+    private let createChatUseCase: CreateChatUseCase
 
-    public init(getChatsUseCase: GetChatsUseCase) {
+    public init(getChatsUseCase: GetChatsUseCase, createChatUseCase: CreateChatUseCase) {
         self.getChatsUseCase = getChatsUseCase
+        self.createChatUseCase = createChatUseCase
 
         getChatsUseCase
                 .build()
                 .bindTo(chats)
                 .addDisposableTo(disposeBag)
+
+        Observable<Int>
+                .interval(2, scheduler: MainScheduler.instance)
+                .flatMap { number -> Observable<Chat> in
+                    let contact = Contact(userName: "user\(number)", firstName: "Firstname \(number)", lastName: "Lastname \(number)")
+                    return createChatUseCase.build(withContact: contact)
+                }
+                .subscribe()
+                .addDisposableTo(disposeBag)
+
     }
 
     public func cellViewModel(forIndexPath indexPath: IndexPath) -> ChatListCellViewModel {

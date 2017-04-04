@@ -7,12 +7,16 @@
 //
 
 import Swinject
+import SwinjectStoryboard
 
 final class Bootstrapper {
 
     static func bootstrap() -> Container {
-        let container = Container()
-        _ = try! Assembler(assemblies: [ViewAssembly(), DomainAssembly()], container: container)
+        let container = SwinjectStoryboard.defaultContainer
+        _ = try! Assembler(assemblies: [
+                ViewAssembly(),
+                DomainAssembly(),
+                DataAssembly()], container: container)
         return container
     }
 

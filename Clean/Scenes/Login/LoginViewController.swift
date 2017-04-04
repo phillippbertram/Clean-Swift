@@ -31,17 +31,19 @@ final class LoginViewController: UIViewController {
         viewModel
             .loginAction
             .elements
-        .subscribe(onNext: {
-            let vc = R.storyboard.main.chatList()!
-            self.navigationController?.pushViewController(vc, animated: true)
-        }).addDisposableTo(disposeBag)
+            .subscribe(onNext: {
+                let vc = R.storyboard.main.chatListViewController()!
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+            .addDisposableTo(disposeBag)
         
         viewModel
             .loginAction
             .errors
             .subscribe(onNext: { actionError in
-            print("Login Failed with error \(actionError)")
-        }).addDisposableTo(disposeBag)
+                print("Login Failed with error \(actionError)")
+            })
+            .addDisposableTo(disposeBag)
     }
     
 }

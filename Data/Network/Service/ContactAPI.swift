@@ -9,8 +9,12 @@
 import Foundation
 import RxSwift
 
-final class ContactAPI {
+public final class ContactAPI {
 
+    public init() {
+        
+    }
+    
     func getContact(byId: String) -> Observable<ContactDTO> {
         let contact = ContactDTO(userName: "pbe", firstName: "Phillipp", lastName: "Bertram")
         return Observable.just(contact)

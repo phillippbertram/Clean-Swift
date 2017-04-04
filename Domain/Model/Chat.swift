@@ -13,11 +13,19 @@ public struct Chat {
     public let id: String
     public let participant: Contact
     public let lastMessage: Message?
+    public let lastModifiedAt: Date
+    public let createdAt: Date
 
-    public init(id: String, participant: Contact, lastMessage: Message?) {
+    public init(id: String,
+                participant: Contact,
+                lastMessage: Message?,
+                lastModifiedAt: Date,
+                createdAt: Date) {
         self.id = id
         self.participant = participant
         self.lastMessage = lastMessage
+        self.lastModifiedAt = lastModifiedAt
+        self.createdAt = createdAt
     }
 
 }
@@ -27,10 +35,11 @@ public struct Chat {
 extension Chat: Comparable {
 
     public static func <(lhs: Chat, rhs: Chat) -> Bool {
-        guard let lhsLastMessage = lhs.lastMessage, let rhsLastMessage = rhs.lastMessage else {
-            return false
+        if let lhsLastMessage = lhs.lastMessage, let rhsLastMessage = rhs.lastMessage {
+            return lhsLastMessage < rhsLastMessage
         }
-        return lhsLastMessage < rhsLastMessage
+        
+        return lhs.lastModifiedAt < rhs.lastModifiedAt
     }
 
     public static func ==(lhs: Chat, rhs: Chat) -> Bool {

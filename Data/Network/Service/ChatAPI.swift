@@ -8,8 +8,12 @@
 
 import RxSwift
 
-final class ChatAPI {
+public final class ChatAPI {
 
+    public init() {
+        
+    }
+    
     func getChats() -> Observable<[ChatDTO]> {
         return Observable.just([])
     }

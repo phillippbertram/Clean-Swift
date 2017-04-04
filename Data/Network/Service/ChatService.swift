@@ -10,40 +10,46 @@ import Foundation
 import Domain
 import RxSwift
 
-final class ChatService: ChatServiceType {
+public final class ChatService {
 
-    private let chatAPI: ChatAPI
-    private let contactAPI: ContactAPI
+    fileprivate let chatAPI: ChatAPI
+    fileprivate let contactAPI: ContactAPI
 
-    init(chatAPI: ChatAPI, contactAPI: ContactAPI) {
+    public init(chatAPI: ChatAPI, contactAPI: ContactAPI) {
         self.chatAPI = chatAPI
         self.contactAPI = contactAPI
     }
 
-    func getChats() -> Observable<[Chat]> {
-        return chatAPI
-                .getChats()
-                .flatMap { chatDTOs in
-                    return Observable.from(chatDTOs)
-                }
-                .flatMap { chatDTO -> Observable<(ChatDTO, ContactDTO)> in
-                    return self.contactAPI
-                            .getContact(byId: chatDTO.initiator)
-                            .map({ (chatDTO, $0) })
-                }
-                .map(map)
-                .toArray()
-    }
-
-    private func map(chatDTO: ChatDTO, participant: ContactDTO) -> Chat {
+    fileprivate func map(chatDTO: ChatDTO, participant: ContactDTO) -> Chat {
         let participant = map(contactDTO: participant)
-        return Chat(id: chatDTO.id, participant: participant, lastMessage: nil)
+        return Chat(id: chatDTO.id, participant: participant, lastMessage: nil, lastModifiedAt: Date(), createdAt: Date())
     }
 
-    private func map(contactDTO: ContactDTO) -> Contact {
+    fileprivate func map(contactDTO: ContactDTO) -> Contact {
         return Contact(userName: contactDTO.userName,
                        firstName: contactDTO.firstName,
                        lastName: contactDTO.lastName)
     }
 
+}
+
+// MARK: - ChatServiceType
+
+extension ChatService: ChatServiceType {
+    
+    public func getChats() -> Observable<[Chat]> {
+        return chatAPI
+            .getChats()
+            .flatMap { chatDTOs in
+                return Observable.from(chatDTOs)
+            }
+            .flatMap { chatDTO -> Observable<(ChatDTO, ContactDTO)> in
+                return self.contactAPI
+                    .getContact(byId: chatDTO.initiator)
+                    .map({ (chatDTO, $0) })
+            }
+            .map(map)
+            .toArray()
+    }
+    
 }

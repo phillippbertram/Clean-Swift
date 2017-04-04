@@ -12,7 +12,7 @@
         <!--Chat List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="chatList" id="BYZ-38-t0r" customClass="ChatListViewController" customModule="Clean" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatListViewController" id="BYZ-38-t0r" customClass="ChatListViewController" customModule="Clean" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -79,7 +79,6 @@
                         <outlet property="loginButton" destination="AfS-VM-nt4" id="Tra-Xx-PXm"/>
                         <outlet property="passwordTextField" destination="gFx-lh-gid" id="P5h-gU-YG5"/>
                         <outlet property="userNameTextField" destination="s27-8n-f8o" id="jfh-ht-WNq"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="chatList" id="XoF-qL-dCZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Rl-W6-uqI" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -28,7 +28,8 @@ final class ViewAssembly: Assembly {
 
         container.register(ChatListViewModel.self) { resolver in
             let getChatsUseCase = resolver.resolve(GetChatsUseCase.self)!
-            return ChatListViewModel(getChatsUseCase: getChatsUseCase)
+            let createChatUseCase = resolver.resolve(CreateChatUseCase.self)!
+            return ChatListViewModel(getChatsUseCase: getChatsUseCase, createChatUseCase: createChatUseCase)
         }
 
     }

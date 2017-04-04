@@ -16,9 +16,12 @@ public final class CreateChatUseCase {
         self.chatRepository = chatRepository
     }
 
-    public func build(withUser userId: String) -> Observable<Chat> {
-        let contact = Contact(userName: "pbe", firstName: "Phillipp", lastName: "Bertram")
-        let chat = Chat(id: "", participant: contact, lastMessage: nil)
+    public func build(withContact contact: Contact) -> Observable<Chat> {
+        let chat = Chat(id: UUID().uuidString,
+                        participant: contact,
+                        lastMessage: nil,
+                        lastModifiedAt: Date(),
+                        createdAt: Date())
         return chatRepository.create(chat: chat)
     }
 

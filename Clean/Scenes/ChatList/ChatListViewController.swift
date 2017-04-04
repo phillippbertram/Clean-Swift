@@ -41,8 +41,6 @@ public class ChatListViewController: TableViewController {
         return cell
     }
 
-
-
     // MARK - Setup
 
     public override func prepare() {
@@ -52,7 +50,7 @@ public class ChatListViewController: TableViewController {
 
     private func setupBinding() {
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
-        viewModel.chats.asObservable().subscribe().addDisposableTo(disposeBag)
+        viewModel.chats.asDriver().drive(onNext: { _ in self.tableView.reloadData() }).addDisposableTo(disposeBag)
     }
 
 }

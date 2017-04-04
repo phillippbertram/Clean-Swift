@@ -12,6 +12,7 @@ import RxSwift
 public final class ChatRepository {
 
     fileprivate var data: [String: Chat] = [:]
+    private(set) var dataSubject: PublishSubject<[String: Chat]> = PublishSubject()
 
     public init() {
 
@@ -24,12 +25,13 @@ public final class ChatRepository {
 extension ChatRepository: ChatRepositoryType {
 
     public func getAllChats() -> Observable<[Chat]> {
-        return Observable.just(Array(data.values))
+        return dataSubject.asObserver().map({Array($0.values)})
     }
 
     public func create(chat: Chat) -> Observable<Chat> {
         return Observable.deferred {
             self.data[chat.id] = chat
+            self.dataSubject.onNext(self.data)
             return Observable.just(chat)
         }
     }
