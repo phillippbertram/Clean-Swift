@@ -24,8 +24,8 @@ public final class ChatRepository {
 
 extension ChatRepository: ChatRepositoryType {
 
-    public func getAllChats() -> Observable<[Chat]> {
-        return dataSubject.asObserver().map({Array($0.values)})
+    public func observeAllChats() -> Observable<[Chat]> {
+        return dataSubject.asObserver().map({ Array($0.values) })
     }
 
     public func create(chat: Chat) -> Observable<Chat> {
@@ -45,5 +45,10 @@ extension ChatRepository: ChatRepositoryType {
         }
     }
 
+    public func findAllChats() -> Observable<[Chat]> {
+        return Observable.deferred {
+            return Observable.just(Array(self.data.values))
+        }
+    }
 
 }

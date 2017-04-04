@@ -17,12 +17,19 @@ public final class CreateChatUseCase {
     }
 
     public func build(withContact contact: Contact) -> Observable<Chat> {
-        let chat = Chat(id: UUID().uuidString,
-                        participant: contact,
-                        lastMessage: nil,
-                        lastModifiedAt: Date(),
-                        createdAt: Date())
-        return chatRepository.create(chat: chat)
+        return chatRepository
+                .findAllChats()
+                .map { chats in
+                    if let firstChat = chats.filter({ $0.participant == contact }).first {
+                        return firstChat
+                    }
+                    return Chat(id: UUID().uuidString,
+                                participant: contact,
+                                lastMessage: nil,
+                                lastModifiedAt: Date(),
+                                createdAt: Date())
+                }
+                .flatMap(chatRepository.create)
     }
 
 

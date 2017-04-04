@@ -16,10 +16,12 @@ public enum ChatRepositoryError: Error {
 
 public protocol ChatRepositoryType {
 
-    func getAllChats() -> Observable<[Chat]>
+    func observeAllChats() -> Observable<[Chat]>
 
     func create(chat: Chat) -> Observable<Chat>
 
     func findChat(withId: String) -> Observable<Chat>
+
+    func findAllChats() -> Observable<[Chat]>
 
 }
