@@ -38,6 +38,7 @@ extension MessageRepository: MessageRepositoryType {
                                   status: status,
                                   sender: sender,
                                   isIncoming: false,
+                                  isRead: true,
                                   timestamp: Date(),
                                   lastModifiedAt: Date())
             return Observable.just(message)

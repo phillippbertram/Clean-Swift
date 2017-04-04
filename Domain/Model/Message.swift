@@ -29,6 +29,7 @@ public struct Message {
 
     internal(set) public var sender: Contact
     internal(set) public var isIncoming: Bool
+    internal(set) public var isRead: Bool
 
     internal(set) public var timestamp: Date
     public var lastModifiedAt: Date
@@ -40,6 +41,7 @@ public struct Message {
             status: Status,
             sender: Contact,
             isIncoming: Bool,
+            isRead: Bool,
             timestamp: Date,
             lastModifiedAt: Date) {
         self.id = id
@@ -47,6 +49,7 @@ public struct Message {
         self.content = content
         self.status = status
         self.sender = sender
+        self.isRead = isRead
         self.isIncoming = isIncoming
         self.timestamp = timestamp
         self.lastModifiedAt = lastModifiedAt

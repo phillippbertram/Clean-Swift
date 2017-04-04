@@ -13,7 +13,14 @@ import RxSwift
 import RxCocoa
 import Material
 
-public class ChatListViewController: TableViewController {
+public class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
+    }
 
     var viewModel: ChatListViewModel!
 
@@ -26,27 +33,22 @@ public class ChatListViewController: TableViewController {
 
     // MARK: DataSource
 
-    public override func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.chats.value.count
     }
 
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath)
         let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
         cell.textLabel?.text = cellViewModel.text
         return cell
     }
 
-    // MARK - Setup
-
-    public override func prepare() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "chatCell")
-        super.prepare()
-    }
+    // MARK: Setup
 
     private func setupBinding() {
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)

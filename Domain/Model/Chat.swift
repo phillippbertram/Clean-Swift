@@ -16,11 +16,12 @@ public struct Chat {
     public let lastModifiedAt: Date
     public let createdAt: Date
 
-    public init(id: String,
-                participant: Contact,
-                lastMessage: Message?,
-                lastModifiedAt: Date,
-                createdAt: Date) {
+    public init(
+            id: String,
+            participant: Contact,
+            lastMessage: Message?,
+            lastModifiedAt: Date,
+            createdAt: Date) {
         self.id = id
         self.participant = participant
         self.lastMessage = lastMessage
