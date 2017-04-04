@@ -11,9 +11,9 @@ import RxSwift
 public final class ChatAPI {
 
     public init() {
-        
+
     }
-    
+
     func getChats() -> Observable<[ChatDTO]> {
         return Observable.just([])
     }

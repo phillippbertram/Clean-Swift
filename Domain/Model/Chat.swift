@@ -34,15 +34,15 @@ public struct Chat {
 
 extension Chat: Comparable {
 
-    public static func <(lhs: Chat, rhs: Chat) -> Bool {
+    public static func < (lhs: Chat, rhs: Chat) -> Bool {
         if let lhsLastMessage = lhs.lastMessage, let rhsLastMessage = rhs.lastMessage {
             return lhsLastMessage < rhsLastMessage
         }
-        
+
         return lhs.lastModifiedAt < rhs.lastModifiedAt
     }
 
-    public static func ==(lhs: Chat, rhs: Chat) -> Bool {
+    public static func == (lhs: Chat, rhs: Chat) -> Bool {
         return lhs.id == rhs.id
     }
 

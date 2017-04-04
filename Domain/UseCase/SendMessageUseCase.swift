@@ -18,9 +18,11 @@ public final class SendMessageUseCase {
     private let messageRepository: MessageRepositoryType
     private let messageService: MessageServiceType
 
-    init(createChatUseCase: CreateChatUseCase,
-            messageRepository: MessageRepositoryType,
-            messageService: MessageServiceType) {
+    init(
+        createChatUseCase: CreateChatUseCase,
+        messageRepository: MessageRepositoryType,
+        messageService: MessageServiceType) {
+
         self.createChatUseCase = createChatUseCase
         self.messageRepository = messageRepository
         self.messageService = messageService

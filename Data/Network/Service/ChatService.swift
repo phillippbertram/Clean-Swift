@@ -22,7 +22,12 @@ public final class ChatService {
 
     fileprivate func map(chatDTO: ChatDTO, participant: ContactDTO) -> Chat {
         let participant = map(contactDTO: participant)
-        return Chat(id: chatDTO.id, participant: participant, lastMessage: nil, lastModifiedAt: Date(), createdAt: Date())
+        return Chat(
+            id: chatDTO.id,
+            participant: participant,
+            lastMessage: nil,
+            lastModifiedAt: Date(),
+            createdAt: Date())
     }
 
     fileprivate func map(contactDTO: ContactDTO) -> Contact {
@@ -36,20 +41,20 @@ public final class ChatService {
 // MARK: - ChatServiceType
 
 extension ChatService: ChatServiceType {
-    
+
     public func getChats() -> Observable<[Chat]> {
         return chatAPI
-            .getChats()
-            .flatMap { chatDTOs in
-                return Observable.from(chatDTOs)
-            }
-            .flatMap { chatDTO -> Observable<(ChatDTO, ContactDTO)> in
-                return self.contactAPI
-                    .getContact(byId: chatDTO.initiator)
-                    .map({ (chatDTO, $0) })
-            }
-            .map(map)
-            .toArray()
+                .getChats()
+                .flatMap { chatDTOs in
+                    return Observable.from(chatDTOs)
+                }
+                .flatMap { chatDTO -> Observable<(ChatDTO, ContactDTO)> in
+                    return self.contactAPI
+                            .getContact(byId: chatDTO.initiator)
+                            .map({ (chatDTO, $0) })
+                }
+                .map(map)
+                .toArray()
     }
-    
+
 }

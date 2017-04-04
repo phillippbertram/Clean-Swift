@@ -15,35 +15,35 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: RaisedButton!
 
     var viewModel: LoginViewModel!
-    
+
     private let disposeBag = DisposeBag()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
     }
-    
+
     private func setupBinding() {
         userNameTextField.rx.text.bindTo(viewModel.userName).addDisposableTo(disposeBag)
         passwordTextField.rx.text.bindTo(viewModel.password).addDisposableTo(disposeBag)
-        
+
         loginButton.rx.action = viewModel.loginAction
         viewModel
-            .loginAction
-            .elements
-            .subscribe(onNext: {
-                let vc = R.storyboard.main.chatListViewController()!
-                self.navigationController?.pushViewController(vc, animated: true)
-            })
-            .addDisposableTo(disposeBag)
-        
+                .loginAction
+                .elements
+                .subscribe(onNext: {
+                    let vc = R.storyboard.main.chatListViewController()!
+                    self.navigationController?.pushViewController(vc, animated: true)
+                })
+                .addDisposableTo(disposeBag)
+
         viewModel
-            .loginAction
-            .errors
-            .subscribe(onNext: { actionError in
-                print("Login Failed with error \(actionError)")
-            })
-            .addDisposableTo(disposeBag)
+                .loginAction
+                .errors
+                .subscribe(onNext: { actionError in
+                    print("Login Failed with error \(actionError)")
+                })
+                .addDisposableTo(disposeBag)
     }
-    
+
 }

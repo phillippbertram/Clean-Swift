@@ -14,14 +14,14 @@ final class ViewAssembly: Assembly {
         container.storyboardInitCompleted(LoginViewController.self) { resolver, vc in
             vc.viewModel = resolver.resolve(LoginViewModel.self)
         }
-        
+
         container.register(LoginViewModel.self) { resolver in
             let loginUseCase = resolver.resolve(LoginUseCase.self)!
             return LoginViewModel(loginUseCase: loginUseCase)
         }
-        
+
         // Chat
-        
+
         container.storyboardInitCompleted(ChatListViewController.self) { resolver, vc in
             vc.viewModel = resolver.resolve(ChatListViewModel.self)
         }
@@ -29,7 +29,7 @@ final class ViewAssembly: Assembly {
         container.register(ChatListViewModel.self) { resolver in
             let getChatsUseCase = resolver.resolve(GetChatsUseCase.self)!
             let createChatUseCase = resolver.resolve(CreateChatUseCase.self)!
-            return ChatListViewModel(getChatsUseCase: getChatsUseCase, createChatUseCase: createChatUseCase)
+            return ChatListViewModel(getChatsUseCase: getChatsUseCase, createChatUseCase:createChatUseCase)
         }
 
     }

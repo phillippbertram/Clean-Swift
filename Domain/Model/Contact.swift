@@ -25,13 +25,13 @@ public struct Contact {
 // MARK: - Comparable
 
 extension Contact: Comparable {
-    
+
     public static func < (lhs: Contact, rhs: Contact) -> Bool {
         return lhs.lastName < rhs.lastName
     }
-    
+
     public static func == (lhs: Contact, rhs: Contact) -> Bool {
         return lhs.userName == rhs.userName
     }
-    
+
 }

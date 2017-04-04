@@ -32,7 +32,10 @@ public final class ChatListViewModel {
         Observable<Int>
                 .interval(2, scheduler: MainScheduler.instance)
                 .flatMap { number -> Observable<Chat> in
-                    let contact = Contact(userName: "user\(number % 5)", firstName: "Firstname \(number)", lastName: "Lastname \(number)")
+                    let contact = Contact(
+                        userName: "user\(number % 5)",
+                        firstName: "Firstname \(number)",
+                        lastName: "Lastname \(number)")
                     return createChatUseCase.build(withContact: contact)
                 }
                 .subscribe()

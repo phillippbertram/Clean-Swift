@@ -7,5 +7,4 @@ import UIKit
 
 public final class ChatViewController: UIViewController {
 
-
 }

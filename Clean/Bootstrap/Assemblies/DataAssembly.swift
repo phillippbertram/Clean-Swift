@@ -17,7 +17,7 @@ final class DataAssembly: Assembly {
             return ChatRepository()
         }
 
-        container.register(CurrentUserRepositoryType.self) { resolver in
+        container.register(CurrentUserRepositoryType.self) { _ in
             return CurrentUserRepository()
         }
 
@@ -31,11 +31,11 @@ final class DataAssembly: Assembly {
 
         // APIs
 
-        container.register(ChatAPI.self) { resolver in
+        container.register(ChatAPI.self) { _ in
             return ChatAPI()
         }
 
-        container.register(ContactAPI.self) { resolver in
+        container.register(ContactAPI.self) { _ in
             return ContactAPI()
         }
 

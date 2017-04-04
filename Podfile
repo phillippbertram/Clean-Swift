@@ -15,6 +15,7 @@ target 'Clean' do
   pod 'SwinjectStoryboard'
   pod 'Material'
   pod 'R.swift', '~> 3.2.0'
+  pod 'SwiftLint'
 
   target 'CleanTests' do
     inherit! :search_paths

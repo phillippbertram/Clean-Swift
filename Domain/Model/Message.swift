@@ -33,7 +33,8 @@ public struct Message {
     internal(set) public var timestamp: Date
     public var lastModifiedAt: Date
 
-    public init(id: String,
+    public init(
+            id: String,
             chatId: String,
             content: Content,
             status: Status,
@@ -57,11 +58,11 @@ public struct Message {
 
 extension Message: Comparable {
 
-    public static func <(lhs: Message, rhs: Message) -> Bool {
+    public static func < (lhs: Message, rhs: Message) -> Bool {
         return lhs.lastModifiedAt < rhs.lastModifiedAt
     }
 
-    public static func ==(lhs: Message, rhs: Message) -> Bool {
+    public static func == (lhs: Message, rhs: Message) -> Bool {
         return lhs.id == rhs.id
     }
 

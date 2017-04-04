@@ -5,7 +5,7 @@
 
 import RealmSwift
 
-class RealmBaseDao<Entity:Object> {
+class RealmBaseDao<Entity: Object> {
 
     private let config: Realm.Configuration
 
@@ -14,6 +14,7 @@ class RealmBaseDao<Entity:Object> {
     }
 
     func getRealm() -> Realm {
+        // swiftlint:disable:next force_try
         return try! Realm(configuration: config)
     }
 
@@ -23,11 +24,11 @@ class RealmBaseDao<Entity:Object> {
         return Array(entities)
     }
 
-    func delete(d: Entity) {
+    func delete(entity: Entity) {
         let realm = getRealm()
         do {
             try getRealm().write {
-                realm.delete(d)
+                realm.delete(entity)
             }
         } catch let error as NSError {
             print(error.description)

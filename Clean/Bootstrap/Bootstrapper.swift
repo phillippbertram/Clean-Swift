@@ -13,6 +13,7 @@ final class Bootstrapper {
 
     static func bootstrap() -> Container {
         let container = SwinjectStoryboard.defaultContainer
+        // swiftlint:disable:next force_try
         _ = try! Assembler(assemblies: [
                 ViewAssembly(),
                 DomainAssembly(),

@@ -13,5 +13,4 @@ final class ChatDao: RealmBaseDao<ChatEntity> {
         return Array(results)
     }
 
-
 }
