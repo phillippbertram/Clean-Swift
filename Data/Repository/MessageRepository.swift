@@ -45,6 +45,19 @@ extension MessageRepository: MessageRepositoryType {
         }
     }
 
+    public func updateAll(_ messages: [Message]) -> Observable<[Message]> {
+        return Observable.deferred {
+            var updatedMessages: [Message] = []
+            for message in messages {
+                var modifiedMessage = message
+                modifiedMessage.lastModifiedAt = Date()
+                self.data[message.id] = modifiedMessage
+                updatedMessages.append(modifiedMessage)
+            }
+            return Observable.just(updatedMessages)
+        }
+    }
+
     public func update(message: Message) -> Observable<Message> {
         return Observable.deferred {
             var modifiedMessage = message

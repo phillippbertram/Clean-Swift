@@ -16,4 +16,6 @@ public protocol MessageRepositoryType {
 
     func update(message: Message) -> Observable<Message>
 
+    func updateAll(_ messages: [Message]) -> Observable<[Message]>
+
 }

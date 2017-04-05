@@ -25,7 +25,12 @@ extension CurrentUserRepository: CurrentUserRepositoryType {
             if username != "pbe" && password != "pbe" {
                 return Observable.error(CurrentUserRepositoryError.invalidCredentials)
             }
-            let currentUser = CurrentUser(userName: username, firstName: "Phillipp", lastName: "Bertram")
+            let currentUser = CurrentUser(
+                userName: username,
+                password: password,
+                firstName: "Phillipp",
+                lastName: "Bertram")
+            self.currentUser = currentUser
             return Observable.just(currentUser)
         }
     }

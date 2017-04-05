@@ -71,6 +71,7 @@
 		A95D2E2F508A57C0432AE89E /* ChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D26D9289E82B225301701 /* ChatDTO.swift */; };
 		A95D2E86205F4E8E7C7FE799 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D29ABE6F7F750D827C5BE /* ChatService.swift */; };
 		A95D2ED97AE5289B28916FD8 /* ChatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D29528C41A283C979F9B0 /* ChatAPI.swift */; };
+		A95D2FF7CA28670387DA5A8B /* MarkMessagesReadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2190AED40B43156A93AB /* MarkMessagesReadUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,7 @@
 		A95D20AAC183C87888FA57FA /* GetChatsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChatsUseCase.swift; sourceTree = "<group>"; };
 		A95D21743F6670D0CAAD533B /* ChatRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
 		A95D217EFFC83274E4351F50 /* ViewAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAssembly.swift; sourceTree = "<group>"; };
+		A95D2190AED40B43156A93AB /* MarkMessagesReadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkMessagesReadUseCase.swift; sourceTree = "<group>"; };
 		A95D21ACBFAB6B62B49A1B25 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		A95D21E93318EE298BF24BE3 /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		A95D21EC5AD238366D1CF665 /* LoginUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				A95D201D07567DF399CB14B5 /* GetContactsUseCase.swift */,
 				A95D21EC5AD238366D1CF665 /* LoginUseCase.swift */,
 				A95D25AAF34C9F3B49903E79 /* LogoutUseCase.swift */,
+				A95D2190AED40B43156A93AB /* MarkMessagesReadUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1529,6 +1532,7 @@
 				A95D2D58119424D6D9B1C68E /* MessageService.swift in Sources */,
 				513F5BE21E92E675006F1B81 /* CurrentUser.swift in Sources */,
 				513F5BE51E92E731006F1B81 /* LoginUseCase.swift in Sources */,
+				A95D2FF7CA28670387DA5A8B /* MarkMessagesReadUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
