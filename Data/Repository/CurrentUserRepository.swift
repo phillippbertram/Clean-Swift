@@ -26,10 +26,10 @@ extension CurrentUserRepository: CurrentUserRepositoryType {
                 return Observable.error(CurrentUserRepositoryError.invalidCredentials)
             }
             let currentUser = CurrentUser(
-                userName: username,
-                password: password,
-                firstName: "Phillipp",
-                lastName: "Bertram")
+                    userName: username,
+                    password: password,
+                    firstName: "Phillipp",
+                    lastName: "Bertram")
             self.currentUser = currentUser
             return Observable.just(currentUser)
         }

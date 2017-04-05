@@ -10,6 +10,9 @@ import RxSwift
 
 public protocol ContactRepositoryType {
 
+    /// Gets all contacts.
+    ///
+    /// - Returns: Observble
     func getAllContacts() -> Observable<[Contact]>
 
 }

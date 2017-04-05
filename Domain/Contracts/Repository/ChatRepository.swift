@@ -16,12 +16,30 @@ public enum ChatRepositoryError: Error {
 
 public protocol ChatRepositoryType {
 
+    /// Observes all chats. The Observbable will emit `onNext` events
+    /// for each change and will never complete.
+    ///
+    /// Don't forget to dispose this Observable to release memory if not needed anymore.
+    ///
+    /// - Returns: Observable
     func observeAllChats() -> Observable<[Chat]>
 
+    /// Creates a chat
+    ///
+    /// - Parameter chat: the chat to create
+    /// - Returns: Observable
     func create(chat: Chat) -> Observable<Chat>
 
-    func findChat(withId: String) -> Observable<Chat>
+    /// Find a chat with given id. If chat does not exist, the observable will
+    /// emit an appropriate error.
+    ///
+    /// - Parameter withId: the id.
+    /// - Returns: Observable
+    func getChat(withId: String) -> Observable<Chat>
 
-    func findAllChats() -> Observable<[Chat]>
+    /// Gets all available chats.
+    ///
+    /// - Returns: Observable
+    func getAllChats() -> Observable<[Chat]>
 
 }

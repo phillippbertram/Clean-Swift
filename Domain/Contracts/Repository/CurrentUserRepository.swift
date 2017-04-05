@@ -14,12 +14,27 @@ public enum CurrentUserRepositoryError: Error {
 
 public protocol CurrentUserRepositoryType {
 
-    func login(withUserName: String, andPassword: String) -> Observable<CurrentUser>
+    /// Tries to login the user with given credentials.
+    ///
+    /// - Parameters:
+    ///   - username: the user name.
+    ///   - password: awesome secret.
+    /// - Returns: Observable
+    func login(withUserName username: String, andPassword password: String) -> Observable<CurrentUser>
 
+    /// Deletes the entire user model and its credentials.
+    ///
+    /// - Returns: Observable
     func logout() -> Observable<Void>
 
+    /// Gets the current user. If not availavle, it will emit a `notLoggedIn` error.
+    ///
+    /// - Returns: Observable
     func getCurrentUser() -> Observable<CurrentUser>
 
+    /// Indicates if the user is logged in or not.
+    ///
+    /// - Returns: Observable
     func isLoggedIn() -> Observable<Bool>
 
 }

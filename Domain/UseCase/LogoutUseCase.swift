@@ -7,8 +7,14 @@ import RxSwift
 
 final class LogoutUseCase {
 
+    fileprivate let currentUserRepository: CurrentUserRepositoryType
+
+    init(currentUserRepository: CurrentUserRepositoryType) {
+        self.currentUserRepository = currentUserRepository
+    }
+
     func build() -> Observable<Void> {
-        return Observable.empty()
+        return self.currentUserRepository.logout()
     }
 
 }
