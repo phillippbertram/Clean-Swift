@@ -4,7 +4,7 @@ def rx_swift
   pod 'RxSwift'
 end
 
-target 'Clean' do
+target 'Clean-Swift' do
   use_frameworks!
 
   # Pods for Clean
@@ -17,7 +17,7 @@ target 'Clean' do
   pod 'R.swift', '~> 3.2.0'
   pod 'SwiftLint'
 
-  target 'CleanTests' do
+  target 'Clean-SwiftTests' do
     inherit! :search_paths
     # Pods for testing
   end
