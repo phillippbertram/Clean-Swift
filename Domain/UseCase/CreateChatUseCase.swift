@@ -18,7 +18,7 @@ public final class CreateChatUseCase {
 
     public func build(withContact contact: Contact) -> Observable<Chat> {
         return chatRepository
-                .findAllChats()
+                .getAllChats()
                 .map { chats in
                     if let firstChat = chats.filter({ $0.participant == contact }).first {
                         return firstChat

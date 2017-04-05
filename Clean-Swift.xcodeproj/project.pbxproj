@@ -36,6 +36,9 @@
 		5166D7451E8DA6FC00E8FAFD /* Data.h in Headers */ = {isa = PBXBuildFile; fileRef = 5166D7351E8DA6FC00E8FAFD /* Data.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5166D7481E8DA6FC00E8FAFD /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5166D7331E8DA6FC00E8FAFD /* Data.framework */; };
 		5166D7491E8DA6FC00E8FAFD /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5166D7331E8DA6FC00E8FAFD /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		518B4F981E95A043005AC41B /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25AAF34C9F3B49903E79 /* LogoutUseCase.swift */; };
+		518B4F991E95A0D4005AC41B /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */; };
+		518B4F9A1E95A0E6005AC41B /* SchedulerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2BBA9021FD99D965FD03 /* SchedulerProvider.swift */; };
 		51A7186C1E8E3D0B006AE0E8 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5166D7101E8DA6F100E8FAFD /* Domain.framework */; };
 		51CD53521E92FC450042888F /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD53511E92FC450042888F /* R.generated.swift */; };
 		7B6BDA81BC67583B6EEA20AF /* Pods_Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807CA78B0F0016EA180B3367 /* Pods_Data.framework */; };
@@ -48,7 +51,6 @@
 		A95D2268F8DD243AD30761D6 /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D27B1DBF14A58D759D1E0 /* ChatRepository.swift */; };
 		A95D22A663DD4E56CC7A5AE0 /* ChatListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2CC8AB81689693875B8B /* ChatListCellViewModel.swift */; };
 		A95D22C906316D9DFC337D2F /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21743F6670D0CAAD533B /* ChatRepository.swift */; };
-		A95D23B54B73E3367D6C5C37 /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25AAF34C9F3B49903E79 /* LogoutUseCase.swift */; };
 		A95D23EAA150DE5FC5D66780 /* MessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2804AC736324B5861ECA /* MessageRepository.swift */; };
 		A95D245A654DBDC47995BA56 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D257C49CF49E973B1D303 /* Contact.swift */; };
 		A95D2484393145D1E014C023 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D217EFFC83274E4351F50 /* ViewAssembly.swift */; };
@@ -213,9 +215,11 @@
 		A95D29ABE6F7F750D827C5BE /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		A95D2A2768A5BFF26487B5AF /* MessageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageRepository.swift; sourceTree = "<group>"; };
 		A95D2B0AEE98F56FBBE03C5C /* ContactRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactRepository.swift; sourceTree = "<group>"; };
+		A95D2BBA9021FD99D965FD03 /* SchedulerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulerProvider.swift; sourceTree = "<group>"; };
 		A95D2CC8AB81689693875B8B /* ChatListCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListCellViewModel.swift; sourceTree = "<group>"; };
 		A95D2D811B9313A2AC1875F3 /* DomainAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainAssembly.swift; sourceTree = "<group>"; };
 		A95D2D875F8A112E5651FFD9 /* CreateChatUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateChatUseCase.swift; sourceTree = "<group>"; };
+		A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		A95D2EA65511DBCC7CE6DEFB /* MessageDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDTO.swift; sourceTree = "<group>"; };
 		A95D2ED9EF43407A9AEDFAC9 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A95D2EE10B26DC7BCA5108F3 /* ContactRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactRepository.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 				A95D24EDBD88C2FC50BACD94 /* Contracts */,
 				A95D265F647E422EA56B0152 /* Model */,
 				A95D2169FB27D24A70A8778C /* UseCase */,
+				A95D2F9B207FFC3E0E888324 /* Util */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -429,6 +434,7 @@
 				A95D21EC5AD238366D1CF665 /* LoginUseCase.swift */,
 				A95D25AAF34C9F3B49903E79 /* LogoutUseCase.swift */,
 				A95D2190AED40B43156A93AB /* MarkMessagesReadUseCase.swift */,
+				A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -586,6 +592,14 @@
 				513F5BDA1E92C84E006F1B81 /* ContactDTO.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		A95D2F9B207FFC3E0E888324 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				A95D2BBA9021FD99D965FD03 /* SchedulerProvider.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1146,7 +1160,6 @@
 				A95D22A663DD4E56CC7A5AE0 /* ChatListCellViewModel.swift in Sources */,
 				A95D261B1A3D7121ACB6E113 /* DomainAssembly.swift in Sources */,
 				A95D2484393145D1E014C023 /* ViewAssembly.swift in Sources */,
-				A95D23B54B73E3367D6C5C37 /* LogoutUseCase.swift in Sources */,
 				513F5BE61E92F1F3006F1B81 /* LoginViewController.swift in Sources */,
 				A95D271D9F075D717AC0BD94 /* MessageRepository.swift in Sources */,
 				A95D26A90254232735D11C9D /* DataAssembly.swift in Sources */,
@@ -1165,6 +1178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				518B4F9A1E95A0E6005AC41B /* SchedulerProvider.swift in Sources */,
 				A95D245A654DBDC47995BA56 /* Contact.swift in Sources */,
 				A95D2759D8751F5ED5E5314F /* Chat.swift in Sources */,
 				A95D259623582459096BDABE /* Message.swift in Sources */,
@@ -1176,9 +1190,11 @@
 				513F5BE41E92E695006F1B81 /* CurrentUserRepository.swift in Sources */,
 				A95D285875CD411B2E5543D0 /* ContactRepository.swift in Sources */,
 				A95D22C906316D9DFC337D2F /* ChatRepository.swift in Sources */,
+				518B4F981E95A043005AC41B /* LogoutUseCase.swift in Sources */,
 				A95D2E86205F4E8E7C7FE799 /* ChatService.swift in Sources */,
 				A95D2D58119424D6D9B1C68E /* MessageService.swift in Sources */,
 				513F5BE21E92E675006F1B81 /* CurrentUser.swift in Sources */,
+				518B4F991E95A0D4005AC41B /* UseCase.swift in Sources */,
 				513F5BE51E92E731006F1B81 /* LoginUseCase.swift in Sources */,
 				A95D2FF7CA28670387DA5A8B /* MarkMessagesReadUseCase.swift in Sources */,
 			);

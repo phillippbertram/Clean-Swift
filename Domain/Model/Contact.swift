@@ -10,8 +10,13 @@ import Foundation
 
 public struct Contact {
 
+    /// The unique username
     public let userName: String
+
+    /// Firstname
     public let firstName: String
+
+    /// Lastname
     public let lastName: String
 
     public init(userName: String, firstName: String, lastName: String) {

@@ -18,7 +18,7 @@ final class LoginViewModel {
             let userName = self.userName.value ?? ""
             let password = self.password.value ?? ""
             return self.loginUseCase
-                    .build(withUserName: userName, andPassword: password)
+                    .build(LoginUseCase.Params(userName: userName, password: password))
                     .map({ _ in () })
         }
     }()

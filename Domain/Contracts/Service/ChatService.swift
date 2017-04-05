@@ -9,8 +9,12 @@
 import Foundation
 import RxSwift
 
+/// External service that provides all chat related data
 public protocol ChatServiceType {
 
+    /// Gets all available chats.
+    ///
+    /// - Returns: Observable.
     func getChats() -> Observable<[Chat]>
 
 }

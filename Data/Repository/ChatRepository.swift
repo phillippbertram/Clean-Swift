@@ -36,7 +36,7 @@ extension ChatRepository: ChatRepositoryType {
         }
     }
 
-    public func findChat(withId chatId: String) -> Observable<Chat> {
+    public func getChat(withId chatId: String) -> Observable<Chat> {
         return Observable.deferred {
             if let chat = self.data[chatId] {
                 return Observable.just(chat)
@@ -45,7 +45,7 @@ extension ChatRepository: ChatRepositoryType {
         }
     }
 
-    public func findAllChats() -> Observable<[Chat]> {
+    public func getAllChats() -> Observable<[Chat]> {
         return Observable.deferred {
             return Observable.just(Array(self.data.values))
         }

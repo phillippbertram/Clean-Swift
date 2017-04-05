@@ -8,8 +8,13 @@
 
 import RxSwift
 
+/// External service that provides all message related data.
 public protocol MessageServiceType {
 
+    /// Sends given message to the service.
+    ///
+    /// - Parameter message: the message
+    /// - Returns: Observable
     func send(message: Message) -> Observable<Message>
 
 }

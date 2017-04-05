@@ -21,7 +21,8 @@ final class DomainAssembly: Assembly {
 
         container.register(LoginUseCase.self) { resolver in
             let currentUserRepository = resolver.resolve(CurrentUserRepositoryType.self)!
-            return LoginUseCase(currentUserRepository: currentUserRepository)
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return LoginUseCase(schedulerProvider: schedulerProvider, currentUserRepository: currentUserRepository)
         }
 
         container.register(CreateChatUseCase.self) { resolver in
