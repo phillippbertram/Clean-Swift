@@ -4,11 +4,16 @@ def rx_swift
   pod 'RxSwift'
 end
 
+def logging
+  pod 'SwiftyBeaver', '~> 1.1.4'
+end
+
 target 'Clean-Swift' do
   use_frameworks!
 
   # Pods for Clean
   rx_swift
+  logging
   pod 'RxCocoa'
   pod 'Action'
   pod 'Swinject'

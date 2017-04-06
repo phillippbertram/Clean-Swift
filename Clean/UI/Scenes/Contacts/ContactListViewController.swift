@@ -26,14 +26,20 @@ public final class ContactListViewController: UITableViewController {
 
     }
 
-    // MARK:  UITableViewDataSource
+    // MARK: UITableViewDataSource
 
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.contacts.value.count
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
+
+        let contact = viewModel.contacts.value[indexPath.item]
+        cell.textLabel?.text = contact.displayName
+
+        return cell
     }
 
 }

@@ -12,10 +12,21 @@ import RxSwift
 public final class ChatRepository {
 
     fileprivate var data: [String: Chat] = [:]
-    private(set) var dataSubject: PublishSubject<[String: Chat]> = PublishSubject()
+    private(set) var dataSubject: BehaviorSubject<[String: Chat]> = BehaviorSubject(value: [:])
 
     public init() {
+        let contact = Contact(userName: "alb", firstName: "Alexander", lastName: "Brechmann")
+        let chat = Chat(id: UUID().uuidString,
+                        participant: contact,
+                        lastMessage: nil,
+                        lastModifiedAt: Date(),
+                        createdAt: Date())
+        addChat(chat)
+    }
 
+    fileprivate func addChat(_ chat: Chat) {
+        data[chat.id] = chat
+        dataSubject.onNext(data)
     }
 
 }
@@ -30,8 +41,7 @@ extension ChatRepository: ChatRepositoryType {
 
     public func create(chat: Chat) -> Observable<Chat> {
         return Observable.deferred {
-            self.data[chat.id] = chat
-            self.dataSubject.onNext(self.data)
+            self.addChat(chat)
             return Observable.just(chat)
         }
     }

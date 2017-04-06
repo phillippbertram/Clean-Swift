@@ -17,7 +17,7 @@ public final class GetContactsUseCase: UseCase<Void, [Contact]> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    public func buildObservable() -> Observable<[Contact]> {
+    public override func buildObservable(params: Void) -> Observable<[Contact]> {
         return contactRepository.getAllContacts()
     }
 

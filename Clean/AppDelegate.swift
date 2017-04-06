@@ -9,6 +9,7 @@
 import UIKit
 import Swinject
 import SwinjectStoryboard
+import SwiftyBeaver
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,3 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+// MARK: - Logger
+
+private(set) var log: SwiftyBeaver.Type = {
+    let log = SwiftyBeaver.self
+
+    let console = ConsoleDestination()
+    log.addDestination(console)
+
+    return log
+}()

@@ -11,6 +11,8 @@ final class ViewAssembly: Assembly {
 
     func assemble(container: Container) {
 
+        // Login
+
         container.storyboardInitCompleted(LoginViewController.self) { resolver, vc in
             vc.viewModel = resolver.resolve(LoginViewModel.self)
         }
@@ -29,7 +31,18 @@ final class ViewAssembly: Assembly {
         container.register(ChatListViewModel.self) { resolver in
             let getChatsUseCase = resolver.resolve(GetChatsUseCase.self)!
             let createChatUseCase = resolver.resolve(CreateChatUseCase.self)!
-            return ChatListViewModel(getChatsUseCase: getChatsUseCase, createChatUseCase:createChatUseCase)
+            return ChatListViewModel(getChatsUseCase: getChatsUseCase, createChatUseCase: createChatUseCase)
+        }
+
+        // Contact
+
+        container.storyboardInitCompleted(ContactListViewController.self) { resolver, vc in
+            vc.viewModel = resolver.resolve(ContactListViewModel.self)
+        }
+
+        container.register(ContactListViewModel.self) { resolver in
+            let getContactsUseCase = resolver.resolve(GetContactsUseCase.self)!
+            return ContactListViewModel(getContactsUseCase: getContactsUseCase)
         }
 
     }

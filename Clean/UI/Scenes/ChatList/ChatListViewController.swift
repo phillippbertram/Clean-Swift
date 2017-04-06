@@ -26,6 +26,8 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
 
     private let disposeBag = DisposeBag()
 
+    // MARK: Lifecycle
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
@@ -53,6 +55,16 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
     private func setupBinding() {
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
         viewModel.chats.asDriver().drive(onNext: { _ in self.tableView.reloadData() }).addDisposableTo(disposeBag)
+    }
+
+}
+
+// MARK: - Actions
+
+extension ChatListViewController {
+
+    @IBAction func addAction(_ sender: Any) {
+
     }
 
 }

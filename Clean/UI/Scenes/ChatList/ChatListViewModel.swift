@@ -15,6 +15,8 @@ public final class ChatListViewModel {
     let title: Variable<String> = Variable("Chats")
     let chats: Variable<[Chat]> = Variable([])
 
+    // MARK: Private Properties
+
     private let disposeBag = DisposeBag()
 
     private let getChatsUseCase: GetChatsUseCase

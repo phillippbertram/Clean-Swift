@@ -53,9 +53,11 @@
 		A95D258AB2A6438934ECCA30 /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2CAB291DE79EFACD3611 /* ChatListViewModel.swift */; };
 		A95D259623582459096BDABE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2ED9EF43407A9AEDFAC9 /* Message.swift */; };
 		A95D25AB7D6D046E023C2AAC /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2FA69655CE681F1580DA /* ChatViewModel.swift */; };
+		A95D25AF3953B592129A60CF /* Contact+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D24A5BB662D342911B12F /* Contact+Extensions.swift */; };
 		A95D261B1A3D7121ACB6E113 /* DomainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2D811B9313A2AC1875F3 /* DomainAssembly.swift */; };
 		A95D2696BB700847B922C18C /* ChatListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2C4F2D35BBFE66656A80 /* ChatListCellViewModel.swift */; };
 		A95D26A90254232735D11C9D /* DataAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2843D07DA9C793F7D17A /* DataAssembly.swift */; };
+		A95D26D124CAC5A0C9E57075 /* ContactSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D265A3F76B013A9DE21E8 /* ContactSelectionViewController.swift */; };
 		A95D2714E415340FE9C4569B /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D210180C3F17A47FA4BBB /* LogoutUseCase.swift */; };
 		A95D271D9F075D717AC0BD94 /* MessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2A2768A5BFF26487B5AF /* MessageRepository.swift */; };
 		A95D273073794DE867D314ED /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2624844B0CA7759A56AC /* ChatListViewController.swift */; };
@@ -201,12 +203,14 @@
 		A95D243CDCCCDB5EB1838444 /* CurrentUserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserRepository.swift; sourceTree = "<group>"; };
 		A95D247F8A80A8E785286023 /* CurrentUserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserRepository.swift; sourceTree = "<group>"; };
 		A95D24A29EEEA07F28838DD4 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		A95D24A5BB662D342911B12F /* Contact+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+Extensions.swift"; sourceTree = "<group>"; };
 		A95D24AC4482671468C9FAE0 /* SchedulerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulerProvider.swift; sourceTree = "<group>"; };
 		A95D253E7F0F60B44676EEC7 /* ContactListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListViewModel.swift; sourceTree = "<group>"; };
 		A95D25557C64A604A2767D4F /* ChatEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatEntity.swift; sourceTree = "<group>"; };
 		A95D257C49CF49E973B1D303 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		A95D25C920C972A3819ED759 /* GetContactsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetContactsUseCase.swift; sourceTree = "<group>"; };
 		A95D2624844B0CA7759A56AC /* ChatListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		A95D265A3F76B013A9DE21E8 /* ContactSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSelectionViewController.swift; sourceTree = "<group>"; };
 		A95D26D9289E82B225301701 /* ChatDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDTO.swift; sourceTree = "<group>"; };
 		A95D278C002F12CAE97783C3 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		A95D27B1DBF14A58D759D1E0 /* ChatRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
@@ -432,6 +436,7 @@
 				A95D248B9B2783D5E0059A02 /* Chat */,
 				A95D2E6E4716EC8F50CC065F /* Login */,
 				A95D2CFDEB7281CE15525728 /* Contacts */,
+				A95D2A8A94F83424826D96CD /* ContactSelection */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -583,6 +588,7 @@
 			children = (
 				A95D2097A0DD7F34C435B68F /* Scenes */,
 				A95D260464D6D6C840FAF643 /* Utils */,
+				A95D2E13089FD766CE1C91B2 /* Model */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -596,6 +602,14 @@
 				A95D2B0AEE98F56FBBE03C5C /* ContactRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		A95D2A8A94F83424826D96CD /* ContactSelection */ = {
+			isa = PBXGroup;
+			children = (
+				A95D265A3F76B013A9DE21E8 /* ContactSelectionViewController.swift */,
+			);
+			path = ContactSelection;
 			sourceTree = "<group>";
 		};
 		A95D2AA21E86A75FA784EE0E /* Persistence */ = {
@@ -651,6 +665,14 @@
 				A95D253E7F0F60B44676EEC7 /* ContactListViewModel.swift */,
 			);
 			path = Contacts;
+			sourceTree = "<group>";
+		};
+		A95D2E13089FD766CE1C91B2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A95D24A5BB662D342911B12F /* Contact+Extensions.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A95D2E2BA7588E667A602D0D /* DTO */ = {
@@ -1246,6 +1268,8 @@
 				A95D23F10F739F323640DC01 /* ContactListViewController.swift in Sources */,
 				A95D2E8AF371E3743E008B10 /* ContactListViewModel.swift in Sources */,
 				A95D24471774CDF84C94F5E1 /* SegueHandler.swift in Sources */,
+				A95D25AF3953B592129A60CF /* Contact+Extensions.swift in Sources */,
+				A95D26D124CAC5A0C9E57075 /* ContactSelectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
