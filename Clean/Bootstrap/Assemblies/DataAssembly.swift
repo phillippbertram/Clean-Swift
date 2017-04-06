@@ -11,15 +11,25 @@ final class DataAssembly: Assembly {
 
     func assemble(container: Container) {
 
+        // Utils
+
+        container.register(SchedulerProviderType.self) { _ in
+            return SchedulerProvider()
+        }
+
         // Repositories
 
         container.register(ChatRepositoryType.self) { _ in
             return ChatRepository()
-        }
+        }.inObjectScope(.container)
+
+        container.register(ContactRepositoryType.self) { _ in
+            return ContactRepository()
+        }.inObjectScope(.container)
 
         container.register(CurrentUserRepositoryType.self) { _ in
             return CurrentUserRepository()
-        }
+        }.inObjectScope(.container)
 
         // Services
 

@@ -10,6 +10,8 @@ import Foundation
 
 public struct Message {
 
+    // MARK: Enums
+
     public enum Content {
         case text(String)
         case image(Data)
@@ -21,17 +23,19 @@ public struct Message {
         case delivered
     }
 
-    internal(set) public var id: String
-    internal(set) public var chatId: String
+    // MARK: Properties
 
-    internal(set) public var content: Content
-    internal(set) public var status: Status
+    public var id: String
+    public var chatId: String
 
-    internal(set) public var sender: Contact
-    internal(set) public var isIncoming: Bool
-    internal(set) public var isRead: Bool
+    public var content: Content
+    public var status: Status
 
-    internal(set) public var timestamp: Date
+    public var sender: Contact
+    public var isIncoming: Bool
+    public var isRead: Bool
+
+    public var timestamp: Date
     public var lastModifiedAt: Date
 
     public init(

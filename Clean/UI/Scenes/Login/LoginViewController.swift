@@ -8,7 +8,11 @@ import RxSwift
 import RxCocoa
 import Material
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, SegueHandlerType {
+
+    enum SegueIdentifier: String {
+        case showMain
+    }
 
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -32,8 +36,7 @@ final class LoginViewController: UIViewController {
                 .loginAction
                 .elements
                 .subscribe(onNext: {
-                    let vc = R.storyboard.main.chatListViewController()!
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    self.performSegue(withIdentifier: .showMain)
                 })
                 .addDisposableTo(disposeBag)
 

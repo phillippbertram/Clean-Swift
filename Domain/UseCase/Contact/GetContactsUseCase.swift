@@ -8,15 +8,16 @@
 
 import RxSwift
 
-public final class GetContactsUseCase {
+public final class GetContactsUseCase: UseCase<Void, [Contact]> {
 
     private let contactRepository: ContactRepositoryType
 
-    init(contactRepository: ContactRepositoryType) {
+    public init(schedulerProvider: SchedulerProviderType, contactRepository: ContactRepositoryType) {
         self.contactRepository = contactRepository
+        super.init(schedulerProvider: schedulerProvider)
     }
 
-    public func build() -> Observable<[Contact]> {
+    public func buildObservable() -> Observable<[Contact]> {
         return contactRepository.getAllContacts()
     }
 

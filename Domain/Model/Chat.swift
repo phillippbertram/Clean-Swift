@@ -11,8 +11,10 @@ import Foundation
 public struct Chat {
 
     public let id: String
+
     public let participant: Contact
     public let lastMessage: Message?
+
     public let lastModifiedAt: Date
     public let createdAt: Date
 
