@@ -28,6 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = SwinjectStoryboard.create(name: "Main", bundle: nil, container: container)
         window.rootViewController = storyboard.instantiateInitialViewController()
 
+        // disable swinject logging
+        Container.loggingFunction = nil
+
         return true
     }
 
