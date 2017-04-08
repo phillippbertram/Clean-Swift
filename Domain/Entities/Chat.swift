@@ -33,9 +33,13 @@ public struct Chat {
 
 }
 
-// MARK: - Comparable
+// MARK: - Comparable, Hashable
 
-extension Chat: Comparable {
+extension Chat: Comparable, Hashable {
+
+    public var hashValue: Int {
+        return id.hash
+    }
 
     public static func < (lhs: Chat, rhs: Chat) -> Bool {
         if let lhsLastMessage = lhs.lastMessage, let rhsLastMessage = rhs.lastMessage {

@@ -10,7 +10,7 @@ import RxSwift
 
 public protocol MessageRepositoryType {
 
-    // Reading
+    // MARK: Reading
 
     /// Gets all messages for given chat.
     ///
@@ -18,19 +18,25 @@ public protocol MessageRepositoryType {
     /// - Returns: Observable
     func getAll(`for` chat: Chat) -> Observable<[Message]>
 
-    // Creating
+    // MARK: Creating
 
     /// Creates a message with given parameters.
     ///
     /// - Parameters:
-    ///   - message: the message
+    ///   - text: the message
     ///   - sender: the sender
     ///   - chat: the chat containing the message
     ///   - status: the initial status fo the chat
     /// - Returns: Observable
-    func create(message: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message>
+    func create(text: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message>
 
-    // Updating
+    /// Creates or updates given message.
+    ///
+    /// - Parameter message: message
+    /// - Returns: Observable
+    func createMessage(_ message: Message) -> Observable<Message>
+
+    // MARK: Updating
 
     /// Updates given message. If chat does not exist, it will throw an appropriate error.
     ///
@@ -43,5 +49,13 @@ public protocol MessageRepositoryType {
     /// - Parameter messages: The messages.
     /// - Returns: Observable
     func updateAll(_ messages: [Message]) -> Observable<[Message]>
+
+    // MARK: Deleting
+
+    /// Deletes given message.
+    ///
+    /// - Parameter message: message to delete
+    /// - Returns: Observable
+    func delete(message: Message) -> Observable<Void>
 
 }

@@ -33,7 +33,7 @@ public final class SendMessageUseCase {
                 .build(withContact: user)
                 .flatMap { chat in
                     self.messageRepository
-                            .create(message: messageText, sender: user, chat: chat, status: .sending)
+                            .create(text: messageText, sender: user, chat: chat, status: .sending)
                 }
                 .flatMap { message in
                     return self.messageService

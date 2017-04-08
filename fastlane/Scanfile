@@ -1,0 +1,9 @@
+# For more information about this configuration visit
+# https://github.com/fastlane/fastlane/tree/master/scan#scanfile
+
+scheme "Clean-Swift"
+devices ["iPhone 6 (10.3)"]
+code_coverage true
+
+# open_report true
+# clean true

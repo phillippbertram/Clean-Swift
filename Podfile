@@ -8,6 +8,12 @@ def logging
   pod 'SwiftyBeaver', '~> 1.1.4'
 end
 
+def testing
+  pod 'Quick', '~> 1.1.0'
+  pod 'Nimble', '~> 6.1.0'
+  pod 'RxTest', '~> 3.3.1'
+end
+
 target 'Clean-Swift' do
   use_frameworks!
 
@@ -48,10 +54,12 @@ target 'Domain' do
   
   # Pods for Domain
   rx_swift
+  logging
 
   target 'DomainTests' do
     inherit! :search_paths
     # Pods for testing
+    testing
   end
 
 end

@@ -18,7 +18,7 @@ public final class GetContactsUseCase: UseCase<Void, [Contact]> {
     }
 
     public override func buildObservable(params: Void) -> Observable<[Contact]> {
-        return contactRepository.getAllContacts().map({$0.sorted(by: <)})
+        return contactRepository.getAll().map({$0.sorted(by: <)})
     }
 
 }

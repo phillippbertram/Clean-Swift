@@ -19,6 +19,7 @@ public struct Message {
 
     public enum Status {
         case sending
+        case sent
         case failure(Error)
         case delivered
     }
@@ -63,7 +64,11 @@ public struct Message {
 
 // MARK: - Comparable
 
-extension Message: Comparable {
+extension Message: Comparable, Hashable {
+
+    public var hashValue: Int {
+        return id.hash
+    }
 
     public static func < (lhs: Message, rhs: Message) -> Bool {
         return lhs.lastModifiedAt < rhs.lastModifiedAt

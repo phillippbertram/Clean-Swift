@@ -29,7 +29,11 @@ public struct Contact {
 
 // MARK: - Comparable
 
-extension Contact: Comparable {
+extension Contact: Comparable, Hashable {
+
+    public var hashValue: Int {
+        return userName.hash
+    }
 
     public static func < (lhs: Contact, rhs: Contact) -> Bool {
         return lhs.lastName < rhs.lastName

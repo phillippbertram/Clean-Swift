@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import Clean
 
 class CleanTests: XCTestCase {
 

@@ -14,6 +14,10 @@ public final class MessageRepository {
 
     }
 
+    fileprivate func addMessage(_ message: Message) {
+        data[message.id] = message
+    }
+
 }
 
 // MARK: - MessageRepositoryType
@@ -29,18 +33,26 @@ extension MessageRepository: MessageRepositoryType {
         }
     }
 
-    public func create(message: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message> {
+    public func create(text: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message> {
         return Observable.deferred {
             let id = UUID().uuidString
             let message = Message(id: id,
                                   chatId: chat.id,
-                                  content: .text(message),
+                                  content: .text(text),
                                   status: status,
                                   sender: sender,
                                   isIncoming: false,
                                   isRead: true,
                                   timestamp: Date(),
                                   lastModifiedAt: Date())
+            return Observable.just(message)
+        }
+        .flatMap(createMessage)
+    }
+
+    public func createMessage(_ message: Message) -> Observable<Message> {
+        return Observable.deferred {
+            self.addMessage(message)
             return Observable.just(message)
         }
     }
@@ -64,6 +76,13 @@ extension MessageRepository: MessageRepositoryType {
             modifiedMessage.lastModifiedAt = Date()
             self.data[message.id] = modifiedMessage
             return Observable.just(modifiedMessage)
+        }
+    }
+
+    public func delete(message: Message) -> Observable<Void> {
+        return Observable.deferred {
+            _ = self.data.removeValue(forKey: message.id)
+            return Observable.empty()
         }
     }
 

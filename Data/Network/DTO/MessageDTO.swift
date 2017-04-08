@@ -5,6 +5,16 @@
 
 import Foundation
 
-struct MessageDTO {
+public struct MessageDTO {
+
+    public var id: String
+    public var chatId: String
+
+    public var content: String
+    public var status: String
+
+    public var sender: String
+
+    public var timestamp: Date
 
 }

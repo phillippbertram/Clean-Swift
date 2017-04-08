@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        prepareWindow()
+        return true
+    }
+
+    private func prepareWindow() {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.makeKeyAndVisible()
         self.window = window
@@ -30,8 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // disable swinject logging
         Container.loggingFunction = nil
-
-        return true
     }
 
 }

@@ -21,6 +21,19 @@ public class UseCase<Input, Output> {
         return buildObservable(params: params)
                 .subscribeOn(schedulerProvider.backgroundScheduler)
                 .observeOn(schedulerProvider.mainScheduler)
+        .do(onNext: { output in
+            log.info("[\(type(of: self))] Next: \(output)")
+        }, onError: { error in
+            log.error("[\(type(of: self))] Error: \(error)")
+        }, onCompleted: {
+            log.info("[\(type(of: self))] Completed")
+        }, onSubscribe: {
+            log.verbose("[\(type(of: self))] Subscribe")
+        }, onSubscribed: {
+            log.verbose("[\(type(of: self))] Subscribed")
+        }, onDispose: {
+            log.verbose("[\(type(of: self))] Dispose")
+        })
     }
 
 }

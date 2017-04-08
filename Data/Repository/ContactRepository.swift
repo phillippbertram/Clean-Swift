@@ -35,9 +35,18 @@ public final class ContactRepository {
 
 extension ContactRepository: ContactRepositoryType {
 
-    public func getAllContacts() -> Observable<[Contact]> {
+    public func getAll() -> Observable<[Contact]> {
         return Observable.deferred {
             return Observable.just(Array(self.data.values))
+        }
+    }
+
+    public func getBy(userName: String) -> Observable<Contact> {
+        return Observable.deferred {
+            guard let contact = self.data[userName] else {
+                return Observable.error(ContactRepositoryError.contactNotFound)
+            }
+            return Observable.just(contact)
         }
     }
 
