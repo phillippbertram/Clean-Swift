@@ -40,6 +40,7 @@ target 'Data' do
 
   # Pods for Data
   rx_swift
+  logging
   pod 'RealmSwift'
 
   target 'DataTests' do

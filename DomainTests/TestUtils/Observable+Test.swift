@@ -17,3 +17,33 @@ extension Observable {
     }
 
 }
+
+extension TestableObserver {
+
+    var elements: [Element] {
+        return events.map({ $0.value.element }).flatMap({ $0 })
+    }
+
+    var elementCount: Int {
+        return elements.count
+    }
+
+    var hasErrors: Bool {
+        return events.filter { record in
+            record.value.error != nil
+        }.count != 0
+    }
+
+    var hasCompleted: Bool {
+        guard let lastEvent = events.last else {
+            return false
+        }
+        switch lastEvent.value {
+            case .completed:
+                return true
+            default:
+                return false
+        }
+    }
+
+}

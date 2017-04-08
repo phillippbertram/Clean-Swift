@@ -5,6 +5,7 @@
 
 import Quick
 import Nimble
+import RxSwift
 import RxTest
 
 @testable import Domain
@@ -31,10 +32,22 @@ class LoginUseCaseSpec: QuickSpec {
 
             context("success") {
 
-                it("should") {
+                it("should emit current user") {
+                    // given
                     let params = LoginUseCaseParams(userName: "pbe", password: "secret")
+                    currentUserRepository.loginObservableStub = { userName, password in
+                        expect(userName) == params.userName
+                        expect(password) == params.password
+                        let user = CurrentUser(userName: "pbe", password: "secret", firstName: "Phillipp", lastName: "Bertram")
+                        return Observable.just(user)
+                    }
+                    
+                    // when
                     let testObserver = sut.buildObservable(params: params).test()
-                    expect(testObserver.events.count) == 1
+                    
+                    // then
+                    expect(testObserver.elementCount) == 1
+                    expect(testObserver.hasCompleted) == true
                 }
 
             }

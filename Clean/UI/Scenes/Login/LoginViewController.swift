@@ -39,14 +39,6 @@ final class LoginViewController: UIViewController, SegueHandlerType {
                     self.performSegue(withIdentifier: .showMain)
                 })
                 .addDisposableTo(disposeBag)
-
-        viewModel
-                .loginAction
-                .errors
-                .subscribe(onNext: { actionError in
-                    print("Login Failed with error \(actionError)")
-                })
-                .addDisposableTo(disposeBag)
     }
 
 }

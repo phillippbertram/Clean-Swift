@@ -13,10 +13,10 @@ public struct Contact {
     /// The unique username
     public let userName: String
 
-    /// Firstname
+    /// first name
     public let firstName: String
 
-    /// Lastname
+    /// last name
     public let lastName: String
 
     public init(userName: String, firstName: String, lastName: String) {

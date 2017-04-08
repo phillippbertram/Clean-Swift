@@ -33,6 +33,7 @@
 		5166D7481E8DA6FC00E8FAFD /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5166D7331E8DA6FC00E8FAFD /* Data.framework */; };
 		5166D7491E8DA6FC00E8FAFD /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5166D7331E8DA6FC00E8FAFD /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		518A5CD61E99363700D13D7E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A5CD51E99363600D13D7E /* Logger.swift */; };
+		518A5CD71E993EEB00D13D7E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D28E806766E39C5D011FB /* Logger.swift */; };
 		518B4F991E95A0D4005AC41B /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */; };
 		518B4F9A1E95A0E6005AC41B /* SchedulerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2BBA9021FD99D965FD03 /* SchedulerProvider.swift */; };
 		518B4F9B1E96D3D1005AC41B /* EventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25565F146F3B1CEFDA97 /* EventListener.swift */; };
@@ -232,6 +233,7 @@
 		A95D2874BC614C1CA43ECEA3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A95D2874DC67B8456457D706 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		A95D289461C6A40D120A234F /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		A95D28E806766E39C5D011FB /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A95D29501EF472D20B1CB002 /* LoginUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		A95D29528C41A283C979F9B0 /* ChatAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatAPI.swift; sourceTree = "<group>"; };
 		A95D29977AF76E325D02183A /* SegueHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueHandler.swift; sourceTree = "<group>"; };
@@ -349,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				5166D6EB1E8DA6CA00E8FAFD /* AppDelegate.swift */,
-				518B4F9D1E9914D9005AC41B /* Ressources */,
+				518B4F9D1E9914D9005AC41B /* Resources */,
 				A95D25A2C17E75BD4C2B0D3D /* Bootstrap */,
 				A95D29398C188E8A2A7ED295 /* UI */,
 			);
@@ -412,7 +414,7 @@
 			path = DataTests;
 			sourceTree = "<group>";
 		};
-		518B4F9D1E9914D9005AC41B /* Ressources */ = {
+		518B4F9D1E9914D9005AC41B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				51CD53511E92FC450042888F /* R.generated.swift */,
@@ -421,7 +423,7 @@
 				5166D6F41E8DA6CA00E8FAFD /* LaunchScreen.storyboard */,
 				5166D6F71E8DA6CA00E8FAFD /* Info.plist */,
 			);
-			name = Ressources;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		65F55BCE8DB66E9201A970D5 /* Pods */ = {
@@ -492,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				A95D24AC4482671468C9FAE0 /* SchedulerProvider.swift */,
+				A95D28E806766E39C5D011FB /* Logger.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1396,6 +1399,7 @@
 				A95D2ED97AE5289B28916FD8 /* ChatAPI.swift in Sources */,
 				513F5BD11E914AD3006F1B81 /* ChatEntity.swift in Sources */,
 				513F5BD21E914AD6006F1B81 /* RealmDao.swift in Sources */,
+				518A5CD71E993EEB00D13D7E /* Logger.swift in Sources */,
 				A95D2E2F508A57C0432AE89E /* ChatDTO.swift in Sources */,
 				A95D210005CD0CB88CBD1E1C /* ChatService.swift in Sources */,
 				518B4F9B1E96D3D1005AC41B /* EventListener.swift in Sources */,

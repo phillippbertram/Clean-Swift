@@ -13,8 +13,9 @@ class MockCurrentUserRepository: CurrentUserRepositoryType {
 
     }
 
+    var loginObservableStub: ((String, String) -> Observable<CurrentUser>)?
     func login(withUserName username: String, andPassword password: String) -> Observable<CurrentUser> {
-        return Observable.empty()
+        return loginObservableStub!(username, password)
     }
 
     func logout() -> Observable<Void> {
