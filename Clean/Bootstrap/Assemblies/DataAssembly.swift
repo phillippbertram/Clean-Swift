@@ -23,8 +23,9 @@ final class DataAssembly: Assembly {
             return ChatRepository()
         }.inObjectScope(.container)
 
-        container.register(ContactRepositoryType.self) { _ in
-            return ContactRepository()
+        container.register(ContactRepositoryType.self) { resolver in
+            let contactService = resolver.resolve(ContactServiceType.self)!
+            return ContactRepository(contactService: contactService)
         }.inObjectScope(.container)
 
         container.register(CurrentUserRepositoryType.self) { _ in
@@ -37,17 +38,22 @@ final class DataAssembly: Assembly {
             let chatAPI = resolver.resolve(ChatAPI.self)!
             let contactAPI = resolver.resolve(ContactAPI.self)!
             return ChatService(chatAPI: chatAPI, contactAPI: contactAPI)
-        }
+        }.inObjectScope(.container)
+
+        container.register(ContactServiceType.self) { resolver in
+            let contactAPI = resolver.resolve(ContactAPI.self)!
+            return ContactService(contactAPI: contactAPI)
+        }.inObjectScope(.container)
 
         // APIs
 
         container.register(ChatAPI.self) { _ in
             return ChatAPI()
-        }
+        }.inObjectScope(.container)
 
         container.register(ContactAPI.self) { _ in
             return ContactAPI()
-        }
+        }.inObjectScope(.container)
 
     }
 

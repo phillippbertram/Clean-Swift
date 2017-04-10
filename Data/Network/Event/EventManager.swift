@@ -76,9 +76,9 @@ extension Message.Status {
 
     init(fromString raw: String) {
         switch raw {
-            case "sending": self = .sending
-            case "sent": self = .sent
-            case "delivered": self = .delivered
+            case "SENDING": self = .sending
+            case "SENT": self = .sent
+            case "DELIVERED": self = .delivered
             default: self = .sent
         }
     }

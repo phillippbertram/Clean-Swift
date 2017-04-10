@@ -14,7 +14,9 @@ final class ContactListViewModel {
     fileprivate let disposeBag = DisposeBag()
 
     init(getContactsUseCase: GetContactsUseCase) {
-        getContactsUseCase.build().bindTo(contacts).addDisposableTo(disposeBag)
+        getContactsUseCase.build()
+            .bindTo(contacts)
+            .addDisposableTo(disposeBag)
     }
 
 }

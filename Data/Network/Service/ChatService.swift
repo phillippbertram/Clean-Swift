@@ -50,7 +50,7 @@ extension ChatService: ChatServiceType {
                 }
                 .flatMap { chatDTO -> Observable<(ChatDTO, ContactDTO)> in
                     return self.contactAPI
-                            .getContact(byId: chatDTO.initiator)
+                            .get(byId: chatDTO.initiator)
                             .map({ (chatDTO, $0) })
                 }
                 .map(map)

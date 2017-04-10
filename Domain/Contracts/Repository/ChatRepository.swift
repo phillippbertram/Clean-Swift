@@ -16,7 +16,7 @@ public enum ChatRepositoryError: Error {
 
 public protocol ChatRepositoryType {
 
-    /// Observes all chats. The Observbable will emit `onNext` events
+    /// Observes all chats. The Observable will emit `onNext` events
     /// for each change and will never complete.
     ///
     /// Don't forget to dispose this Observable to release memory if not needed anymore.

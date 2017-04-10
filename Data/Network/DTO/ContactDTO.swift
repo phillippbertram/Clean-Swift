@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct ContactDTO {
-    let userName: String
-    let firstName: String
-    let lastName: String
+public struct ContactDTO {
+    public let userName: String
+    public let firstName: String
+    public let lastName: String
 }

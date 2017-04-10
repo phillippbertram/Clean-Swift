@@ -10,23 +10,27 @@ public final class ContactRepository {
 
     fileprivate var data: [String: Contact] = [:]
 
-    public init() {
-        let pbe = Contact(userName: "pbe", firstName: "Phillipp", lastName: "Bertram")
-        let alb = Contact(userName: "alb", firstName: "Alexander", lastName: "Brechmann")
-        let waw = Contact(userName: "waw", firstName: "Waldemar", lastName: "Weißhaar")
-        let nih = Contact(userName: "nih", firstName: "Nils", lastName: "Hohmann")
-        let cwo = Contact(userName: "cwo", firstName: "Christof", lastName: "Wolke")
-        let mdr = Contact(userName: "mdr", firstName: "Matthias", lastName: "Dierker")
-        addContact(pbe)
-        addContact(alb)
-        addContact(waw)
-        addContact(nih)
-        addContact(cwo)
-        addContact(mdr)
+    fileprivate let contactService: ContactServiceType
+
+    public init(contactService: ContactServiceType) {
+        self.contactService = contactService
     }
 
-    private func addContact(_ contact: Contact) {
+    fileprivate func addContact(_ contact: Contact) {
         data[contact.userName] = contact
+    }
+
+    fileprivate func importContact(_ contact: Contact) -> Observable<Contact> {
+        return importContacts([contact]).map({ $0.first! })
+    }
+
+    fileprivate func importContacts(_ contacts: [Contact]) -> Observable<[Contact]> {
+        return Observable.deferred {
+            for contact in contacts {
+                self.addContact(contact)
+            }
+            return Observable.just(contacts)
+        }
     }
 
 }
@@ -36,17 +40,20 @@ public final class ContactRepository {
 extension ContactRepository: ContactRepositoryType {
 
     public func getAll() -> Observable<[Contact]> {
-        return Observable.deferred {
-            return Observable.just(Array(self.data.values))
-        }
+        return contactService
+                .getContacts()
+                .flatMap(importContacts)
     }
 
     public func getBy(userName: String) -> Observable<Contact> {
         return Observable.deferred {
-            guard let contact = self.data[userName] else {
-                return Observable.error(ContactRepositoryError.contactNotFound)
+            if let contact = self.data[userName] {
+                return Observable.just(contact)
             }
-            return Observable.just(contact)
+
+            return self.contactService
+                    .getContact(byUserName: userName)
+                    .flatMap(self.importContact)
         }
     }
 
