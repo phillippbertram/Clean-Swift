@@ -1,6 +1,6 @@
 //
 // Created by Phillipp Bertram on 03/04/2017.
-// Copyright (c) 2017 LMIS AG. All rights reserved.
+// Copyright (c) 2017 Phillipp Bertram. All rights reserved.
 //
 
 import Domain
@@ -9,9 +9,10 @@ import RxSwift
 public final class MessageRepository {
 
     fileprivate var data: [String: Message] = [:]
+    fileprivate let messageService: MessageServiceType
 
-    public init() {
-
+    public init(messageService: MessageServiceType) {
+        self.messageService = messageService
     }
 
     fileprivate func addMessage(_ message: Message) {

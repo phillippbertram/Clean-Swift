@@ -1,6 +1,6 @@
 //
 // Created by Phillipp Bertram on 10/04/2017.
-// Copyright (c) 2017 LMIS AG. All rights reserved.
+// Copyright (c) 2017 Phillipp Bertram. All rights reserved.
 //
 
 import RxSwift
@@ -23,7 +23,7 @@ extension ContactService: ContactServiceType {
     /// Gets all available contacts.
     ///
     /// - Returns: Observable
-    public func getContacts() -> Observable<[Contact]> {
+    public func getAll() -> Observable<[Contact]> {
         return contactAPI.getAll().map(mapAll)
     }
 
@@ -31,7 +31,7 @@ extension ContactService: ContactServiceType {
     ///
     /// - Parameter userName: The user name.
     /// - Returns: Observable
-    public func getContact(byUserName userName: String) -> Observable<Contact> {
+    public func get(byUserName userName: String) -> Observable<Contact> {
         return contactAPI.get(byId: userName).map(map)
     }
 

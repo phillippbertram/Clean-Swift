@@ -1,6 +1,6 @@
 //
 // Created by Phillipp Bertram on 03/04/2017.
-// Copyright (c) 2017 LMIS AG. All rights reserved.
+// Copyright (c) 2017 Phillipp Bertram. All rights reserved.
 //
 
 import Domain
@@ -41,7 +41,7 @@ extension ContactRepository: ContactRepositoryType {
 
     public func getAll() -> Observable<[Contact]> {
         return contactService
-                .getContacts()
+                .getAll()
                 .flatMap(importContacts)
     }
 
@@ -52,7 +52,7 @@ extension ContactRepository: ContactRepositoryType {
             }
 
             return self.contactService
-                    .getContact(byUserName: userName)
+                    .get(byUserName: userName)
                     .flatMap(self.importContact)
         }
     }

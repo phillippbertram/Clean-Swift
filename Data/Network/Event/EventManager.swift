@@ -1,6 +1,6 @@
 //
 // Created by Phillipp Bertram on 06/04/2017.
-// Copyright (c) 2017 LMIS AG. All rights reserved.
+// Copyright (c) 2017 Phillipp Bertram. All rights reserved.
 //
 
 import RxSwift
@@ -36,17 +36,18 @@ public final class EventManager: EventManagerType {
     }
 
     private func handleEvent(_ event: EventDTO) -> Observable<Void> {
-        switch event.type {
-
-            case .receivedMessage(let messageDTO):
-                return contactRepository
-                        .getBy(userName: messageDTO.sender)
-                        .map { contact in
-                            Message(dto: messageDTO, sender: contact)
-                        }
-                        .flatMap(messageRepository.createMessage)
-                        .map({ _ in () })
-        }
+        fatalError("not implemented")
+        //        switch event.type {
+        //
+        //            case .receivedMessage(let messageDTO):
+        //                return contactRepository
+        //                        .getBy(userName: messageDTO.sender)
+        //                        .map { contact in
+        //                            Message(dto: messageDTO, sender: contact)
+        //                        }
+        //                        .flatMap(messageRepository.createMessage)
+        //                        .map({ _ in () })
+        //        }
     }
 
 }
@@ -55,18 +56,18 @@ public final class EventManager: EventManagerType {
 
 extension Message {
 
-    init(dto: MessageDTO, sender: Contact) {
+    init(dto: MessageDTO, sender: Contact, isIncoming: Bool, isRead: Bool) {
         // Data from dto
         self.id = dto.id
         self.chatId = dto.chatId
         self.content = .text(dto.content)
         self.status = Message.Status(fromString: dto.status)
-        self.sender = sender
         self.timestamp = dto.timestamp
 
         // defined data
-        self.isIncoming = true
-        self.isRead = false
+        self.sender = sender
+        self.isIncoming = isIncoming
+        self.isRead = isRead
         self.lastModifiedAt = Date()
     }
 

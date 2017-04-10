@@ -3,7 +3,7 @@
 //  Clean
 //
 //  Created by Phillipp Bertram on 30/03/2017.
-//  Copyright © 2017 LMIS AG. All rights reserved.
+//  Copyright © 2017 Phillipp Bertram. All rights reserved.
 //
 
 import RxSwift
@@ -37,7 +37,7 @@ public final class SendMessageUseCase {
                 }
                 .flatMap { message in
                     return self.messageService
-                            .send(message: message)
+                            .send(message: message, toContact: user.userName)
                             .catchError { error in
                                 return self.handleError(error, forMessage: message)
                             }

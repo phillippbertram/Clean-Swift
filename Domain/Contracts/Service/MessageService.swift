@@ -3,7 +3,7 @@
 //  Clean
 //
 //  Created by Phillipp Bertram on 03/04/2017.
-//  Copyright © 2017 LMIS AG. All rights reserved.
+//  Copyright © 2017 Phillipp Bertram. All rights reserved.
 //
 
 import RxSwift
@@ -15,6 +15,8 @@ public protocol MessageServiceType {
     ///
     /// - Parameter message: the message
     /// - Returns: Observable
-    func send(message: Message) -> Observable<Message>
+    func send(message: Message, toContact: String) -> Observable<Message>
+
+    func getAllForChat(withId: String, currentUser: CurrentUser) -> Observable<[Message]>
 
 }
