@@ -35,7 +35,7 @@ public final class ChatRepository {
 
 extension ChatRepository: ChatRepositoryType {
 
-    public func observeAllChats() -> Observable<[Chat]> {
+    public func observeAll() -> Observable<[Chat]> {
         return dataSubject.asObserver().map({ Array($0.values) })
     }
 
@@ -46,7 +46,7 @@ extension ChatRepository: ChatRepositoryType {
         }
     }
 
-    public func getChat(withId chatId: String) -> Observable<Chat> {
+    public func get(byId chatId: String) -> Observable<Chat> {
         return Observable.deferred {
             if let chat = self.data[chatId] {
                 return Observable.just(chat)
@@ -55,7 +55,7 @@ extension ChatRepository: ChatRepositoryType {
         }
     }
 
-    public func getAllChats() -> Observable<[Chat]> {
+    public func getAll() -> Observable<[Chat]> {
         return Observable.deferred {
             return Observable.just(Array(self.data.values))
         }

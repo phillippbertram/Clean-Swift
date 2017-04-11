@@ -44,7 +44,9 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.chatCell, for: indexPath) else {
+            return UITableViewCell()
+        }
         let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
         cell.textLabel?.text = cellViewModel.text
         return cell
@@ -54,7 +56,10 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
 
     private func setupBinding() {
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
-        viewModel.chats.asDriver().drive(onNext: { _ in self.tableView.reloadData() }).addDisposableTo(disposeBag)
+
+        viewModel.chats.asDriver()
+            .drive(onNext: { [weak self] _ in self?.tableView.reloadData() })
+            .addDisposableTo(disposeBag)
     }
 
 }
