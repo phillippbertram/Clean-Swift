@@ -1,5 +1,5 @@
 //
-//  CreateChatUseCase.swift
+//  CreateChatForContactUseCase.swift
 //  Clean
 //
 //  Created by Phillipp Bertram on 30/03/2017.
@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public final class CreateChatUseCase {
+public final class CreateChatForContactUseCase {
 
     private let chatRepository: ChatRepositoryType
 
@@ -18,7 +18,7 @@ public final class CreateChatUseCase {
 
     public func build(withContact contact: Contact) -> Observable<Chat> {
         return chatRepository
-                .getAllChats()
+                .getAll()
                 .map { chats in
                     if let firstChat = chats.filter({ $0.participant == contact }).first {
                         return firstChat

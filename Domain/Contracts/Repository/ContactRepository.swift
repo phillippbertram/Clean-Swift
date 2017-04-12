@@ -25,4 +25,10 @@ public protocol ContactRepositoryType {
     /// - Returns: Observable
     func getBy(userName: String) -> Observable<Contact>
 
+    /// Creates a contact with given information
+    ///
+    /// - Parameter contact: contact to create
+    /// - Returns: Observable
+    func create(contact: Contact) -> Observable<Contact>
+
 }

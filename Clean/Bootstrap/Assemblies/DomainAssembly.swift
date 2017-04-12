@@ -11,21 +11,26 @@ final class DomainAssembly: Assembly {
 
     func assemble(container: Container) {
 
-        container.register(GetChatsUseCase.self) { resolver in
+        container.register(GetAllChatsUseCase.self) { resolver in
             let chatRepository = resolver.resolve(ChatRepositoryType.self)!
             let chatService = resolver.resolve(ChatServiceType.self)!
-            return GetChatsUseCase(chatRepository: chatRepository, chatService: chatService)
+            return GetAllChatsUseCase(chatRepository: chatRepository, chatService: chatService)
+        }
+
+        container.register(GetChatForContactUseCase.self) { resolver in
+            let chatRepository = resolver.resolve(ChatRepositoryType.self)!
+            return GetChatForContactUseCase(chatRepository: chatRepository)
+        }
+
+        container.register(CreateChatForContactUseCase.self) { resolver in
+            let chatRepository = resolver.resolve(ChatRepositoryType.self)!
+            return CreateChatForContactUseCase(chatRepository: chatRepository)
         }
 
         container.register(LoginUseCase.self) { resolver in
             let currentUserRepository = resolver.resolve(CurrentUserRepositoryType.self)!
             let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
             return LoginUseCase(schedulerProvider: schedulerProvider, currentUserRepository: currentUserRepository)
-        }
-
-        container.register(CreateChatUseCase.self) { resolver in
-            let chatRepository = resolver.resolve(ChatRepositoryType.self)!
-            return CreateChatUseCase(chatRepository: chatRepository)
         }
 
         container.register(GetContactsUseCase.self) { resolver in

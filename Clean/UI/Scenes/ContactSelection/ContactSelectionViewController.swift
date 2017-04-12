@@ -10,7 +10,7 @@ import RxCocoa
 
 public final class ContactSelectionViewController: UITableViewController {
 
-    public var contactSelectionHandler: ((Contact) -> ())?
+    public var contactSelectionHandler: ((Contact, ContactSelectionViewController) -> Void)?
     public var viewModel: ContactSelectionViewModel!
 
     private let disposeBag = DisposeBag()
@@ -38,10 +38,8 @@ public final class ContactSelectionViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        super.tableView(tableView, didSelectRowAt: indexPath)
         let contact = viewModel.contacts.value[indexPath.item]
-        contactSelectionHandler?(contact)
+        contactSelectionHandler?(contact, self)
     }
-
 
 }

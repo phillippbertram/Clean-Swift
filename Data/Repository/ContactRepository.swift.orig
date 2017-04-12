@@ -10,10 +10,15 @@ public final class ContactRepository {
 
     fileprivate var data: [String: Contact] = [:]
 
+<<<<<<< HEAD
     fileprivate let contactService: ContactServiceType
 
     public init(contactService: ContactServiceType) {
         self.contactService = contactService
+=======
+    public init() {
+        createDummyData()
+>>>>>>> 1550d8c364d125e27f30327c6cb833737f4ebe14
     }
 
     fileprivate func addContact(_ contact: Contact) {
@@ -40,6 +45,7 @@ public final class ContactRepository {
 extension ContactRepository: ContactRepositoryType {
 
     public func getAll() -> Observable<[Contact]> {
+<<<<<<< HEAD
         return contactService
                 .getAll()
                 .flatMap(importContacts)
@@ -49,6 +55,17 @@ extension ContactRepository: ContactRepositoryType {
         return Observable.deferred {
             if let contact = self.data[userName] {
                 return Observable.just(contact)
+=======
+        return Observable.deferred { [unowned self] in
+            return Observable.just(Array(self.data.values))
+        }
+    }
+
+    public func getBy(userName: String) -> Observable<Contact> {
+        return Observable.deferred { [unowned self] in
+            guard let contact = self.data[userName] else {
+                return Observable.error(ContactRepositoryError.contactNotFound)
+>>>>>>> 1550d8c364d125e27f30327c6cb833737f4ebe14
             }
 
             return self.contactService
@@ -62,6 +79,27 @@ extension ContactRepository: ContactRepositoryType {
             self.addContact(contact)
             return Observable.just(contact)
         }
+    }
+
+}
+
+// MARK: - Dummy Data
+
+fileprivate extension ContactRepository {
+
+    func createDummyData() {
+        let pbe = Contact(userName: "pbe", firstName: "Phillipp", lastName: "Bertram")
+        let alb = Contact(userName: "alb", firstName: "Alexander", lastName: "Brechmann")
+        let waw = Contact(userName: "waw", firstName: "Waldemar", lastName: "Weißhaar")
+        let nih = Contact(userName: "nih", firstName: "Nils", lastName: "Hohmann")
+        let cwo = Contact(userName: "cwo", firstName: "Christof", lastName: "Wolke")
+        let mdr = Contact(userName: "mdr", firstName: "Matthias", lastName: "Dierker")
+        addContact(pbe)
+        addContact(alb)
+        addContact(waw)
+        addContact(nih)
+        addContact(cwo)
+        addContact(mdr)
     }
 
 }

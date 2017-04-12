@@ -35,13 +35,15 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
 
     public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        if segue.identifier == R.storyboard.main.chatListViewController.identifier {
-            guard let vc = segue.destination as? ContactSelectionViewController else {
+        if segue.identifier == R.segue.chatListViewController.contactSelection.identifier {
+            guard let navVC = segue.destination as? UINavigationController,
+                  let vc = navVC.topViewController as? ContactSelectionViewController else {
                 return
             }
-            vc.contactSelectionHandler = { contact in
+            vc.contactSelectionHandler = { [unowned self] contact, vc in
                 log.debug("did select contact: \(contact)")
                 vc.dismiss(animated: true)
+                self.viewModel.startChat(forContact: contact)
             }
         }
     }
@@ -57,7 +59,10 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath)
+        let identifier = R.reuseIdentifier.chatCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) else {
+            return UITableViewCell()
+        }
         let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
         cell.textLabel?.text = cellViewModel.text
         return cell
@@ -67,7 +72,16 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
 
     private func setupBinding() {
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
-        viewModel.chats.asDriver().drive(onNext: { _ in self.tableView.reloadData() }).addDisposableTo(disposeBag)
+
+        viewModel.chats.asDriver()
+                .drive(onNext: { [weak self] _ in self?.tableView.reloadData() })
+                .addDisposableTo(disposeBag)
+
+        viewModel.showChat = { [unowned self] chatViewModel in
+            let chatVC = R.storyboard.main.chatViewController()!
+            chatVC.viewModel = chatViewModel
+            self.navigationController?.pushViewController(chatVC, animated: true)
+        }
     }
 
 }

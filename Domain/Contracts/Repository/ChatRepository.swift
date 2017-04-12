@@ -10,7 +10,7 @@ import RxSwift
 
 public enum ChatRepositoryError: Error {
 
-    case chatNotFound(id: String)
+    case chatNotFound
 
 }
 
@@ -22,7 +22,7 @@ public protocol ChatRepositoryType {
     /// Don't forget to dispose this Observable to release memory if not needed anymore.
     ///
     /// - Returns: Observable
-    func observeAllChats() -> Observable<[Chat]>
+    func observeAll() -> Observable<[Chat]>
 
     /// Creates a chat
     ///
@@ -35,11 +35,13 @@ public protocol ChatRepositoryType {
     ///
     /// - Parameter withId: the id.
     /// - Returns: Observable
-    func getChat(withId: String) -> Observable<Chat>
+    func get(byId: String) -> Observable<Chat>
+
+    func get(forContact: Contact) -> Observable<Chat>
 
     /// Gets all available chats.
     ///
     /// - Returns: Observable
-    func getAllChats() -> Observable<[Chat]>
+    func getAll() -> Observable<[Chat]>
 
 }

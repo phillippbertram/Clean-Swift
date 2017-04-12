@@ -14,14 +14,14 @@ public final class SendMessageUseCase {
         case sending(progress: Double)
     }
 
-    private let createChatUseCase: CreateChatUseCase
+    private let createChatUseCase: CreateChatForContactUseCase
     private let messageRepository: MessageRepositoryType
     private let messageService: MessageServiceType
 
     init(
-        createChatUseCase: CreateChatUseCase,
-        messageRepository: MessageRepositoryType,
-        messageService: MessageServiceType) {
+            createChatUseCase: CreateChatForContactUseCase,
+            messageRepository: MessageRepositoryType,
+            messageService: MessageServiceType) {
 
         self.createChatUseCase = createChatUseCase
         self.messageRepository = messageRepository

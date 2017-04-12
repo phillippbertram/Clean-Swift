@@ -33,6 +33,20 @@ public struct Chat {
 
 }
 
+// MARK: - Convenience
+
+public extension Chat {
+
+    static func createWith(participant: Contact) -> Chat {
+        return Chat(id: UUID().uuidString,
+                    participant: participant,
+                    lastMessage: nil,
+                    lastModifiedAt: Date(),
+                    createdAt: Date())
+    }
+
+}
+
 // MARK: - Comparable, Hashable
 
 extension Chat: Comparable, Hashable {

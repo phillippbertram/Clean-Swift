@@ -4,8 +4,14 @@
 //
 
 import Material
+import RxSwift
+import RxCocoa
 
 public final class ChatViewController: TableViewController {
+
+    var viewModel: ChatViewModel!
+
+    private let disposeBag = DisposeBag()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,6 +19,7 @@ public final class ChatViewController: TableViewController {
 
     public override func prepare() {
         super.prepare()
+        viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
     }
 
 }

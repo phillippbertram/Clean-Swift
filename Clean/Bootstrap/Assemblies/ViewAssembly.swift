@@ -22,16 +22,33 @@ final class ViewAssembly: Assembly {
             return LoginViewModel(loginUseCase: loginUseCase)
         }
 
-        // Chat
+        // ChatList
 
         container.storyboardInitCompleted(ChatListViewController.self) { resolver, vc in
             vc.viewModel = resolver.resolve(ChatListViewModel.self)
         }
 
         container.register(ChatListViewModel.self) { resolver in
-            let getChatsUseCase = resolver.resolve(GetChatsUseCase.self)!
-            let createChatUseCase = resolver.resolve(CreateChatUseCase.self)!
-            return ChatListViewModel(getChatsUseCase: getChatsUseCase, createChatUseCase: createChatUseCase)
+            let getChatsUseCase = resolver.resolve(GetAllChatsUseCase.self)!
+            let getChatForContactUseCase = resolver.resolve(GetChatForContactUseCase.self)!
+
+            let chatViewModelFactory: ChatListViewModel.ChatViewModelFactory = { conversation in
+                return resolver.resolve(ChatViewModel.self, argument: conversation)!
+            }
+
+            return ChatListViewModel(getChatsUseCase: getChatsUseCase,
+                                     getChatForContactUseCase: getChatForContactUseCase,
+                                     chatViewModelFactory: chatViewModelFactory)
+        }
+
+        // Chat
+
+        container.storyboardInitCompleted(ChatViewController.self) { resolver, vc in
+            vc.viewModel = resolver.resolve(ChatViewModel.self)
+        }
+
+        container.register(ChatViewModel.self) { _, chat in
+            ChatViewModel(chat: chat)
         }
 
         // Contact

@@ -15,13 +15,7 @@ public final class ChatRepository {
     private(set) var dataSubject: BehaviorSubject<[String: Chat]> = BehaviorSubject(value: [:])
 
     public init() {
-        let contact = Contact(userName: "alb", firstName: "Alexander", lastName: "Brechmann")
-        let chat = Chat(id: UUID().uuidString,
-                        participant: contact,
-                        lastMessage: nil,
-                        lastModifiedAt: Date(),
-                        createdAt: Date())
-        addChat(chat)
+
     }
 
     fileprivate func addChat(_ chat: Chat) {
@@ -35,7 +29,7 @@ public final class ChatRepository {
 
 extension ChatRepository: ChatRepositoryType {
 
-    public func observeAllChats() -> Observable<[Chat]> {
+    public func observeAll() -> Observable<[Chat]> {
         return dataSubject.asObserver().map({ Array($0.values) })
     }
 
@@ -46,16 +40,26 @@ extension ChatRepository: ChatRepositoryType {
         }
     }
 
-    public func getChat(withId chatId: String) -> Observable<Chat> {
+    public func get(byId chatId: String) -> Observable<Chat> {
         return Observable.deferred {
             if let chat = self.data[chatId] {
                 return Observable.just(chat)
             }
-            return Observable.error(ChatRepositoryError.chatNotFound(id: chatId))
+            return Observable.error(ChatRepositoryError.chatNotFound)
         }
     }
 
-    public func getAllChats() -> Observable<[Chat]> {
+    public func get(forContact contact: Contact) -> Observable<Chat> {
+        return getAll()
+                .map { chats in
+                    guard let chat = chats.filter({ $0.participant == contact }).first else {
+                        throw ChatRepositoryError.chatNotFound
+                    }
+                    return chat
+                }
+    }
+
+    public func getAll() -> Observable<[Chat]> {
         return Observable.deferred {
             return Observable.just(Array(self.data.values))
         }

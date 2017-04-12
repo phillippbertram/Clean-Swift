@@ -12,19 +12,30 @@ import RxCocoa
 
 public final class ChatListViewModel {
 
+    public typealias ChatViewModelFactory = ((Chat) -> ChatViewModel)
+
     let title: Variable<String> = Variable("Chats")
     let chats: Variable<[Chat]> = Variable([])
+
+    var showChat: ((ChatViewModel) -> Void)?
 
     // MARK: Private Properties
 
     private let disposeBag = DisposeBag()
 
-    private let getChatsUseCase: GetChatsUseCase
-    private let createChatUseCase: CreateChatUseCase
+    // MARK: Dependencies
 
-    public init(getChatsUseCase: GetChatsUseCase, createChatUseCase: CreateChatUseCase) {
+    private let getChatsUseCase: GetAllChatsUseCase
+    private let getChatForContactUseCase: GetChatForContactUseCase
+    private let chatViewModelFactory: ChatViewModelFactory
+
+    public init(getChatsUseCase: GetAllChatsUseCase,
+                getChatForContactUseCase: GetChatForContactUseCase,
+                chatViewModelFactory: @escaping ChatViewModelFactory) {
+
         self.getChatsUseCase = getChatsUseCase
-        self.createChatUseCase = createChatUseCase
+        self.getChatForContactUseCase = getChatForContactUseCase
+        self.chatViewModelFactory = chatViewModelFactory
 
         getChatsUseCase
                 .build()
@@ -37,6 +48,18 @@ public final class ChatListViewModel {
         let vm = ChatListCellViewModel()
         vm.text = chat.participant.firstName
         return vm
+    }
+
+    public func startChat(forContact contact: Contact) {
+        getChatForContactUseCase
+                .build(contact: contact)
+                .catchErrorJustReturn(Chat.createWith(participant: contact))
+                .do(onNext: { [unowned self] chat in
+                    let chatViewModel = self.chatViewModelFactory(chat)
+                    self.showChat?(chatViewModel)
+                })
+                .subscribe()
+                .addDisposableTo(disposeBag)
     }
 
 }

@@ -1,5 +1,5 @@
 //
-//  GetChatsUseCase.swift
+//  GetAllChatsUseCase.swift
 //  Clean
 //
 //  Created by Phillipp Bertram on 30/03/2017.
@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public final class GetChatsUseCase {
+public final class GetAllChatsUseCase {
 
     private let chatRepository: ChatRepositoryType
     private let chatService: ChatServiceType
@@ -19,7 +19,7 @@ public final class GetChatsUseCase {
     }
 
     public func build() -> Observable<[Chat]> {
-        return chatRepository.observeAllChats().map({$0.sorted(by: <)})
+        return chatRepository.observeAll().map({ $0.sorted(by: <) })
     }
 
 }
