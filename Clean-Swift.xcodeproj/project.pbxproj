@@ -83,6 +83,7 @@
 		A95D2A73A0E633EF5C3464BB /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2CE03816DAFAC46A1C93 /* MessageAPI.swift */; };
 		A95D2BA5A19A73D45DAF3E98 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D278C002F12CAE97783C3 /* ChatViewController.swift */; };
 		A95D2BF25AD4583057E75E2F /* MarkMessagesReadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2324CE8E074148EF6468 /* MarkMessagesReadUseCase.swift */; };
+		A95D2CACB1B9B985DD33E68E /* ContactSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D28F8CD0AC2D6357B4061 /* ContactSelectionViewModel.swift */; };
 		A95D2D26193D642FF94E1ED5 /* SchedulerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D24AC4482671468C9FAE0 /* SchedulerProvider.swift */; };
 		A95D2D3A39F2B308FC6CEF0A /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D29501EF472D20B1CB002 /* LoginUseCase.swift */; };
 		A95D2D58119424D6D9B1C68E /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2253615A73C3AA2DED12 /* MessageService.swift */; };
@@ -237,6 +238,7 @@
 		A95D2874DC67B8456457D706 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		A95D289461C6A40D120A234F /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		A95D28E806766E39C5D011FB /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		A95D28F8CD0AC2D6357B4061 /* ContactSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSelectionViewModel.swift; sourceTree = "<group>"; };
 		A95D29501EF472D20B1CB002 /* LoginUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		A95D29528C41A283C979F9B0 /* ChatAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatAPI.swift; sourceTree = "<group>"; };
 		A95D29977AF76E325D02183A /* SegueHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueHandler.swift; sourceTree = "<group>"; };
@@ -670,6 +672,7 @@
 			isa = PBXGroup;
 			children = (
 				A95D265A3F76B013A9DE21E8 /* ContactSelectionViewController.swift */,
+				A95D28F8CD0AC2D6357B4061 /* ContactSelectionViewModel.swift */,
 			);
 			path = ContactSelection;
 			sourceTree = "<group>";
@@ -1345,6 +1348,7 @@
 				A95D24471774CDF84C94F5E1 /* SegueHandler.swift in Sources */,
 				A95D25AF3953B592129A60CF /* Contact+Extensions.swift in Sources */,
 				A95D26D124CAC5A0C9E57075 /* ContactSelectionViewController.swift in Sources */,
+				A95D2CACB1B9B985DD33E68E /* ContactSelectionViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

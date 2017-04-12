@@ -45,6 +45,17 @@ final class ViewAssembly: Assembly {
             return ContactListViewModel(getContactsUseCase: getContactsUseCase)
         }
 
+        // Contact Selection
+
+        container.storyboardInitCompleted(ContactSelectionViewController.self) { resolver, vc in
+            vc.viewModel = resolver.resolve(ContactSelectionViewModel.self)
+        }
+
+        container.register(ContactSelectionViewModel.self) { resolver in
+            let getContacts = resolver.resolve(GetContactsUseCase.self)!
+            return ContactSelectionViewModel(getContactsUseCase: getContacts)
+        }
+
     }
 
 }

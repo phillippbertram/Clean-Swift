@@ -33,6 +33,19 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
         setupBinding()
     }
 
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == R.storyboard.main.chatListViewController.identifier {
+            guard let vc = segue.destination as? ContactSelectionViewController else {
+                return
+            }
+            vc.contactSelectionHandler = { contact in
+                log.debug("did select contact: \(contact)")
+                vc.dismiss(animated: true)
+            }
+        }
+    }
+
     // MARK: DataSource
 
     public func numberOfSections(in tableView: UITableView) -> Int {
