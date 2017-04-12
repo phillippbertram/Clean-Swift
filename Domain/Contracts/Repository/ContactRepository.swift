@@ -3,7 +3,7 @@
 //  Clean
 //
 //  Created by Phillipp Bertram on 30/03/2017.
-//  Copyright © 2017 LMIS AG. All rights reserved.
+//  Copyright © 2017 Phillipp Bertram. All rights reserved.
 //
 
 import RxSwift
@@ -24,5 +24,11 @@ public protocol ContactRepositoryType {
     /// - Parameter userName: username
     /// - Returns: Observable
     func getBy(userName: String) -> Observable<Contact>
+
+    /// Creates a contact with given information
+    ///
+    /// - Parameter contact: contact to create
+    /// - Returns: Observable
+    func create(contact: Contact) -> Observable<Contact>
 
 }

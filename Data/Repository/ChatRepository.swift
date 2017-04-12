@@ -3,7 +3,7 @@
 //  Clean
 //
 //  Created by Phillipp Bertram on 30/03/2017.
-//  Copyright © 2017 LMIS AG. All rights reserved.
+//  Copyright © 2017 Phillipp Bertram. All rights reserved.
 //
 
 import Domain
@@ -15,13 +15,7 @@ public final class ChatRepository {
     private(set) var dataSubject: BehaviorSubject<[String: Chat]> = BehaviorSubject(value: [:])
 
     public init() {
-        let contact = Contact(userName: "alb", firstName: "Alexander", lastName: "Brechmann")
-        let chat = Chat(id: UUID().uuidString,
-                        participant: contact,
-                        lastMessage: nil,
-                        lastModifiedAt: Date(),
-                        createdAt: Date())
-        addChat(chat)
+        
     }
 
     fileprivate func addChat(_ chat: Chat) {
