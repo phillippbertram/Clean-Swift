@@ -8,15 +8,12 @@ import RxSwift
 
 public final class MessageRepository {
 
-    fileprivate var data: [String: Message] = [:]
-    fileprivate let messageService: MessageServiceType
+    fileprivate let messageMapper = MessageEntityDomainMapper()
 
-    public init(messageService: MessageServiceType) {
-        self.messageService = messageService
-    }
+    fileprivate let messageDAO: MessageDAO
 
-    fileprivate func addMessage(_ message: Message) {
-        data[message.id] = message
+    public init(messageDAO: MessageDAO) {
+        self.messageDAO = messageDAO
     }
 
 }
@@ -26,65 +23,37 @@ public final class MessageRepository {
 extension MessageRepository: MessageRepositoryType {
 
     public func getAll(for chat: Chat) -> Observable<[Message]> {
-        return Observable.deferred {
-            let messages = self.data.values.filter { message in
-                message.chatId == chat.id
+        return Observable.deferred { [unowned self] () -> Observable<[MessageEntity]> in
+
+            guard let chatId = chat.id else {
+                return Observable.just([])
             }
-            return Observable.just(Array(messages))
-        }
+
+            let messageEntities = self.messageDAO.find { messageEntity in
+                messageEntity.chat.id == chatId
+            }
+            return Observable.just(messageEntities)
+        }.map(self.messageMapper.mapAll)
     }
 
     public func create(text: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message> {
-        return Observable.deferred {
-            let id = UUID().uuidString
-            let message = Message(id: id,
-                                  chatId: chat.id,
-                                  content: .text(text),
-                                  status: status,
-                                  sender: sender,
-                                  isIncoming: false,
-                                  isRead: true,
-                                  timestamp: Date(),
-                                  lastModifiedAt: Date())
-            return Observable.just(message)
-        }
-        .flatMap(createMessage)
+        fatalError()
     }
 
     public func createMessage(_ message: Message) -> Observable<Message> {
-        return Observable.deferred {
-            self.addMessage(message)
-            return Observable.just(message)
-        }
+        fatalError()
     }
 
     public func updateAll(_ messages: [Message]) -> Observable<[Message]> {
-        return Observable.deferred {
-            var updatedMessages: [Message] = []
-            for message in messages {
-                var modifiedMessage = message
-                modifiedMessage.lastModifiedAt = Date()
-                self.data[message.id] = modifiedMessage
-                updatedMessages.append(modifiedMessage)
-            }
-            return Observable.just(updatedMessages)
-        }
+        fatalError()
     }
 
     public func update(message: Message) -> Observable<Message> {
-        return Observable.deferred {
-            var modifiedMessage = message
-            modifiedMessage.lastModifiedAt = Date()
-            self.data[message.id] = modifiedMessage
-            return Observable.just(modifiedMessage)
-        }
+        fatalError()
     }
 
     public func delete(message: Message) -> Observable<Void> {
-        return Observable.deferred {
-            _ = self.data.removeValue(forKey: message.id)
-            return Observable.empty()
-        }
+        fatalError()
     }
 
 }

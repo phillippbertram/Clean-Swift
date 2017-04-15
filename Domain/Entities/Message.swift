@@ -20,7 +20,7 @@ public struct Message {
     public enum Status {
         case sending
         case sent
-        case failure(Error)
+        case failure
         case delivered
     }
 
@@ -37,7 +37,6 @@ public struct Message {
     public var isRead: Bool
 
     public var timestamp: Date
-    public var lastModifiedAt: Date
 
     public init(
             id: String,
@@ -47,8 +46,7 @@ public struct Message {
             sender: Contact,
             isIncoming: Bool,
             isRead: Bool,
-            timestamp: Date,
-            lastModifiedAt: Date) {
+            timestamp: Date) {
         self.id = id
         self.chatId = chatId
         self.content = content
@@ -57,7 +55,6 @@ public struct Message {
         self.isRead = isRead
         self.isIncoming = isIncoming
         self.timestamp = timestamp
-        self.lastModifiedAt = lastModifiedAt
     }
 
 }
@@ -71,7 +68,7 @@ extension Message: Comparable, Hashable {
     }
 
     public static func < (lhs: Message, rhs: Message) -> Bool {
-        return lhs.lastModifiedAt < rhs.lastModifiedAt
+        return lhs.timestamp < rhs.timestamp
     }
 
     public static func == (lhs: Message, rhs: Message) -> Bool {

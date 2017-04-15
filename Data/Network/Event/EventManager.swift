@@ -68,7 +68,6 @@ extension Message {
         self.sender = sender
         self.isIncoming = isIncoming
         self.isRead = isRead
-        self.lastModifiedAt = Date()
     }
 
 }

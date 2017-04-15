@@ -5,8 +5,13 @@
 
 import RealmSwift
 
-final class ChatEntity: BaseEntity {
+public final class ChatEntity: RemoteEntity {
 
-    dynamic var participant: ContactEntity?
+    dynamic var participant: ContactEntity!
+
+    convenience init(participant: ContactEntity) {
+        self.init()
+        self.participant = participant
+    }
 
 }

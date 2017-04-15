@@ -8,29 +8,10 @@ import RxSwift
 
 public final class ContactRepository {
 
-    fileprivate var data: [String: Contact] = [:]
+    fileprivate let contactDao: ContactDAO
 
-    fileprivate let contactService: ContactServiceType
-
-    public init(contactService: ContactServiceType) {
-        self.contactService = contactService
-    }
-
-    fileprivate func addContact(_ contact: Contact) {
-        data[contact.userName] = contact
-    }
-
-    fileprivate func importContact(_ contact: Contact) -> Observable<Contact> {
-        return importContacts([contact]).map({ $0.first! })
-    }
-
-    fileprivate func importContacts(_ contacts: [Contact]) -> Observable<[Contact]> {
-        return Observable.deferred {
-            for contact in contacts {
-                self.addContact(contact)
-            }
-            return Observable.just(contacts)
-        }
+    public init(contactDao: ContactDAO) {
+        self.contactDao = contactDao
     }
 
 }
@@ -40,28 +21,45 @@ public final class ContactRepository {
 extension ContactRepository: ContactRepositoryType {
 
     public func getAll() -> Observable<[Contact]> {
-        return contactService
-                .getAll()
-                .flatMap(importContacts)
+        return Observable.deferred { [unowned self] in
+            let contacts = self.contactDao
+                    .findAll()
+            return Observable.just(contacts)
+        }.map {
+            self.mapAll($0)
+        }
     }
 
     public func getBy(userName: String) -> Observable<Contact> {
-        return Observable.deferred {
-            if let contact = self.data[userName] {
-                return Observable.just(contact)
-            }
-
-            return self.contactService
-                    .get(byUserName: userName)
-                    .flatMap(self.importContact)
+        return Observable.deferred { [unowned self] in
+            let contact = self.contactDao.find(byUserName: userName)
+            return Observable.just(contact!)
+        }.map { [unowned self] contactEntity in
+            return self.mapContact(contactEntity)
         }
     }
 
     public func create(contact: Contact) -> Observable<Contact> {
-        return Observable.deferred { [unowned self] in
-            self.addContact(contact)
-            return Observable.just(contact)
+        fatalError("not implemented")
+    }
+
+}
+
+// MARK: - Mapping
+
+extension ContactRepository {
+
+    func mapAll(_ contactEntities: [ContactEntity]) -> [Contact] {
+        return contactEntities.map { [unowned self] contactEntity in
+            self.mapContact(contactEntity)
         }
+    }
+
+    func mapContact(_ contactEntity: ContactEntity) -> Contact {
+        return Contact(userName: contactEntity.userName,
+                       firstName: contactEntity.firstName,
+                       lastName: contactEntity.lastName)
+
     }
 
 }

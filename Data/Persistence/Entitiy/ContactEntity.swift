@@ -5,7 +5,7 @@
 
 import RealmSwift
 
-final class ContactEntity: BaseEntity {
+public final class ContactEntity: RemoteEntity {
 
     dynamic var firstName: String = ""
     dynamic var lastName: String = ""
@@ -13,6 +13,15 @@ final class ContactEntity: BaseEntity {
     convenience init(userName: String) {
         self.init()
         self.id = userName
+    }
+
+    var userName: String {
+        get {
+            return id
+        }
+        set {
+            self.id = newValue
+        }
     }
 
 }

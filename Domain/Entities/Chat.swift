@@ -10,7 +10,7 @@ import Foundation
 
 public struct Chat {
 
-    public let id: String
+    public let id: String?
 
     public let participant: Contact
     public let lastMessage: Message?
@@ -19,7 +19,7 @@ public struct Chat {
     public let createdAt: Date
 
     public init(
-            id: String,
+            id: String?,
             participant: Contact,
             lastMessage: Message?,
             lastModifiedAt: Date,
@@ -38,7 +38,7 @@ public struct Chat {
 public extension Chat {
 
     static func createWith(participant: Contact) -> Chat {
-        return Chat(id: "",
+        return Chat(id: nil,
                     participant: participant,
                     lastMessage: nil,
                     lastModifiedAt: Date(),
@@ -46,18 +46,17 @@ public extension Chat {
     }
 
     var isTemporary: Bool {
-        return id.isEmpty
+        if let id = id {
+            return !id.isEmpty
+        }
+        return true
     }
 
 }
 
 // MARK: - Comparable, Hashable
 
-extension Chat: Comparable, Hashable {
-
-    public var hashValue: Int {
-        return id.hash
-    }
+extension Chat: Comparable {
 
     public static func < (lhs: Chat, rhs: Chat) -> Bool {
         if let lhsLastMessage = lhs.lastMessage, let rhsLastMessage = rhs.lastMessage {

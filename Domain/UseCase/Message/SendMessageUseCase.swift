@@ -52,7 +52,7 @@ public final class SendMessageUseCase {
 
     private func handleError(_ error: Error, forMessage message: Message) -> Observable<Message> {
         var modifiedMessage = message
-        modifiedMessage.status = .failure(error)
+        modifiedMessage.status = .failure
         return messageRepository.update(message: modifiedMessage)
     }
 

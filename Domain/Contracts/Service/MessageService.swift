@@ -17,6 +17,4 @@ public protocol MessageServiceType {
     /// - Returns: Observable
     func send(message: Message, toContact: String) -> Observable<Message>
 
-    func getAllForChat(withId: String, currentUser: CurrentUser) -> Observable<[Message]>
-
 }

@@ -14,7 +14,7 @@ class ChatDaoSpec: QuickSpec {
     override func spec() {
         describe("ChatDao") {
 
-            var sut: ChatDao!
+            var sut: ChatDAO!
 
             beforeEach {
                 let config = Realm.Configuration.test(withName: self.name)

@@ -17,7 +17,7 @@ public class UseCase<Input, Output> {
         fatalError("Has to be implemented by subclass")
     }
 
-    public func build(_ params: Input) -> Observable<Output> {
+    public final func build(_ params: Input) -> Observable<Output> {
         return buildObservable(params: params)
                 .subscribeOn(schedulerProvider.backgroundScheduler)
                 .observeOn(schedulerProvider.mainScheduler)

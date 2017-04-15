@@ -5,14 +5,18 @@
 
 import RealmSwift
 
-final class MessageEntity: BaseEntity {
+public final class MessageEntity: RemoteEntity {
 
     enum Status: String {
         case sending, sent, failed
     }
 
     dynamic var message: String = ""
-    dynamic var sender: ContactEntity?
+    dynamic var isIncoming: Bool = true
+    dynamic var isRead: Bool = true
+
+    dynamic var sender: ContactEntity!
+    dynamic var chat: ChatEntity!
 
     private dynamic var rawStatus: String = Status.sent.rawValue
     var status: Status {
@@ -22,6 +26,12 @@ final class MessageEntity: BaseEntity {
         set {
             self.rawStatus = status.rawValue
         }
+    }
+
+    convenience init(sender: ContactEntity, chat: ChatEntity) {
+        self.init()
+        self.sender = sender
+        self.chat = chat
     }
 
 }

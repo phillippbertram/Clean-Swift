@@ -13,8 +13,7 @@ final class DomainAssembly: Assembly {
 
         container.register(GetAllChatsUseCase.self) { resolver in
             let chatRepository = resolver.resolve(ChatRepositoryType.self)!
-            let chatService = resolver.resolve(ChatServiceType.self)!
-            return GetAllChatsUseCase(chatRepository: chatRepository, chatService: chatService)
+            return GetAllChatsUseCase(chatRepository: chatRepository)
         }
 
         container.register(GetChatForContactUseCase.self) { resolver in

@@ -7,14 +7,14 @@ import Foundation
 
 public struct MessageDTO {
 
-    public var id: String
-    public var chatId: String
+    public let id: String
+    public let chatId: String
 
-    public var content: String
-    public var status: String
+    public let content: String
+    public let status: String
 
-    public var sender: String
+    public let sender: String
 
-    public var timestamp: Date
+    public let timestamp: Date
 
 }

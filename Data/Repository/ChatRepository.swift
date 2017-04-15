@@ -11,18 +11,13 @@ import RxSwift
 
 public final class ChatRepository {
 
-    fileprivate var data: [String: Chat] = [:]
-    private(set) var dataSubject: BehaviorSubject<[String: Chat]> = BehaviorSubject(value: [:])
+    fileprivate let chatMapper = ChatEntityDomainMapper()
 
-    public init() {
+    fileprivate let chatDao: ChatDAO
 
+    public init(chatDao: ChatDAO) {
+        self.chatDao = chatDao
     }
-
-    fileprivate func addChat(_ chat: Chat) {
-        data[chat.id] = chat
-        dataSubject.onNext(data)
-    }
-
 }
 
 // MARK: - ChatRepositoryType
@@ -30,23 +25,22 @@ public final class ChatRepository {
 extension ChatRepository: ChatRepositoryType {
 
     public func observeAll() -> Observable<[Chat]> {
-        return dataSubject.asObserver().map({ Array($0.values) })
+        return Observable.just([])
     }
 
     public func create(chat: Chat) -> Observable<Chat> {
-        return Observable.deferred {
-            self.addChat(chat)
-            return Observable.just(chat)
-        }
+        fatalError()
     }
 
     public func get(byId chatId: String) -> Observable<Chat> {
-        return Observable.deferred {
-            if let chat = self.data[chatId] {
-                return Observable.just(chat)
+        return Observable.deferred { [unowned self] () -> Observable<ChatEntity> in
+            guard let chat = self.chatDao.find(byPrimaryKey: chatId) else {
+                return Observable.error(ChatRepositoryError.chatNotFound)
+
             }
-            return Observable.error(ChatRepositoryError.chatNotFound)
-        }
+
+            return Observable.just(chat)
+        }.map(chatMapper.map)
     }
 
     public func get(forContact contact: Contact) -> Observable<Chat> {
@@ -60,9 +54,10 @@ extension ChatRepository: ChatRepositoryType {
     }
 
     public func getAll() -> Observable<[Chat]> {
-        return Observable.deferred {
-            return Observable.just(Array(self.data.values))
-        }
+        return Observable.deferred { [unowned self] in
+            let entities = self.chatDao.findAll()
+            return Observable.just(entities)
+        }.map(chatMapper.mapAll)
     }
 
 }

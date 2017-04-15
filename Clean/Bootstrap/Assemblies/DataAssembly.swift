@@ -4,6 +4,7 @@
 //
 
 import Swinject
+import RealmSwift
 import Domain
 import Data
 
@@ -11,65 +12,80 @@ final class DataAssembly: Assembly {
 
     func assemble(container: Container) {
 
+        registerRepositories(container: container, scope: .container)
+        registerDAOs(container: container, scope: .graph)
+        registerAPIs(container: container, scope: .container)
+
         // Utils
 
         container.register(SchedulerProviderType.self) { _ in
             return SchedulerProvider()
-        }
-
-        // Repositories
-
-        container.register(ChatRepositoryType.self) { _ in
-            return ChatRepository()
-        }.inObjectScope(.container)
-
-        container.register(ContactRepositoryType.self) { resolver in
-            let contactService = resolver.resolve(ContactServiceType.self)!
-            return ContactRepository(contactService: contactService)
-        }.inObjectScope(.container)
-
-        container.register(CurrentUserRepositoryType.self) { _ in
-            return CurrentUserRepository()
-        }.inObjectScope(.container)
-
-        container.register(MessageRepositoryType.self) { resolver in
-            let messageService = resolver.resolve(MessageServiceType.self)!
-            return MessageRepository(messageService: messageService)
         }.inObjectScope(.container)
 
         // Services
 
-        container.register(ChatServiceType.self) { resolver in
-            let chatAPI = resolver.resolve(ChatAPI.self)!
-            let contactAPI = resolver.resolve(ContactAPI.self)!
-            return ChatService(chatAPI: chatAPI, contactAPI: contactAPI)
-        }.inObjectScope(.container)
-
-        container.register(ContactServiceType.self) { resolver in
-            let contactAPI = resolver.resolve(ContactAPI.self)!
-            return ContactService(contactAPI: contactAPI)
-        }.inObjectScope(.container)
-
         container.register(MessageServiceType.self) { resolver in
-            let contactService = resolver.resolve(ContactServiceType.self)!
             let messageAPI = resolver.resolve(MessageAPI.self)!
-            return MessageService(messageAPI: messageAPI, contactService: contactService)
+            return MessageService(messageAPI: messageAPI)
         }
 
-        // APIs
+    }
 
+    private func registerRepositories(container: Container, scope: ObjectScope) {
+        container.register(ChatRepositoryType.self) { resolver in
+            let chatDAO = resolver.resolve(ChatDAO.self)!
+            return ChatRepository(chatDao: chatDAO)
+        }.inObjectScope(scope)
+
+        container.register(ContactRepositoryType.self) { resolver in
+            let contactDao = resolver.resolve(ContactDAO.self)!
+            return ContactRepository(contactDao: contactDao)
+        }.inObjectScope(scope)
+
+        container.register(CurrentUserRepositoryType.self) { _ in
+            return CurrentUserRepository()
+        }.inObjectScope(scope)
+
+        container.register(MessageRepositoryType.self) { resolver in
+            let messageDAO = resolver.resolve(MessageDAO.self)!
+            return MessageRepository(messageDAO: messageDAO)
+        }.inObjectScope(scope)
+
+    }
+
+    private func registerDAOs(container: Container, scope: ObjectScope) {
+        container.register(Realm.Configuration.self) { _ in
+            return Realm.Configuration(inMemoryIdentifier: "Clean-Swift")
+        }.inObjectScope(.transient)
+
+        container.register(MessageDAO.self) { resolver in
+            let config = resolver.resolve(Realm.Configuration.self)!
+            return MessageDAO(config: config)
+        }.inObjectScope(scope)
+
+        container.register(ChatDAO.self) { resolver in
+            let config = resolver.resolve(Realm.Configuration.self)!
+            return ChatDAO(config: config)
+        }.inObjectScope(scope)
+
+        container.register(ContactDAO.self) { resolver in
+            let config = resolver.resolve(Realm.Configuration.self)!
+            return ContactDAO(config: config)
+        }.inObjectScope(scope)
+    }
+
+    private func registerAPIs(container: Container, scope: ObjectScope) {
         container.register(ChatAPI.self) { _ in
             return ChatAPI()
-        }.inObjectScope(.container)
+        }.inObjectScope(scope)
 
         container.register(ContactAPI.self) { _ in
             return ContactAPI()
-        }.inObjectScope(.container)
+        }.inObjectScope(scope)
 
         container.register(MessageAPI.self) { _ in
             return MessageAPI()
-            }.inObjectScope(.container)
-
+        }.inObjectScope(scope)
     }
 
 }

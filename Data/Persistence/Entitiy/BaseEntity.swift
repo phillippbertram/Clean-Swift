@@ -5,14 +5,21 @@
 
 import RealmSwift
 
-class BaseEntity: Object {
+public class BaseEntity: Object {
 
     dynamic var id: String = UUID().uuidString
 
     dynamic var createdAt: Date = Date()
+    dynamic var modifiedAt: Date = Date()
 
-    override class func primaryKey() -> String? {
+    public override class func primaryKey() -> String? {
         return "id"
     }
+
+}
+
+public class RemoteEntity: BaseEntity, RemoteEntityType {
+
+    public dynamic var remoteId: String?
 
 }

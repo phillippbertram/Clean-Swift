@@ -8,9 +8,7 @@ import Foundation
 public struct EventDTO {
 
     public enum `Type` {
-
         case receivedMessage(MessageDTO)
-
     }
 
     public let type: Type
