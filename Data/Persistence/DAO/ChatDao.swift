@@ -7,10 +7,4 @@ import RealmSwift
 
 final class ChatDao: RealmBaseDao<ChatEntity> {
 
-    func getChats() -> [ChatEntity] {
-        let realm = getRealm()
-        let results = realm.objects(ChatEntity.self)
-        return Array(results)
-    }
-
 }

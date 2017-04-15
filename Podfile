@@ -46,6 +46,7 @@ target 'Data' do
   target 'DataTests' do
     inherit! :search_paths
     # Pods for testing
+    testing
   end
 
 end

@@ -39,6 +39,17 @@ final class DomainAssembly: Assembly {
             return GetContactsUseCase(schedulerProvider: schedulerProvider, contactRepository: contactRepository)
         }
 
+        container.register(SendMessageUseCase.self) { resolver in
+            let createChatForContactUseCase = resolver.resolve(CreateChatForContactUseCase.self)!
+            let messageRepository = resolver.resolve(MessageRepositoryType.self)!
+            let messageService = resolver.resolve(MessageServiceType.self)!
+            let currentUserRepository = resolver.resolve(CurrentUserRepositoryType.self)!
+            return SendMessageUseCase(createChatUseCase: createChatForContactUseCase,
+                                      messageRepository: messageRepository,
+                                      messageService: messageService,
+                                      currentUserRepository: currentUserRepository)
+        }
+
     }
 
 }

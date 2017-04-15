@@ -17,27 +17,32 @@ public final class SendMessageUseCase {
     private let createChatUseCase: CreateChatForContactUseCase
     private let messageRepository: MessageRepositoryType
     private let messageService: MessageServiceType
+    private let currentUserRepository: CurrentUserRepositoryType
 
-    init(
-            createChatUseCase: CreateChatForContactUseCase,
-            messageRepository: MessageRepositoryType,
-            messageService: MessageServiceType) {
+    public init(createChatUseCase: CreateChatForContactUseCase,
+                messageRepository: MessageRepositoryType,
+                messageService: MessageServiceType,
+                currentUserRepository: CurrentUserRepositoryType) {
 
         self.createChatUseCase = createChatUseCase
         self.messageRepository = messageRepository
         self.messageService = messageService
+        self.currentUserRepository = currentUserRepository
     }
 
-    public func build(user: Contact, messageText: String) -> Observable<MessageResult> {
+    public func build(chat: Chat, messageText: String) -> Observable<MessageResult> {
         return createChatUseCase
-                .build(withContact: user)
-                .flatMap { chat in
+                .build(withContact: chat.participant)
+                .flatMap { [unowned self] chat in
+                    self.currentUserRepository.getCurrentUser().map({ ($0, chat) })
+                }
+                .flatMap { (currentUser, chat) in
                     self.messageRepository
-                            .create(text: messageText, sender: user, chat: chat, status: .sending)
+                            .create(text: messageText, sender: currentUser.asContact(), chat: chat, status: .sending)
                 }
                 .flatMap { message in
                     return self.messageService
-                            .send(message: message, toContact: user.userName)
+                            .send(message: message, toContact: chat.participant.userName)
                             .catchError { error in
                                 return self.handleError(error, forMessage: message)
                             }

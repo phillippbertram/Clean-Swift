@@ -47,8 +47,9 @@ final class ViewAssembly: Assembly {
             vc.viewModel = resolver.resolve(ChatViewModel.self)
         }
 
-        container.register(ChatViewModel.self) { _, chat in
-            ChatViewModel(chat: chat)
+        container.register(ChatViewModel.self) { (resolver, chat: Chat) in
+            let sendMessageUseCase = resolver.resolve(SendMessageUseCase.self)!
+            return ChatViewModel(chat: chat, sendMessageUseCase: sendMessageUseCase)
         }
 
         // Contact

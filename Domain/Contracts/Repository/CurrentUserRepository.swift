@@ -27,7 +27,7 @@ public protocol CurrentUserRepositoryType {
     /// - Returns: Observable
     func logout() -> Observable<Void>
 
-    /// Gets the current user. If not availavle, it will emit a `notLoggedIn` error.
+    /// Gets the current user. If not available, it will emit a `notLoggedIn` error.
     ///
     /// - Returns: Observable
     func getCurrentUser() -> Observable<CurrentUser>

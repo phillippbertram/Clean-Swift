@@ -5,6 +5,8 @@
 
 import RealmSwift
 
-class ChatEntity: Object {
+final class ChatEntity: BaseEntity {
+
+    dynamic var participant: ContactEntity?
 
 }

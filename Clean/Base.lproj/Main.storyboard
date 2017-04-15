@@ -72,12 +72,38 @@
                     <view key="view" contentMode="scaleToFill" id="cf0-P2-I7m">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YB7-wY-nNm">
+                                <rect key="frame" x="0.0" y="588" width="315" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mp9-Dl-bCX" customClass="FlatButton" customModule="Material">
+                                <rect key="frame" x="323" y="588" width="36" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="oNY-Iy-VGT"/>
+                                </constraints>
+                                <state key="normal" title="Send"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WwD-oN-275" firstAttribute="top" secondItem="mp9-Dl-bCX" secondAttribute="bottom" id="D8K-Rz-1ge"/>
+                            <constraint firstItem="YB7-wY-nNm" firstAttribute="leading" secondItem="cf0-P2-I7m" secondAttribute="leading" id="GHW-iN-Nec"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mp9-Dl-bCX" secondAttribute="trailing" id="GTn-Jj-4Hh"/>
+                            <constraint firstItem="WwD-oN-275" firstAttribute="top" secondItem="YB7-wY-nNm" secondAttribute="bottom" id="H7u-2B-s6R"/>
+                            <constraint firstItem="mp9-Dl-bCX" firstAttribute="leading" secondItem="YB7-wY-nNm" secondAttribute="trailing" constant="8" id="TRr-6c-Hdg"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="messageTextField" destination="YB7-wY-nNm" id="0ii-YO-9Ro"/>
+                        <outlet property="sendButton" destination="mp9-Dl-bCX" id="XUg-YN-7TE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uYm-v7-usS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3244" y="50"/>
+            <point key="canvasLocation" x="3244" y="49.925037481259373"/>
         </scene>
         <!--Contact Selection View Controller-->
         <scene sceneID="Ozp-EL-t8L">

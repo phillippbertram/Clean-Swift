@@ -20,4 +20,8 @@ public struct CurrentUser {
         self.lastName = lastName
     }
 
+    public func asContact() -> Contact {
+        return Contact(userName: userName, firstName: firstName, lastName: lastName)
+    }
+
 }

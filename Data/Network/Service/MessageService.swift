@@ -14,7 +14,7 @@ public final class MessageService {
     fileprivate let messageAPI: MessageAPI
     fileprivate let contactService: ContactServiceType
 
-    init(messageAPI: MessageAPI, contactService: ContactServiceType) {
+    public init(messageAPI: MessageAPI, contactService: ContactServiceType) {
         self.messageAPI = messageAPI
         self.contactService = contactService
     }

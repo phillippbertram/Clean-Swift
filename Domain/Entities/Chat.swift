@@ -38,11 +38,15 @@ public struct Chat {
 public extension Chat {
 
     static func createWith(participant: Contact) -> Chat {
-        return Chat(id: UUID().uuidString,
+        return Chat(id: "",
                     participant: participant,
                     lastMessage: nil,
                     lastModifiedAt: Date(),
                     createdAt: Date())
+    }
+
+    var isTemporary: Bool {
+        return id.isEmpty
     }
 
 }
