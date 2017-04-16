@@ -17,12 +17,12 @@ public final class SendMessageUseCase {
     private let createChatUseCase: CreateChatForContactUseCase
     private let messageRepository: MessageRepositoryType
     private let messageService: MessageServiceType
-    private let currentUserRepository: CurrentUserRepositoryType
+    private let currentUserRepository: AccountRepositoryType
 
     public init(createChatUseCase: CreateChatForContactUseCase,
                 messageRepository: MessageRepositoryType,
                 messageService: MessageServiceType,
-                currentUserRepository: CurrentUserRepositoryType) {
+                currentUserRepository: AccountRepositoryType) {
 
         self.createChatUseCase = createChatUseCase
         self.messageRepository = messageRepository

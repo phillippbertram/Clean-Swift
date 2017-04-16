@@ -8,15 +8,16 @@
 
 import RxSwift
 
-public final class MarkMessagesReadUseCase {
+public final class MarkMessagesReadUseCase: UseCase<Chat, Void> {
 
     private let messageRepository: MessageRepositoryType
 
-    init(messageRepository: MessageRepositoryType) {
+    public init(schedulerProvider: SchedulerProviderType, messageRepository: MessageRepositoryType) {
         self.messageRepository = messageRepository
+        super.init(schedulerProvider: schedulerProvider)
     }
 
-    public func build(chat: Chat) -> Observable<Void> {
+    override func buildObservable(params chat: Chat) -> Observable<Void> {
         return messageRepository
                 .getAll(for: chat)
                 .flatMap(updateMessages)

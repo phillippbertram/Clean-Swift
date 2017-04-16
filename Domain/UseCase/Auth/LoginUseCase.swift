@@ -13,10 +13,10 @@ enum LoginError: Error {
 
 public final class LoginUseCase: UseCase<LoginUseCaseParams, CurrentUser> {
 
-    private let currentUserRepository: CurrentUserRepositoryType
+    private let currentUserRepository: AccountRepositoryType
 
     public init(schedulerProvider: SchedulerProviderType,
-                currentUserRepository: CurrentUserRepositoryType) {
+                currentUserRepository: AccountRepositoryType) {
         self.currentUserRepository = currentUserRepository
         super.init(schedulerProvider: schedulerProvider)
     }

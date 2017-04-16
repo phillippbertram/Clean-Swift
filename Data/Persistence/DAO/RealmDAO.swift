@@ -117,35 +117,29 @@ public class RealmBaseDAO<Entity: BaseEntity> {
     /// Deletes given entity
     ///
     /// - Parameter entity: entity
-    func delete(entity: Entity) {
+    func delete(entity: Entity) throws {
         let realm = getRealm()
         do {
             realm.beginWrite()
             realm.delete(entity)
             try realm.commitWrite()
         } catch let error as NSError {
-            log.error("Failed deleting entity: \(entity) with error: \(error)")
+            log.error("error deleting entity: \(error)")
+            throw error
         }
     }
 
     /// Deletes an entity for primary key
     ///
     /// - Parameter primaryKey: Primary Key
-    func delete(byId primaryKey: String) {
-        let realm = getRealm()
-        do {
-            try realm.write { [unowned self, unowned realm] in
-                if let entity = self.find(byPrimaryKey: primaryKey) {
-                    realm.delete(entity)
-                }
-            }
-        } catch let error as NSError {
-            print(error.description)
+    func delete(byId primaryKey: String) throws {
+        if let entity = self.find(byPrimaryKey: primaryKey) {
+            try self.delete(entity: entity)
         }
     }
 
     /// Deletes all entities for generic type
-    func deleteAll() {
+    func deleteAll() throws {
         let realm = getRealm()
         let entities = realm.objects(Entity.self)
         do {
@@ -153,7 +147,8 @@ public class RealmBaseDAO<Entity: BaseEntity> {
                 realm.delete(entities)
             }
         } catch let error as NSError {
-            print(error.description)
+            log.error("error deleting entity: \(error)")
+            throw error
         }
     }
 

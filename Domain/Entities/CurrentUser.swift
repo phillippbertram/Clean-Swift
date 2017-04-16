@@ -25,3 +25,17 @@ public struct CurrentUser {
     }
 
 }
+
+// MARK: - Hashable
+
+extension CurrentUser: Hashable {
+
+    public var hashValue: Int {
+        return userName.hash
+    }
+
+    public static func == (lhs: CurrentUser, rhs: CurrentUser) -> Bool {
+        return lhs.userName == rhs.userName
+    }
+
+}

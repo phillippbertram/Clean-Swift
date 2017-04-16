@@ -11,6 +11,22 @@ final class DomainAssembly: Assembly {
 
     func assemble(container: Container) {
 
+        // Authentication
+
+        container.register(LoginUseCase.self) { resolver in
+            let currentUserRepository = resolver.resolve(AccountRepositoryType.self)!
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return LoginUseCase(schedulerProvider: schedulerProvider, currentUserRepository: currentUserRepository)
+        }
+
+        container.register(LogoutUseCase.self) { resolver in
+            let currentUserRepository = resolver.resolve(AccountRepositoryType.self)!
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return LogoutUseCase(schedulerProvider: schedulerProvider, currentUserRepository: currentUserRepository)
+        }
+
+        // Chat
+
         container.register(GetAllChatsUseCase.self) { resolver in
             let chatRepository = resolver.resolve(ChatRepositoryType.self)!
             return GetAllChatsUseCase(chatRepository: chatRepository)
@@ -26,12 +42,6 @@ final class DomainAssembly: Assembly {
             return CreateChatForContactUseCase(chatRepository: chatRepository)
         }
 
-        container.register(LoginUseCase.self) { resolver in
-            let currentUserRepository = resolver.resolve(CurrentUserRepositoryType.self)!
-            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
-            return LoginUseCase(schedulerProvider: schedulerProvider, currentUserRepository: currentUserRepository)
-        }
-
         container.register(GetContactsUseCase.self) { resolver in
             let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
             let contactRepository = resolver.resolve(ContactRepositoryType.self)!
@@ -42,7 +52,7 @@ final class DomainAssembly: Assembly {
             let createChatForContactUseCase = resolver.resolve(CreateChatForContactUseCase.self)!
             let messageRepository = resolver.resolve(MessageRepositoryType.self)!
             let messageService = resolver.resolve(MessageServiceType.self)!
-            let currentUserRepository = resolver.resolve(CurrentUserRepositoryType.self)!
+            let currentUserRepository = resolver.resolve(AccountRepositoryType.self)!
             return SendMessageUseCase(createChatUseCase: createChatForContactUseCase,
                                       messageRepository: messageRepository,
                                       messageService: messageService,

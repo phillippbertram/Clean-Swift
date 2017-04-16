@@ -1,17 +1,17 @@
 platform :ios, '9.0'
 
 def rx_swift
-  pod 'RxSwift'
+  pod 'RxSwift', '~> 3.4.0'
 end
 
 def logging
-  pod 'SwiftyBeaver', '~> 1.1.4'
+  pod 'SwiftyBeaver', '~> 1.2.0'
 end
 
 def testing
   pod 'Quick', '~> 1.1.0'
   pod 'Nimble', '~> 6.1.0'
-  pod 'RxTest', '~> 3.3.1'
+  pod 'RxTest', '~> 3.4.0'
 end
 
 target 'Clean-Swift' do
@@ -20,13 +20,13 @@ target 'Clean-Swift' do
   # Pods for Clean
   rx_swift
   logging
-  pod 'RxCocoa'
-  pod 'Action'
+  pod 'RxCocoa', '~> 3.4.0'
+  pod 'Action', '~> 2.2.2'
   pod 'Swinject'
   pod 'SwinjectStoryboard'
-  pod 'Material'
+  pod 'Material', '~> 2.6.3'
   pod 'R.swift', '~> 3.2.0'
-  pod 'SwiftLint'
+  pod 'SwiftLint', '~> 0.18.1'
 
   target 'Clean-SwiftTests' do
     inherit! :search_paths
@@ -41,7 +41,8 @@ target 'Data' do
   # Pods for Data
   rx_swift
   logging
-  pod 'RealmSwift'
+
+  pod 'RealmSwift', '~> 2.5.1'
 
   target 'DataTests' do
     inherit! :search_paths

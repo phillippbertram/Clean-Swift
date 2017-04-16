@@ -17,8 +17,8 @@
 		513F5BD91E92C81E006F1B81 /* ContactAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F5BD81E92C81E006F1B81 /* ContactAPI.swift */; };
 		513F5BDB1E92C84E006F1B81 /* ContactDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F5BDA1E92C84E006F1B81 /* ContactDTO.swift */; };
 		513F5BE21E92E675006F1B81 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21ACBFAB6B62B49A1B25 /* CurrentUser.swift */; };
-		513F5BE31E92E685006F1B81 /* CurrentUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D243CDCCCDB5EB1838444 /* CurrentUserRepository.swift */; };
-		513F5BE41E92E695006F1B81 /* CurrentUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D247F8A80A8E785286023 /* CurrentUserRepository.swift */; };
+		513F5BE31E92E685006F1B81 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D243CDCCCDB5EB1838444 /* AccountRepository.swift */; };
+		513F5BE41E92E695006F1B81 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D247F8A80A8E785286023 /* AccountRepository.swift */; };
 		5166D6EC1E8DA6CA00E8FAFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5166D6EB1E8DA6CA00E8FAFD /* AppDelegate.swift */; };
 		5166D6F11E8DA6CA00E8FAFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5166D6EF1E8DA6CA00E8FAFD /* Main.storyboard */; };
 		5166D6F31E8DA6CA00E8FAFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5166D6F21E8DA6CA00E8FAFD /* Assets.xcassets */; };
@@ -228,9 +228,9 @@
 		A95D230AB1D00C282A78C46A /* MessageEntityDomainMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntityDomainMapper.swift; sourceTree = "<group>"; };
 		A95D2324CE8E074148EF6468 /* MarkMessagesReadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkMessagesReadUseCase.swift; sourceTree = "<group>"; };
 		A95D23C4DA687C5FD8A63DDF /* ChatDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDAO.swift; sourceTree = "<group>"; };
-		A95D243CDCCCDB5EB1838444 /* CurrentUserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserRepository.swift; sourceTree = "<group>"; };
+		A95D243CDCCCDB5EB1838444 /* AccountRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		A95D2441CD401BBDCC1F861C /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
-		A95D247F8A80A8E785286023 /* CurrentUserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserRepository.swift; sourceTree = "<group>"; };
+		A95D247F8A80A8E785286023 /* AccountRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		A95D24A29EEEA07F28838DD4 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		A95D24A5BB662D342911B12F /* Contact+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+Extensions.swift"; sourceTree = "<group>"; };
 		A95D24AC4482671468C9FAE0 /* SchedulerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulerProvider.swift; sourceTree = "<group>"; };
@@ -275,7 +275,7 @@
 		A95D2D811B9313A2AC1875F3 /* DomainAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainAssembly.swift; sourceTree = "<group>"; };
 		A95D2D963A22EA625D8518D1 /* TestSchedulerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSchedulerProvider.swift; sourceTree = "<group>"; };
 		A95D2E094D08A7DE32EF75CF /* BaseEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEntity.swift; sourceTree = "<group>"; };
-		A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UseCase.swift; path = UseCase/UseCase.swift; sourceTree = "<group>"; };
+		A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		A95D2E50C466A1E420D9901F /* ContactEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactEntity.swift; sourceTree = "<group>"; };
 		A95D2E935CFFD909B168EC80 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		A95D2E94F97CE51112FEF067 /* DataIntegrationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataIntegrationModel.swift; sourceTree = "<group>"; };
@@ -400,7 +400,6 @@
 			children = (
 				5166D7121E8DA6F100E8FAFD /* Domain.h */,
 				5166D7131E8DA6F100E8FAFD /* Info.plist */,
-				A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */,
 				A95D24EDBD88C2FC50BACD94 /* Contracts */,
 				A95D265F647E422EA56B0152 /* Entities */,
 				A95D2169FB27D24A70A8778C /* UseCase */,
@@ -520,6 +519,7 @@
 				A95D26113C3632856651142C /* Message */,
 				A95D2C8187D79FEDA5B8D1B3 /* Auth */,
 				A95D2BD135584E3C062907B2 /* Contact */,
+				A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -694,7 +694,7 @@
 				A95D2804AC736324B5861ECA /* MessageRepository.swift */,
 				A95D2EE10B26DC7BCA5108F3 /* ContactRepository.swift */,
 				A95D21743F6670D0CAAD533B /* ChatRepository.swift */,
-				A95D247F8A80A8E785286023 /* CurrentUserRepository.swift */,
+				A95D247F8A80A8E785286023 /* AccountRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -723,7 +723,7 @@
 			children = (
 				A95D27B1DBF14A58D759D1E0 /* ChatRepository.swift */,
 				A95D2A2768A5BFF26487B5AF /* MessageRepository.swift */,
-				A95D243CDCCCDB5EB1838444 /* CurrentUserRepository.swift */,
+				A95D243CDCCCDB5EB1838444 /* AccountRepository.swift */,
 				A95D2B0AEE98F56FBBE03C5C /* ContactRepository.swift */,
 			);
 			path = Repository;
@@ -1438,7 +1438,7 @@
 				A95D2759D8751F5ED5E5314F /* Chat.swift in Sources */,
 				A95D259623582459096BDABE /* Message.swift in Sources */,
 				A95D23EAA150DE5FC5D66780 /* MessageRepository.swift in Sources */,
-				513F5BE41E92E695006F1B81 /* CurrentUserRepository.swift in Sources */,
+				513F5BE41E92E695006F1B81 /* AccountRepository.swift in Sources */,
 				A95D285875CD411B2E5543D0 /* ContactRepository.swift in Sources */,
 				A95D22C906316D9DFC337D2F /* ChatRepository.swift in Sources */,
 				A95D2D58119424D6D9B1C68E /* MessageService.swift in Sources */,
@@ -1472,7 +1472,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				513F5BE31E92E685006F1B81 /* CurrentUserRepository.swift in Sources */,
+				513F5BE31E92E685006F1B81 /* AccountRepository.swift in Sources */,
 				513F5BD91E92C81E006F1B81 /* ContactAPI.swift in Sources */,
 				A95D2268F8DD243AD30761D6 /* ChatRepository.swift in Sources */,
 				513F5BDB1E92C84E006F1B81 /* ContactDTO.swift in Sources */,

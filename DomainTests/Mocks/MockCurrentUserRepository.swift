@@ -7,7 +7,7 @@ import RxSwift
 
 @testable import Domain
 
-class MockCurrentUserRepository: CurrentUserRepositoryType {
+class MockCurrentUserRepository: AccountRepositoryType {
 
     var loginObservableStub: ((String, String) -> Observable<CurrentUser>)?
     func login(withUserName username: String, andPassword password: String) -> Observable<CurrentUser> {

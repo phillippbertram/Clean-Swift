@@ -5,14 +5,14 @@
 
 import RxSwift
 
-public enum CurrentUserRepositoryError: Error {
+public enum AccountRepositoryError: Error {
 
     case invalidCredentials
     case notLoggedIn
 
 }
 
-public protocol CurrentUserRepositoryType {
+public protocol AccountRepositoryType {
 
     /// Tries to login the user with given credentials.
     ///

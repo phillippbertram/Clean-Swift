@@ -15,19 +15,13 @@ final class DataAssembly: Assembly {
         registerRepositories(container: container, scope: .container)
         registerDAOs(container: container, scope: .graph)
         registerAPIs(container: container, scope: .container)
+        registerServices(container: container, scope: .container)
 
         // Utils
 
         container.register(SchedulerProviderType.self) { _ in
             return SchedulerProvider()
         }.inObjectScope(.container)
-
-        // Services
-
-        container.register(MessageServiceType.self) { resolver in
-            let messageAPI = resolver.resolve(MessageAPI.self)!
-            return MessageService(messageAPI: messageAPI)
-        }
 
     }
 
@@ -42,8 +36,8 @@ final class DataAssembly: Assembly {
             return ContactRepository(contactDao: contactDao)
         }.inObjectScope(scope)
 
-        container.register(CurrentUserRepositoryType.self) { _ in
-            return CurrentUserRepository()
+        container.register(AccountRepositoryType.self) { _ in
+            return AccountRepository()
         }.inObjectScope(scope)
 
         container.register(MessageRepositoryType.self) { resolver in
@@ -85,6 +79,13 @@ final class DataAssembly: Assembly {
 
         container.register(MessageAPI.self) { _ in
             return MessageAPI()
+        }.inObjectScope(scope)
+    }
+
+    private func registerServices(container: Container, scope: ObjectScope) {
+        container.register(MessageServiceType.self) { resolver in
+            let messageAPI = resolver.resolve(MessageAPI.self)!
+            return MessageService(messageAPI: messageAPI)
         }.inObjectScope(scope)
     }
 

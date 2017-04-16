@@ -5,15 +5,16 @@
 
 import RxSwift
 
-final class LogoutUseCase {
+public final class LogoutUseCase: UseCase<Void, Void> {
 
-    fileprivate let currentUserRepository: CurrentUserRepositoryType
+    fileprivate let currentUserRepository: AccountRepositoryType
 
-    init(currentUserRepository: CurrentUserRepositoryType) {
+    public init(schedulerProvider: SchedulerProviderType, currentUserRepository: AccountRepositoryType) {
         self.currentUserRepository = currentUserRepository
+        super.init(schedulerProvider: schedulerProvider)
     }
 
-    func build() -> Observable<Void> {
+    override func buildObservable(params: Void) -> Observable<Void> {
         return self.currentUserRepository.logout()
     }
 
