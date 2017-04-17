@@ -8,6 +8,8 @@ import RxSwift
 
 public final class ContactRepository {
 
+    fileprivate let contactMapper = ContactEntityDomainMapper()
+
     fileprivate let contactDao: ContactDAO
 
     public init(contactDao: ContactDAO) {
@@ -34,13 +36,25 @@ extension ContactRepository: ContactRepositoryType {
         return Observable.deferred { [unowned self] in
             let contact = self.contactDao.find(byUserName: userName)
             return Observable.just(contact!)
-        }.map { [unowned self] contactEntity in
+        }
+        .map { [unowned self] contactEntity in
             return self.mapContact(contactEntity)
         }
     }
 
     public func create(contact: Contact) -> Observable<Contact> {
-        fatalError("not implemented")
+        return Observable.deferred { [unowned self] in
+            log.debug("Creating Contact: \(contact)")
+            return self.contactDao.write { () -> ContactEntity in
+                let entity = ContactEntity()
+                entity.userName = contact.userName
+                entity.firstName = contact.firstName
+                entity.lastName = contact.lastName
+                return entity
+            }
+        }.map { [unowned self] in
+            self.contactMapper.map($0)
+        }
     }
 
 }

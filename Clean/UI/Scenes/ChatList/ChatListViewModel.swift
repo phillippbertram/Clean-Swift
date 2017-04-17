@@ -19,6 +19,13 @@ public final class ChatListViewModel {
 
     var showChat: ((ChatViewModel) -> Void)?
 
+    func reloadChats() {
+        getChatsUseCase
+                .build()
+                .bind(to: chats)
+                .addDisposableTo(disposeBag)
+    }
+
     // MARK: Private Properties
 
     private let disposeBag = DisposeBag()
@@ -27,20 +34,20 @@ public final class ChatListViewModel {
 
     private let getChatsUseCase: GetAllChatsUseCase
     private let getChatForContactUseCase: GetChatForContactUseCase
+    private let deleteChatUseCase: DeleteChatUseCase
     private let chatViewModelFactory: ChatViewModelFactory
 
     public init(getChatsUseCase: GetAllChatsUseCase,
                 getChatForContactUseCase: GetChatForContactUseCase,
+                deleteChatUseCase: DeleteChatUseCase,
                 chatViewModelFactory: @escaping ChatViewModelFactory) {
 
         self.getChatsUseCase = getChatsUseCase
         self.getChatForContactUseCase = getChatForContactUseCase
+        self.deleteChatUseCase = deleteChatUseCase
         self.chatViewModelFactory = chatViewModelFactory
 
-        getChatsUseCase
-                .build()
-                .bind(to: chats)
-                .addDisposableTo(disposeBag)
+        reloadChats()
     }
 
     public func cellViewModel(forIndexPath indexPath: IndexPath) -> ChatListCellViewModel {
@@ -48,6 +55,18 @@ public final class ChatListViewModel {
         let vm = ChatListCellViewModel()
         vm.text = chat.participant.firstName
         return vm
+    }
+
+    public func delete(chat: Chat) {
+        deleteChatUseCase
+                .build(chat)
+                .subscribe()
+                .addDisposableTo(disposeBag)
+    }
+
+    public func startExistingChat(_ chat: Chat) {
+        let chatViewModel = self.chatViewModelFactory(chat)
+        self.showChat?(chatViewModel)
     }
 
     public func startChat(forContact contact: Contact) {

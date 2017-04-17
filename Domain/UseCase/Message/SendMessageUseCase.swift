@@ -8,18 +8,30 @@
 
 import RxSwift
 
-public final class SendMessageUseCase {
+public struct SendMessageUseCaseParams {
 
-    public enum MessageResult {
-        case sending(progress: Double)
+    let chat: Chat
+    let messageText: String
+
+    public static func from(chat: Chat, messageText: String) -> SendMessageUseCaseParams {
+        return SendMessageUseCaseParams(chat: chat, messageText: messageText)
     }
+
+}
+
+public enum MessageResult {
+    case sending(progress: Double)
+}
+
+public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, MessageResult> {
 
     private let createChatUseCase: CreateChatForContactUseCase
     private let messageRepository: MessageRepositoryType
     private let messageService: MessageServiceType
     private let currentUserRepository: AccountRepositoryType
 
-    public init(createChatUseCase: CreateChatForContactUseCase,
+    public init(schedulerProvider: SchedulerProviderType,
+                createChatUseCase: CreateChatForContactUseCase,
                 messageRepository: MessageRepositoryType,
                 messageService: MessageServiceType,
                 currentUserRepository: AccountRepositoryType) {
@@ -28,21 +40,25 @@ public final class SendMessageUseCase {
         self.messageRepository = messageRepository
         self.messageService = messageService
         self.currentUserRepository = currentUserRepository
+        super.init(schedulerProvider: schedulerProvider)
     }
 
-    public func build(chat: Chat, messageText: String) -> Observable<MessageResult> {
+    public override func buildObservable(params: SendMessageUseCaseParams) -> Observable<MessageResult> {
         return createChatUseCase
-                .build(withContact: chat.participant)
+                .build(params.chat.participant)
                 .flatMap { [unowned self] chat in
                     self.currentUserRepository.getCurrentUser().map({ ($0, chat) })
                 }
                 .flatMap { (currentUser, chat) in
                     self.messageRepository
-                            .create(text: messageText, sender: currentUser.asContact(), chat: chat, status: .sending)
+                            .create(text: params.messageText,
+                                    sender: currentUser.asContact(),
+                                    chat: chat,
+                                    status: .sending)
                 }
                 .flatMap { message in
                     return self.messageService
-                            .send(message: message, toContact: chat.participant.userName)
+                            .send(message: message, toContact: params.chat.participant.userName)
                             .catchError { error in
                                 return self.handleError(error, forMessage: message)
                             }

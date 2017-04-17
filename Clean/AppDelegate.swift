@@ -22,6 +22,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         prepareWindow()
+
+        let seeder = container.resolve(Seeder.self)!
+        _ = seeder.seedData().subscribe()
+
         return true
     }
 

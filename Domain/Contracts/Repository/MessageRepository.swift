@@ -18,6 +18,12 @@ public protocol MessageRepositoryType {
     /// - Returns: Observable
     func getAll(`for` chat: Chat) -> Observable<[Message]>
 
+    /// Observes all messages for given chat.
+    ///
+    /// - Parameter chat: the chat.
+    /// - Returns: Observable
+    func observeAll(`for` chat: Chat) -> Observable<[Message]>
+
     // MARK: Creating
 
     /// Creates a message with given parameters.

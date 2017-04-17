@@ -23,14 +23,28 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
     }
 
     var viewModel: ChatListViewModel!
+    var dataBaseLogger: DataBaseLogger!
 
-    private let disposeBag = DisposeBag()
+    fileprivate let disposeBag = DisposeBag()
 
     // MARK: Lifecycle
 
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.reloadChats()
+    }
+
+    public override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        switch motion {
+            case .motionShake:
+                dataBaseLogger.logAll()
+            default: break
+        }
     }
 
     public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -68,9 +82,20 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
         return cell
     }
 
-    // MARK: Setup
+    // MARK: Delegate
 
-    private func setupBinding() {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let chat = viewModel.chats.value[indexPath.item]
+        viewModel.startExistingChat(chat)
+    }
+
+}
+
+// MARK: - Setup
+
+fileprivate extension ChatListViewController {
+
+    func setupBinding() {
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
 
         viewModel.chats.asDriver()
@@ -82,8 +107,13 @@ public class ChatListViewController: UIViewController, UITableViewDataSource, UI
             chatVC.viewModel = chatViewModel
             self.navigationController?.pushViewController(chatVC, animated: true)
         }
-    }
 
+        tableView.rx.itemDeleted.asDriver().drive(onNext: { [unowned self] indexPath in
+            let chat = self.viewModel.chats.value[indexPath.item]
+            self.viewModel.delete(chat: chat)
+        }).addDisposableTo(disposeBag)
+
+    }
 }
 
 // MARK: - Actions

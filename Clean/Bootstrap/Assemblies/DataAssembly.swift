@@ -42,14 +42,16 @@ final class DataAssembly: Assembly {
 
         container.register(MessageRepositoryType.self) { resolver in
             let messageDAO = resolver.resolve(MessageDAO.self)!
-            return MessageRepository(messageDAO: messageDAO)
+            let contactDAO = resolver.resolve(ContactDAO.self)!
+            let chatDAO = resolver.resolve(ChatDAO.self)!
+            return MessageRepository(messageDAO: messageDAO, contactDAO: contactDAO, chatDAO: chatDAO)
         }.inObjectScope(scope)
 
     }
 
     private func registerDAOs(container: Container, scope: ObjectScope) {
         container.register(Realm.Configuration.self) { _ in
-            return Realm.Configuration(inMemoryIdentifier: "Clean-Swift")
+            return Realm.Configuration(deleteRealmIfMigrationNeeded: true)
         }.inObjectScope(.transient)
 
         container.register(MessageDAO.self) { resolver in
@@ -59,7 +61,8 @@ final class DataAssembly: Assembly {
 
         container.register(ChatDAO.self) { resolver in
             let config = resolver.resolve(Realm.Configuration.self)!
-            return ChatDAO(config: config)
+            let messageDAO = resolver.resolve(MessageDAO.self)!
+            return ChatDAO(config: config, messageDAO: messageDAO)
         }.inObjectScope(scope)
 
         container.register(ContactDAO.self) { resolver in

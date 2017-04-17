@@ -86,19 +86,54 @@
                                 </constraints>
                                 <state key="normal" title="Send"/>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eVA-70-mbK" customClass="TableView" customModule="Material">
+                                <rect key="frame" x="0.0" y="64" width="375" height="516"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="messageCell" textLabel="OqM-xN-C7v" detailTextLabel="VdN-fZ-3ae" rowHeight="59" style="IBUITableViewCellStyleSubtitle" id="rP9-Zs-wKu" customClass="TableViewCell" customModule="Material">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="59"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rP9-Zs-wKu" id="KJQ-Vw-aME">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OqM-xN-C7v">
+                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VdN-fZ-3ae">
+                                                    <rect key="frame" x="15" y="32.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="eVA-70-mbK" firstAttribute="leading" secondItem="cf0-P2-I7m" secondAttribute="leading" id="4qv-j6-r3r"/>
+                            <constraint firstItem="eVA-70-mbK" firstAttribute="top" secondItem="dwa-Y5-k0F" secondAttribute="bottom" id="5tg-f2-GTG"/>
                             <constraint firstItem="WwD-oN-275" firstAttribute="top" secondItem="mp9-Dl-bCX" secondAttribute="bottom" id="D8K-Rz-1ge"/>
                             <constraint firstItem="YB7-wY-nNm" firstAttribute="leading" secondItem="cf0-P2-I7m" secondAttribute="leading" id="GHW-iN-Nec"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mp9-Dl-bCX" secondAttribute="trailing" id="GTn-Jj-4Hh"/>
                             <constraint firstItem="WwD-oN-275" firstAttribute="top" secondItem="YB7-wY-nNm" secondAttribute="bottom" id="H7u-2B-s6R"/>
+                            <constraint firstAttribute="trailing" secondItem="eVA-70-mbK" secondAttribute="trailing" id="JjZ-nv-Oa9"/>
+                            <constraint firstItem="mp9-Dl-bCX" firstAttribute="top" secondItem="eVA-70-mbK" secondAttribute="bottom" constant="8" id="K13-bm-Zuz"/>
                             <constraint firstItem="mp9-Dl-bCX" firstAttribute="leading" secondItem="YB7-wY-nNm" secondAttribute="trailing" constant="8" id="TRr-6c-Hdg"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="messageTextField" destination="YB7-wY-nNm" id="0ii-YO-9Ro"/>
                         <outlet property="sendButton" destination="mp9-Dl-bCX" id="XUg-YN-7TE"/>
+                        <outlet property="tableView" destination="eVA-70-mbK" id="V5j-Gu-WNV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uYm-v7-usS" userLabel="First Responder" sceneMemberID="firstResponder"/>

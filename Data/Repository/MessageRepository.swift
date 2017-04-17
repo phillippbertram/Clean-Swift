@@ -11,9 +11,13 @@ public final class MessageRepository {
     fileprivate let messageMapper = MessageEntityDomainMapper()
 
     fileprivate let messageDAO: MessageDAO
+    fileprivate let contactDAO: ContactDAO
+    fileprivate let chatDAO: ChatDAO
 
-    public init(messageDAO: MessageDAO) {
+    public init(messageDAO: MessageDAO, contactDAO: ContactDAO, chatDAO: ChatDAO) {
         self.messageDAO = messageDAO
+        self.contactDAO = contactDAO
+        self.chatDAO = chatDAO
     }
 
 }
@@ -23,21 +27,36 @@ public final class MessageRepository {
 extension MessageRepository: MessageRepositoryType {
 
     public func getAll(for chat: Chat) -> Observable<[Message]> {
+        return observeAll(for: chat).take(1)
+    }
+
+    public func observeAll(for chat: Chat) -> Observable<[Message]> {
         return Observable.deferred { [unowned self] () -> Observable<[MessageEntity]> in
 
             guard let chatId = chat.id else {
                 return Observable.just([])
             }
 
-            let messageEntities = self.messageDAO.find { messageEntity in
-                messageEntity.chat.id == chatId
-            }
-            return Observable.just(messageEntities)
+            return self.messageDAO.observeAll()
         }.map(self.messageMapper.mapAll)
     }
 
     public func create(text: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message> {
-        fatalError()
+        return Observable.deferred {
+                    return self.messageDAO.write { () -> MessageEntity in
+                        let senderEntity = self.contactDAO.find(byUserName: sender.userName)!
+                        let chatEntity = self.chatDAO.find(byPrimaryKey: chat.id!)!
+                        let entity = MessageEntity(sender: senderEntity, chat: chatEntity)
+                        entity.isIncoming = false
+                        entity.isRead = true
+                        entity.status = MessageEntity.Status.sending
+                        entity.message = text
+                        return entity
+                    }
+                }
+                .map { [unowned self] in
+                    self.messageMapper.map($0)
+                }
     }
 
     public func createMessage(_ message: Message) -> Observable<Message> {

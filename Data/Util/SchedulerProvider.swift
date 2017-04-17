@@ -7,9 +7,12 @@ import Domain
 import RxSwift
 import RxCocoa
 
-final class SchedulerProvider: SchedulerProviderType {
+public final class SchedulerProvider: SchedulerProviderType {
 
-    private(set) var mainScheduler: ImmediateSchedulerType = MainScheduler.instance
-    private(set) var backgroundScheduler: ImmediateSchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)
+    public let mainScheduler: ImmediateSchedulerType = MainScheduler.instance
+    public let backgroundScheduler: ImmediateSchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)
 
+    public init() {
+
+    }
 }

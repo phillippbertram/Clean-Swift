@@ -25,11 +25,31 @@ public final class ChatRepository {
 extension ChatRepository: ChatRepositoryType {
 
     public func observeAll() -> Observable<[Chat]> {
-        return Observable.just([])
+        return Observable.deferred { [unowned self] () -> Observable<[Chat]> in
+            let chats = self.chatDao.findAll().map { [unowned self] chatEntity in
+                self.chatMapper.map(chatEntity)
+            }
+            return Observable.just(chats)
+        }
     }
 
     public func create(chat: Chat) -> Observable<Chat> {
-        fatalError()
+        return Observable.deferred { [unowned self] in
+            return self.chatDao.write { () -> ChatEntity in
+                let contact = chat.participant
+                let contactEntity = ContactEntity()
+                contactEntity.id = contact.userName
+                contactEntity.firstName = contact.firstName
+                contactEntity.lastName = contact.lastName
+                let chatEntity = ChatEntity(participant: contactEntity)
+                if let chatId = chat.id {
+                    chatEntity.id = chatId
+                }
+                return chatEntity
+            }
+        }.map { [unowned self] in
+            self.chatMapper.map($0)
+        }
     }
 
     public func get(byId chatId: String) -> Observable<Chat> {
@@ -58,6 +78,21 @@ extension ChatRepository: ChatRepositoryType {
             let entities = self.chatDao.findAll()
             return Observable.just(entities)
         }.map(chatMapper.mapAll)
+    }
+
+    // MARK: Deleting
+
+    public func delete(chat: Chat) -> Observable<Void> {
+        return Observable.deferred { [unowned self] in
+            do {
+                if let chatId = chat.id {
+                    try self.chatDao.delete(byId: chatId)
+                }
+            } catch {
+                log.error("Could not delete Chat: \(chat)")
+            }
+            return Observable.just(())
+        }
     }
 
 }

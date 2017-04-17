@@ -8,6 +8,13 @@ import RxSwift
 
 public final class ChatDAO: RealmBaseDAO<ChatEntity> {
 
+    private let messageDAO: MessageDAO
+
+    public init(config: Realm.Configuration, messageDAO: MessageDAO) {
+        self.messageDAO = messageDAO
+        super.init(config: config)
+    }
+
     func create(withParticipant participant: ContactEntity) -> Observable<ChatEntity> {
         fatalError()
     }
@@ -17,6 +24,27 @@ public final class ChatDAO: RealmBaseDAO<ChatEntity> {
             return (entity, true)
         }
         return (ChatEntity(), false)
+    }
+
+    // MARK: - Delete
+
+    override func delete(entity chatEntity: ChatEntity) throws {
+        try super.delete(entity: chatEntity)
+        try messageDAO.deleteAll { entity in
+            entity.chat.id == entity.id
+        }
+    }
+
+    override func delete(byId primaryKey: String) throws {
+        try super.delete(byId: primaryKey)
+        try messageDAO.deleteAll { entity in
+            entity.chat.id == primaryKey
+        }
+    }
+
+    override func deleteAll() throws {
+        try messageDAO.deleteAll()
+        try super.deleteAll()
     }
 
 }

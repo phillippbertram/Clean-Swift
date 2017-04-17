@@ -17,6 +17,9 @@ PODS:
     - Realm (= 2.5.1)
   - RxCocoa (3.4.0):
     - RxSwift (~> 3.4)
+  - RxRealm (0.6.0):
+    - RealmSwift (~> 2.5)
+    - RxSwift (~> 3.2)
   - RxSwift (3.4.0)
   - RxTest (3.4.0):
     - RxSwift (~> 3.4)
@@ -34,12 +37,13 @@ DEPENDENCIES:
   - R.swift (~> 3.2.0)
   - RealmSwift (~> 2.5.1)
   - RxCocoa (~> 3.4.0)
+  - RxRealm (~> 0.6.0)
   - RxSwift (~> 3.4.0)
   - RxTest (~> 3.4.0)
   - SwiftLint (~> 0.18.1)
   - SwiftyBeaver (~> 1.2.0)
-  - Swinject
-  - SwinjectStoryboard
+  - Swinject (~> 2.0.0)
+  - SwinjectStoryboard (~> 1.0.0)
 
 SPEC CHECKSUMS:
   Action: 9a3d372fb15b057cce7d069a5e1ece8da12483d4
@@ -51,6 +55,7 @@ SPEC CHECKSUMS:
   Realm: 32f86104d37c8521f864d4274050b38ba6190733
   RealmSwift: f719e7511c902b8908593e8f143f59e47931bdb6
   RxCocoa: d14ef6b6029e1ddc6e966508c09289090de68ff9
+  RxRealm: 323de579b50b5e0f4a3e087d5925021f976ffaf1
   RxSwift: 3789a1af753002a14edecdb698a2424624296a9c
   RxTest: beb6beb882cf1dcac5fc9fdbd4760a5254e7f3a6
   SwiftLint: b467d08f5b25dc3b3cfed243d8e1b74b91714c67
@@ -58,6 +63,6 @@ SPEC CHECKSUMS:
   Swinject: 2e964a80d70ab09b3949c99032711f89147bfd60
   SwinjectStoryboard: 8e0d3c0202b64172bdf915d55e8dc83d9c4e7863
 
-PODFILE CHECKSUM: f06e1a79ce19ef1c1afb24bce2f08c61e403eab9
+PODFILE CHECKSUM: 17430cffec791db88449641c9b28c29d456a3fa0
 
 COCOAPODS: 1.1.0

@@ -59,6 +59,35 @@ public struct Message {
 
 }
 
+// MARK: - Convenience
+
+public extension Message {
+
+    var text: String? {
+        return content.text
+    }
+
+}
+
+public extension Message.Content {
+
+    var isText: Bool {
+        if case .text(_) = self {
+            return true
+        }
+        return false
+    }
+
+    var text: String? {
+        switch self {
+        case .text(let message):
+            return message
+        default: return nil
+        }
+    }
+
+}
+
 // MARK: - Comparable
 
 extension Message: Comparable, Hashable {

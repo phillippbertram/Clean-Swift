@@ -29,7 +29,8 @@ final class DomainAssembly: Assembly {
 
         container.register(GetAllChatsUseCase.self) { resolver in
             let chatRepository = resolver.resolve(ChatRepositoryType.self)!
-            return GetAllChatsUseCase(chatRepository: chatRepository)
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return GetAllChatsUseCase(schedulerProvider: schedulerProvider, chatRepository: chatRepository)
         }
 
         container.register(GetChatForContactUseCase.self) { resolver in
@@ -39,8 +40,17 @@ final class DomainAssembly: Assembly {
 
         container.register(CreateChatForContactUseCase.self) { resolver in
             let chatRepository = resolver.resolve(ChatRepositoryType.self)!
-            return CreateChatForContactUseCase(chatRepository: chatRepository)
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return CreateChatForContactUseCase(schedulerProvider: schedulerProvider, chatRepository: chatRepository)
         }
+
+        container.register(DeleteChatUseCase.self) { resolver in
+            let chatRepository = resolver.resolve(ChatRepositoryType.self)!
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return DeleteChatUseCase(schedulerProvider: schedulerProvider, chatRepository: chatRepository)
+        }
+
+        // MARK: Contacts
 
         container.register(GetContactsUseCase.self) { resolver in
             let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
@@ -48,15 +58,25 @@ final class DomainAssembly: Assembly {
             return GetContactsUseCase(schedulerProvider: schedulerProvider, contactRepository: contactRepository)
         }
 
+        // MARK: Messages
+
         container.register(SendMessageUseCase.self) { resolver in
             let createChatForContactUseCase = resolver.resolve(CreateChatForContactUseCase.self)!
             let messageRepository = resolver.resolve(MessageRepositoryType.self)!
             let messageService = resolver.resolve(MessageServiceType.self)!
             let currentUserRepository = resolver.resolve(AccountRepositoryType.self)!
-            return SendMessageUseCase(createChatUseCase: createChatForContactUseCase,
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return SendMessageUseCase(schedulerProvider: schedulerProvider,
+                                      createChatUseCase: createChatForContactUseCase,
                                       messageRepository: messageRepository,
                                       messageService: messageService,
                                       currentUserRepository: currentUserRepository)
+        }
+
+        container.register(ObserveMessagesUseCase.self) { resolver in
+            let messageRepository = resolver.resolve(MessageRepositoryType.self)!
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return ObserveMessagesUseCase(schedulerProvider: schedulerProvider, messageRepository: messageRepository)
         }
 
     }

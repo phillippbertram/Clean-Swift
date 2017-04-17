@@ -5,6 +5,8 @@
 
 import RealmSwift
 import RxSwift
+import RxRealm
+import Domain
 
 protocol RealmDAOType {
 
@@ -21,6 +23,9 @@ protocol RealmDAOType {
 public class RealmBaseDAO<Entity: BaseEntity> {
 
     private let config: Realm.Configuration
+
+    // TODO: inject
+    private let schedulerProvider: SchedulerProviderType = SchedulerProvider()
 
     public init(config: Realm.Configuration) {
         self.config = config
@@ -78,6 +83,16 @@ public class RealmBaseDAO<Entity: BaseEntity> {
         return find(withFilter:({ $0.id == primaryKey })).first
     }
 
+    // MARK: Observing
+
+    func observeAll() -> Observable<[Entity]> {
+        return Observable.deferred { [unowned self] () -> Observable<[Entity]> in
+            let all = self.queryAll()
+            return Observable.arrayWithChangeset(from: all).map({ return $0.0 })
+        }
+        .subscribeOn(schedulerProvider.mainScheduler)
+    }
+
     // MARK: Writing
 
     func write(block: @escaping (() -> [Entity])) -> Observable<[Entity]> {
@@ -90,6 +105,7 @@ public class RealmBaseDAO<Entity: BaseEntity> {
                     realm.add(entity, update: true)
                 }
                 try realm.commitWrite()
+                realm.refresh()
                 return Observable.just(entities)
             } catch (let error) {
                 return Observable.error(error)
@@ -136,6 +152,19 @@ public class RealmBaseDAO<Entity: BaseEntity> {
     func delete(byId primaryKey: String) throws {
         if let entity = self.find(byPrimaryKey: primaryKey) {
             try self.delete(entity: entity)
+        }
+    }
+
+    func deleteAll(filter: @escaping (Entity) -> Bool) throws {
+        let realm = getRealm()
+        do {
+            try realm.write { [unowned self] in
+                let entities = self.find(withFilter: filter)
+                realm.delete(entities)
+            }
+        } catch let error as NSError {
+            log.error("error deleting entity: \(error)")
+            throw error
         }
     }
 

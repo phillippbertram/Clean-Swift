@@ -18,6 +18,12 @@ public final class ContactSelectionViewController: UITableViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
+        cancelButton.rx.tap.subscribe(onNext: { [unowned self] in
+            self.dismiss(animated: true, completion: nil)
+        }).addDisposableTo(disposeBag)
+        navigationItem.leftBarButtonItem = cancelButton
+
         viewModel.contacts.asDriver().drive(onNext: { _ in
             self.tableView.reloadData()
         }).addDisposableTo(disposeBag)

@@ -5,11 +5,24 @@
 
 import Swinject
 import SwinjectStoryboard
+import RealmSwift
 import Domain
 
 final class ViewAssembly: Assembly {
 
     func assemble(container: Container) {
+
+        // Utils
+
+        container.register(Seeder.self) { resolver in
+            let contactRepo = resolver.resolve(ContactRepositoryType.self)!
+            return Seeder(contactRepo: contactRepo)
+        }
+
+        container.register(DataBaseLogger.self) { resolver in
+            let config = resolver.resolve(Realm.Configuration.self)!
+            return DataBaseLogger(realmConfig: config)
+        }
 
         // Login
 
@@ -26,11 +39,13 @@ final class ViewAssembly: Assembly {
 
         container.storyboardInitCompleted(ChatListViewController.self) { resolver, vc in
             vc.viewModel = resolver.resolve(ChatListViewModel.self)
+            vc.dataBaseLogger = resolver.resolve(DataBaseLogger.self)
         }
 
         container.register(ChatListViewModel.self) { resolver in
             let getChatsUseCase = resolver.resolve(GetAllChatsUseCase.self)!
             let getChatForContactUseCase = resolver.resolve(GetChatForContactUseCase.self)!
+            let deleteChatUseCase = resolver.resolve(DeleteChatUseCase.self)!
 
             let chatViewModelFactory: ChatListViewModel.ChatViewModelFactory = { conversation in
                 return resolver.resolve(ChatViewModel.self, argument: conversation)!
@@ -38,6 +53,7 @@ final class ViewAssembly: Assembly {
 
             return ChatListViewModel(getChatsUseCase: getChatsUseCase,
                                      getChatForContactUseCase: getChatForContactUseCase,
+                                     deleteChatUseCase: deleteChatUseCase,
                                      chatViewModelFactory: chatViewModelFactory)
         }
 
@@ -49,7 +65,8 @@ final class ViewAssembly: Assembly {
 
         container.register(ChatViewModel.self) { (resolver, chat: Chat) in
             let sendMessageUseCase = resolver.resolve(SendMessageUseCase.self)!
-            return ChatViewModel(chat: chat, sendMessageUseCase: sendMessageUseCase)
+            let observeMessages = resolver.resolve(ObserveMessagesUseCase.self)!
+            return ChatViewModel(chat: chat, sendMessageUseCase: sendMessageUseCase, observeMessages: observeMessages)
         }
 
         // Contact

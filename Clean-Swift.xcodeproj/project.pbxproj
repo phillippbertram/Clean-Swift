@@ -13,6 +13,7 @@
 		512A7D091EA21D9B0075A91F /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2441CD401BBDCC1F861C /* MessageEntity.swift */; };
 		512A7D0A1EA26EDA0075A91F /* MessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2A2768A5BFF26487B5AF /* MessageRepository.swift */; };
 		512A7D0B1EA275440075A91F /* BlockContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2C4680FADC1FDFA20941 /* BlockContact.swift */; };
+		512A7D0C1EA4F1AD0075A91F /* SchedulerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D24AC4482671468C9FAE0 /* SchedulerProvider.swift */; };
 		513F5BCF1E913F7B006F1B81 /* Bootstrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F5BCE1E913F7B006F1B81 /* Bootstrapper.swift */; };
 		513F5BD91E92C81E006F1B81 /* ContactAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F5BD81E92C81E006F1B81 /* ContactAPI.swift */; };
 		513F5BDB1E92C84E006F1B81 /* ContactDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F5BDA1E92C84E006F1B81 /* ContactDTO.swift */; };
@@ -46,6 +47,8 @@
 		9F777AB0CEC026B9B59A1ED6 /* Pods_Clean_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9411583908F3F0848E55C777 /* Pods_Clean_SwiftTests.framework */; };
 		A95D201D90B474343A61EC4A /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D222FD05FABB0CBD274B3 /* TestHelper.swift */; };
 		A95D203DC668FA9A21519F73 /* GetAllChatsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2B8F0DD014D0A8D52843 /* GetAllChatsUseCase.swift */; };
+		A95D20486178393EB7B3F332 /* DeleteChatUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21727E8B8436E9643102 /* DeleteChatUseCase.swift */; };
+		A95D209296B5644A673A0955 /* Seeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D22B28A5BF4102C03A85D /* Seeder.swift */; };
 		A95D222D53EE3E9D8521DE19 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2874BC614C1CA43ECEA3 /* LoginViewController.swift */; };
 		A95D2268F8DD243AD30761D6 /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D27B1DBF14A58D759D1E0 /* ChatRepository.swift */; };
 		A95D22C906316D9DFC337D2F /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21743F6670D0CAAD533B /* ChatRepository.swift */; };
@@ -77,6 +80,7 @@
 		A95D27A959FBCB4B998CD4DE /* RemoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D28AE8B4382F1241AC3FE /* RemoteEntity.swift */; };
 		A95D27DEBAED1B70C6312D8B /* GetContactsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25C920C972A3819ED759 /* GetContactsUseCase.swift */; };
 		A95D28039E752F055FC8B8EB /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2909D397C00DCDC4A739 /* MessageService.swift */; };
+		A95D281EA266AB3E78237811 /* DatabaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2234A754303AAA2925EB /* DatabaseLogger.swift */; };
 		A95D2825BDA1B1677529C1FA /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2C44A706366758D89F62 /* MessageAPI.swift */; };
 		A95D285875CD411B2E5543D0 /* ContactRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2EE10B26DC7BCA5108F3 /* ContactRepository.swift */; };
 		A95D287AB8DD243DCE7A40E9 /* ContactRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2B0AEE98F56FBBE03C5C /* ContactRepository.swift */; };
@@ -91,8 +95,8 @@
 		A95D2B426CB8B1D0DE02612C /* RealmDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D29600A5F6251842765D7 /* RealmDAO.swift */; };
 		A95D2BA5A19A73D45DAF3E98 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D278C002F12CAE97783C3 /* ChatViewController.swift */; };
 		A95D2BF25AD4583057E75E2F /* MarkMessagesReadUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2324CE8E074148EF6468 /* MarkMessagesReadUseCase.swift */; };
+		A95D2C24960872663F053D9C /* ObserveMessagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2BAC12B7424DB02EC694 /* ObserveMessagesUseCase.swift */; };
 		A95D2CACB1B9B985DD33E68E /* ContactSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D28F8CD0AC2D6357B4061 /* ContactSelectionViewModel.swift */; };
-		A95D2D26193D642FF94E1ED5 /* SchedulerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D24AC4482671468C9FAE0 /* SchedulerProvider.swift */; };
 		A95D2D3A39F2B308FC6CEF0A /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D29501EF472D20B1CB002 /* LoginUseCase.swift */; };
 		A95D2D4278D9B8DAB2E13930 /* MessageDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2AFAB951829F4AA789CE /* MessageDAO.swift */; };
 		A95D2D58119424D6D9B1C68E /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2253615A73C3AA2DED12 /* MessageService.swift */; };
@@ -216,14 +220,17 @@
 		A95D20EEF39F0C16DAF8FB4E /* GetChatForContactUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChatForContactUseCase.swift; sourceTree = "<group>"; };
 		A95D210180C3F17A47FA4BBB /* LogoutUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutUseCase.swift; sourceTree = "<group>"; };
 		A95D21440EAF0AAC49CBEB8F /* EventDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDTO.swift; sourceTree = "<group>"; };
+		A95D21727E8B8436E9643102 /* DeleteChatUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteChatUseCase.swift; sourceTree = "<group>"; };
 		A95D21743F6670D0CAAD533B /* ChatRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
 		A95D217EFFC83274E4351F50 /* ViewAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAssembly.swift; sourceTree = "<group>"; };
 		A95D21ACBFAB6B62B49A1B25 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		A95D21CEFBD65E2EA5301CB0 /* CreateChatForContactUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateChatForContactUseCase.swift; sourceTree = "<group>"; };
 		A95D21D1CD995C3989514D71 /* ContactEntityDomainMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactEntityDomainMapper.swift; sourceTree = "<group>"; };
 		A95D222FD05FABB0CBD274B3 /* TestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
+		A95D2234A754303AAA2925EB /* DatabaseLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseLogger.swift; sourceTree = "<group>"; };
 		A95D2253615A73C3AA2DED12 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		A95D226254B69993D191F891 /* ChatDaoSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDaoSpec.swift; sourceTree = "<group>"; };
+		A95D22B28A5BF4102C03A85D /* Seeder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seeder.swift; sourceTree = "<group>"; };
 		A95D22DD2169BD383CD81A3D /* MockCurrentUserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCurrentUserRepository.swift; sourceTree = "<group>"; };
 		A95D230AB1D00C282A78C46A /* MessageEntityDomainMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntityDomainMapper.swift; sourceTree = "<group>"; };
 		A95D2324CE8E074148EF6468 /* MarkMessagesReadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkMessagesReadUseCase.swift; sourceTree = "<group>"; };
@@ -263,6 +270,7 @@
 		A95D2B0ABA10FA7E779C5C12 /* DataIntegrationEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataIntegrationEntity.swift; sourceTree = "<group>"; };
 		A95D2B0AEE98F56FBBE03C5C /* ContactRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactRepository.swift; sourceTree = "<group>"; };
 		A95D2B8F0DD014D0A8D52843 /* GetAllChatsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAllChatsUseCase.swift; sourceTree = "<group>"; };
+		A95D2BAC12B7424DB02EC694 /* ObserveMessagesUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserveMessagesUseCase.swift; sourceTree = "<group>"; };
 		A95D2BBA9021FD99D965FD03 /* SchedulerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulerProvider.swift; sourceTree = "<group>"; };
 		A95D2C44A706366758D89F62 /* MessageAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageAPI.swift; sourceTree = "<group>"; };
 		A95D2C4680FADC1FDFA20941 /* BlockContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockContact.swift; sourceTree = "<group>"; };
@@ -546,6 +554,7 @@
 				A95D21CEFBD65E2EA5301CB0 /* CreateChatForContactUseCase.swift */,
 				A95D2B8F0DD014D0A8D52843 /* GetAllChatsUseCase.swift */,
 				A95D20EEF39F0C16DAF8FB4E /* GetChatForContactUseCase.swift */,
+				A95D21727E8B8436E9643102 /* DeleteChatUseCase.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -612,6 +621,8 @@
 			children = (
 				513F5BCE1E913F7B006F1B81 /* Bootstrapper.swift */,
 				A95D24A6AE044F8307063130 /* Assemblies */,
+				A95D22B28A5BF4102C03A85D /* Seeder.swift */,
+				A95D2234A754303AAA2925EB /* DatabaseLogger.swift */,
 			);
 			path = Bootstrap;
 			sourceTree = "<group>";
@@ -639,6 +650,7 @@
 			children = (
 				A95D2324CE8E074148EF6468 /* MarkMessagesReadUseCase.swift */,
 				A95D2F4DB128524712A7BA91 /* SendMessageUseCase.swift */,
+				A95D2BAC12B7424DB02EC694 /* ObserveMessagesUseCase.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -1403,7 +1415,6 @@
 				A95D261B1A3D7121ACB6E113 /* DomainAssembly.swift in Sources */,
 				A95D2484393145D1E014C023 /* ViewAssembly.swift in Sources */,
 				A95D26A90254232735D11C9D /* DataAssembly.swift in Sources */,
-				A95D2D26193D642FF94E1ED5 /* SchedulerProvider.swift in Sources */,
 				A95D273073794DE867D314ED /* ChatListViewController.swift in Sources */,
 				A95D258AB2A6438934ECCA30 /* ChatListViewModel.swift in Sources */,
 				A95D2696BB700847B922C18C /* ChatListCellViewModel.swift in Sources */,
@@ -1417,6 +1428,8 @@
 				A95D25AF3953B592129A60CF /* Contact+Extensions.swift in Sources */,
 				A95D26D124CAC5A0C9E57075 /* ContactSelectionViewController.swift in Sources */,
 				A95D2CACB1B9B985DD33E68E /* ContactSelectionViewModel.swift in Sources */,
+				A95D209296B5644A673A0955 /* Seeder.swift in Sources */,
+				A95D281EA266AB3E78237811 /* DatabaseLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1454,6 +1467,8 @@
 				A95D27DEBAED1B70C6312D8B /* GetContactsUseCase.swift in Sources */,
 				518B4F9E1E991957005AC41B /* Error.swift in Sources */,
 				A95D24DC855BC32C28B7741B /* GetChatForContactUseCase.swift in Sources */,
+				A95D2C24960872663F053D9C /* ObserveMessagesUseCase.swift in Sources */,
+				A95D20486178393EB7B3F332 /* DeleteChatUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1484,6 +1499,7 @@
 				518B4F9B1E96D3D1005AC41B /* EventListener.swift in Sources */,
 				518B4F9C1E96D8B0005AC41B /* MessageDTO.swift in Sources */,
 				A95D287AB8DD243DCE7A40E9 /* ContactRepository.swift in Sources */,
+				512A7D0C1EA4F1AD0075A91F /* SchedulerProvider.swift in Sources */,
 				A95D24D1C5B163AC9DD1F6B2 /* EventManager.swift in Sources */,
 				A95D29043964B5F540FB6AB0 /* EventDTO.swift in Sources */,
 				512A7D081EA2153D0075A91F /* BaseEntity.swift in Sources */,

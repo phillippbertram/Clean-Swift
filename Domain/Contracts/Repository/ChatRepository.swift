@@ -44,4 +44,6 @@ public protocol ChatRepositoryType {
     /// - Returns: Observable
     func getAll() -> Observable<[Chat]>
 
+    func delete(chat: Chat) -> Observable<Void>
+
 }

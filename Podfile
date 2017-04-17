@@ -4,6 +4,10 @@ def rx_swift
   pod 'RxSwift', '~> 3.4.0'
 end
 
+def rx_cocoa
+  pod 'RxCocoa', '~> 3.4.0'
+end
+
 def logging
   pod 'SwiftyBeaver', '~> 1.2.0'
 end
@@ -19,8 +23,8 @@ target 'Clean-Swift' do
 
   # Pods for Clean
   rx_swift
+  rx_cocoa
   logging
-  pod 'RxCocoa', '~> 3.4.0'
   pod 'Action', '~> 2.2.2'
   pod 'Swinject', '~> 2.0.0'
   pod 'SwinjectStoryboard', '~> 1.0.0'
@@ -40,9 +44,11 @@ target 'Data' do
 
   # Pods for Data
   rx_swift
+  rx_cocoa
   logging
 
   pod 'RealmSwift', '~> 2.5.1'
+  pod 'RxRealm', '~> 0.6.0'
 
   target 'DataTests' do
     inherit! :search_paths
