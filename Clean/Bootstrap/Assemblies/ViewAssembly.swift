@@ -44,12 +44,12 @@ final class ViewAssembly: Assembly {
         }
 
         container.register(ChatListViewModel.self) { resolver in
-            let getChatsUseCase = resolver.resolve(GetAllChatsUseCase.self)!
+            let getChatsUseCase = resolver.resolve(ObserveAllChatsUseCase.self)!
             let getChatForContactUseCase = resolver.resolve(GetChatForContactUseCase.self)!
             let deleteChatUseCase = resolver.resolve(DeleteChatUseCase.self)!
 
-            let chatViewModelFactory: ChatListViewModel.ChatViewModelFactory = { conversation in
-                return resolver.resolve(ChatViewModel.self, argument: conversation)!
+            let chatViewModelFactory: ChatViewModelFactory = { (chatHolder: ChatHolder) in
+                return resolver.resolve(ChatViewModel.self, argument: chatHolder)!
             }
 
             return ChatListViewModel(getChatsUseCase: getChatsUseCase,
@@ -64,11 +64,13 @@ final class ViewAssembly: Assembly {
             vc.viewModel = resolver.resolve(ChatViewModel.self)
         }
 
-        container.register(ChatViewModel.self) { (resolver, chat: Chat) in
+        container.register(ChatViewModel.self) { (resolver, chat: ChatHolder) in
             let sendMessageUseCase = resolver.resolve(SendMessageUseCase.self)!
             let observeMessages = resolver.resolve(ObserveMessagesUseCase.self)!
             let deleteMessageUseCase = resolver.resolve(DeleteMessageUseCase.self)!
-            return ChatViewModel(chat: chat,
+            let createChatUseCase = resolver.resolve(CreateChatForContactUseCase.self)!
+            return ChatViewModel(chatHolder: chat,
+                                 createChatUseCase: createChatUseCase,
                                  sendMessageUseCase: sendMessageUseCase,
                                  observeMessages: observeMessages,
                                  deleteMessageUseCase: deleteMessageUseCase)

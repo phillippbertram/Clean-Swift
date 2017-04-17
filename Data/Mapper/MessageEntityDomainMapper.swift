@@ -16,6 +16,25 @@ extension Message.Status {
                 return .failure
             case .sent:
                 return .sent
+            case .delivered:
+                return .delivered
+        }
+    }
+
+}
+
+extension MessageEntity.Status {
+
+    static func from(_ status: Message.Status) -> MessageEntity.Status {
+        switch status {
+            case .sending:
+                return .sending
+            case .failure:
+                return .failed
+            case .sent:
+                return .sent
+        case .delivered:
+            return .delivered
         }
     }
 

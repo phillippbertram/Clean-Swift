@@ -10,16 +10,16 @@ import Foundation
 
 public struct Chat {
 
-    public let id: String?
+    public var id: String
 
-    public let participant: Contact
-    public let lastMessage: Message?
+    public var participant: Contact
+    public var lastMessage: Message?
 
-    public let lastModifiedAt: Date
-    public let createdAt: Date
+    public var lastModifiedAt: Date
+    public var createdAt: Date
 
     public init(
-            id: String?,
+            id: String,
             participant: Contact,
             lastMessage: Message?,
             lastModifiedAt: Date,
@@ -29,27 +29,6 @@ public struct Chat {
         self.lastMessage = lastMessage
         self.lastModifiedAt = lastModifiedAt
         self.createdAt = createdAt
-    }
-
-}
-
-// MARK: - Convenience
-
-public extension Chat {
-
-    static func createWith(participant: Contact) -> Chat {
-        return Chat(id: nil,
-                    participant: participant,
-                    lastMessage: nil,
-                    lastModifiedAt: Date(),
-                    createdAt: Date())
-    }
-
-    var isTemporary: Bool {
-        if let id = id {
-            return !id.isEmpty
-        }
-        return true
     }
 
 }

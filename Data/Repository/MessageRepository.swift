@@ -32,43 +32,33 @@ extension MessageRepository: MessageRepositoryType {
 
     public func observeAll(for chat: Chat) -> Observable<[Message]> {
         return Observable.deferred { [unowned self] () -> Observable<[MessageEntity]> in
-
-            guard let chatId = chat.id else {
-                return Observable.just([])
-            }
-
-            return self.messageDAO.observe(forChat: chatId)
+            return self.messageDAO.observe(forChat: chat.id)
         }.map(self.messageMapper.mapAll)
     }
 
-    public func create(text: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message> {
+    public func create(message: CreateMessageParam) -> Observable<Message> {
         return Observable.deferred {
                     return self.messageDAO.write { () -> MessageEntity in
 
-                        guard let senderEntity = self.contactDAO.find(byUserName: sender.userName) else {
+                        guard let senderEntity = self.contactDAO.find(byUserName: message.sender.userName) else {
                             throw MessageRepositoryError.contactNotFound
                         }
 
-                        guard let chatEntity = self.chatDAO.find(byPrimaryKey: chat.id!) else {
+                        guard let chatEntity = self.chatDAO.find(byPrimaryKey: message.chatId) else {
                             throw MessageRepositoryError.chatNotFound
                         }
 
                         let entity = MessageEntity(sender: senderEntity, chat: chatEntity)
-                        entity.isIncoming = false
-                        entity.isRead = true
-                        entity.status = MessageEntity.Status.sending
-                        entity.message = text
+                        entity.isIncoming = message.isIncoming
+                        entity.isRead = message.isRead
+                        entity.status = MessageEntity.Status.from(message.status)
+                        entity.message = message.content.text ?? ""
                         return entity
                     }
                 }
                 .map { [unowned self] in
                     self.messageMapper.map($0)
                 }
-    }
-
-    public func createMessage(_ message: Message) -> Observable<Message> {
-        // TODO: implement me
-        fatalError()
     }
 
     public func updateAll(_ messages: [Message]) -> Observable<[Message]> {

@@ -13,6 +13,37 @@ public enum MessageRepositoryError: Error {
     case contactNotFound
 }
 
+public struct CreateMessageParam {
+
+    public var chatId: String
+
+    public var content: Message.Content
+    public var status: Message.Status
+
+    public var sender: Contact
+    public var isIncoming: Bool
+    public var isRead: Bool
+
+    public var timestamp: Date
+
+    public init(chatId: String,
+                content: Message.Content,
+                status: Message.Status,
+                sender: Contact,
+                isIncoming: Bool,
+                isRead: Bool,
+                timestamp: Date) {
+        self.chatId = chatId
+        self.content = content
+        self.status = status
+        self.sender = sender
+        self.isIncoming = isIncoming
+        self.isRead = isRead
+        self.timestamp = timestamp
+    }
+
+}
+
 public protocol MessageRepositoryType {
 
     // MARK: Reading
@@ -31,21 +62,11 @@ public protocol MessageRepositoryType {
 
     // MARK: Creating
 
-    /// Creates a message with given parameters.
-    ///
-    /// - Parameters:
-    ///   - text: the message
-    ///   - sender: the sender
-    ///   - chat: the chat containing the message
-    ///   - status: the initial status fo the chat
-    /// - Returns: Observable
-    func create(text: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message>
-
     /// Creates or updates given message.
     ///
     /// - Parameter message: message
     /// - Returns: Observable
-    func createMessage(_ message: Message) -> Observable<Message>
+    func create(message: CreateMessageParam) -> Observable<Message>
 
     // MARK: Updating
 

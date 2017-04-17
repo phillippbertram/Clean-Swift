@@ -18,20 +18,22 @@ public final class CreateChatForContactUseCase: UseCase<Contact, Chat> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    public override func buildObservable(params contact: Contact) -> Observable<Chat> {
+    override func buildObservable(params contact: Contact) -> Observable<Chat> {
         return chatRepository
-                .getAll()
-                .map { chats in
-                    if let firstChat = chats.filter({ $0.participant == contact }).first {
-                        return firstChat
+                .get(forContact: contact)
+                .catchError { [unowned self] error -> Observable<Chat> in
+                    if case ChatRepositoryError.chatNotFound = error {
+                        return self.createChat(participant: contact)
                     }
-                    return Chat(id: UUID().uuidString,
-                                participant: contact,
-                                lastMessage: nil,
-                                lastModifiedAt: Date(),
-                                createdAt: Date())
+                    return Observable.error(error)
                 }
-                .flatMap(chatRepository.create)
+    }
+
+    private func createChat(participant: Contact) -> Observable<Chat> {
+        return Observable.deferred { [unowned self] in
+            let param = CreateChatParam.for(participant: participant)
+            return self.chatRepository.create(chat: param)
+        }
     }
 
 }

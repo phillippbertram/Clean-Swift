@@ -14,6 +14,16 @@ public enum ChatRepositoryError: Error {
 
 }
 
+public struct CreateChatParam {
+
+    public var participant: Contact
+
+    static func `for`(participant: Contact) -> CreateChatParam {
+        return CreateChatParam(participant: participant)
+    }
+
+}
+
 public protocol ChatRepositoryType {
 
     /// Observes all chats. The Observable will emit `onNext` events
@@ -28,7 +38,7 @@ public protocol ChatRepositoryType {
     ///
     /// - Parameter chat: the chat to create
     /// - Returns: Observable
-    func create(chat: Chat) -> Observable<Chat>
+    func create(chat: CreateChatParam) -> Observable<Chat>
 
     /// Find a chat with given id. If chat does not exist, the observable will
     /// emit an appropriate error.
@@ -37,6 +47,10 @@ public protocol ChatRepositoryType {
     /// - Returns: Observable
     func get(byId: String) -> Observable<Chat>
 
+    /// Finds a chat for given contact
+    ///
+    /// - Parameter forContact: contact
+    /// - Returns: Observable
     func get(forContact: Contact) -> Observable<Chat>
 
     /// Gets all available chats.

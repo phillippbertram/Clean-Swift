@@ -7,37 +7,93 @@ import Domain
 import RxSwift
 import RxCocoa
 
+public enum ChatHolder {
+
+    case temporary(Contact)
+    case existing(Chat)
+
+    var chat: Chat? {
+        if case let .existing(chat) = self {
+            return chat
+        }
+        return nil
+    }
+
+    var chatAvailable: Bool {
+        return chat != nil
+    }
+
+}
+
+public typealias ChatViewModelFactory = ((ChatHolder) -> ChatViewModel)
+
 public final class ChatViewModel {
 
-    let title: Variable<String>
+    let title: Variable<String> = Variable("")
     let messages: Variable<[Message]> = Variable([])
 
     fileprivate let disposeBag = DisposeBag()
 
     fileprivate let sendMessageUseCase: SendMessageUseCase
     fileprivate let deleteMessageUseCase: DeleteMessageUseCase
-    fileprivate let chat: Variable<Chat>
+    fileprivate let createChatUseCase: CreateChatForContactUseCase
+    fileprivate let chatHolder: Variable<ChatHolder>
 
-    public init(chat: Chat,
+    public init(chatHolder: ChatHolder,
+                createChatUseCase: CreateChatForContactUseCase,
                 sendMessageUseCase: SendMessageUseCase,
                 observeMessages: ObserveMessagesUseCase,
                 deleteMessageUseCase: DeleteMessageUseCase) {
-        self.chat = Variable(chat)
-        self.title = Variable(chat.participant.displayName)
+        self.chatHolder = Variable(chatHolder)
         self.sendMessageUseCase = sendMessageUseCase
         self.deleteMessageUseCase = deleteMessageUseCase
+        self.createChatUseCase = createChatUseCase
 
-        observeMessages
-                .build(chat)
+        let chatObserver = self.chatHolder
+                .asObservable()
+
+        // observe title
+        chatObserver
+                .asObservable()
+                .map { holder in
+                    switch holder {
+                        case .temporary(let contact):
+                            return contact.displayName
+                        case .existing(let chat):
+                            return chat.displayName
+                    }
+                }
+                .bind(to: self.title)
+                .addDisposableTo(disposeBag)
+
+        // observe messages
+        chatObserver.filter({ $0.chat != nil })
+                .map({ $0.chat! })
+                .flatMapLatest(observeMessages.build)
                 .bind(to: messages)
                 .addDisposableTo(disposeBag)
     }
 
     public func sendTextMessage(_ text: String) {
-        sendMessageUseCase
-            .build(SendMessageUseCaseParams.from(chat: chat.value, messageText: text))
-            .subscribe()
-            .addDisposableTo(disposeBag)
+        Observable.deferred { [unowned self] () -> Observable<Chat> in
+                    switch self.chatHolder.value {
+                        case .existing(let chat):
+                            return Observable.just(chat)
+                        case .temporary(let contact):
+                            return self.createChatUseCase.build(contact)
+                                    .do(onNext: { [unowned self] chat in
+                                        if !self.chatHolder.value.chatAvailable {
+                                            self.chatHolder.value = .existing(chat)
+                                        }
+                                    })
+                    }
+                }
+                .flatMap { [unowned self] chat -> Observable<MessageResult> in
+                    return self.sendMessageUseCase
+                            .build(SendMessageUseCaseParams.from(chat: chat, messageText: text))
+                }
+                .subscribe()
+                .addDisposableTo(disposeBag)
     }
 
     public func delete(message: Message) {

@@ -25,18 +25,14 @@ public enum MessageResult {
 
 public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, MessageResult> {
 
-    private let createChatUseCase: CreateChatForContactUseCase
     private let messageRepository: MessageRepositoryType
     private let messageService: MessageServiceType
     private let currentUserRepository: AccountRepositoryType
 
     public init(schedulerProvider: SchedulerProviderType,
-                createChatUseCase: CreateChatForContactUseCase,
                 messageRepository: MessageRepositoryType,
                 messageService: MessageServiceType,
                 currentUserRepository: AccountRepositoryType) {
-
-        self.createChatUseCase = createChatUseCase
         self.messageRepository = messageRepository
         self.messageService = messageService
         self.currentUserRepository = currentUserRepository
@@ -44,17 +40,18 @@ public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, Message
     }
 
     public override func buildObservable(params: SendMessageUseCaseParams) -> Observable<MessageResult> {
-        return createChatUseCase
-                .build(params.chat.participant)
-                .flatMap { [unowned self] chat in
-                    self.currentUserRepository.getCurrentUser().map({ ($0, chat) })
-                }
-                .flatMap { (currentUser, chat) in
-                    self.messageRepository
-                            .create(text: params.messageText,
-                                    sender: currentUser.asContact(),
-                                    chat: chat,
-                                    status: .sending)
+        return currentUserRepository.getCurrentUser().map({ ($0, params.chat) })
+                .flatMap { [unowned self] (currentUser, chat) -> Observable<Message> in
+                    let param = CreateMessageParam(chatId: params.chat.id,
+                                                   content: .text(params.messageText),
+                                                   status: .sending,
+                                                   sender: currentUser.asContact(),
+                                                   isIncoming: false,
+                                                   isRead: true,
+                                                   timestamp: Date())
+
+                    return self.messageRepository
+                            .create(message: param)
                 }
                 .flatMap { message in
                     return self.messageService

@@ -8,7 +8,7 @@ import RealmSwift
 public final class MessageEntity: RemoteEntity {
 
     enum Status: String {
-        case sending, sent, failed
+        case sending, sent, failed, delivered
     }
 
     dynamic var message: String = ""

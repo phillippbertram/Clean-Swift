@@ -25,15 +25,12 @@ public final class ChatRepository {
 extension ChatRepository: ChatRepositoryType {
 
     public func observeAll() -> Observable<[Chat]> {
-        return Observable.deferred { [unowned self] () -> Observable<[Chat]> in
-            let chats = self.chatDao.findAll().map { [unowned self] chatEntity in
-                self.chatMapper.map(chatEntity)
-            }
-            return Observable.just(chats)
+        return chatDao.observeAll().map { [unowned self] chatEntities in
+            self.chatMapper.mapAll(chatEntities)
         }
     }
 
-    public func create(chat: Chat) -> Observable<Chat> {
+    public func create(chat: CreateChatParam) -> Observable<Chat> {
         return Observable.deferred { [unowned self] in
             return self.chatDao.write { () -> ChatEntity in
                 let contact = chat.participant
@@ -42,9 +39,6 @@ extension ChatRepository: ChatRepositoryType {
                 contactEntity.firstName = contact.firstName
                 contactEntity.lastName = contact.lastName
                 let chatEntity = ChatEntity(participant: contactEntity)
-                if let chatId = chat.id {
-                    chatEntity.id = chatId
-                }
                 return chatEntity
             }
         }.map { [unowned self] in
@@ -85,9 +79,7 @@ extension ChatRepository: ChatRepositoryType {
     public func delete(chat: Chat) -> Observable<Void> {
         return Observable.deferred { [unowned self] in
             do {
-                if let chatId = chat.id {
-                    try self.chatDao.delete(byId: chatId)
-                }
+                try self.chatDao.delete(byId: chat.id)
             } catch {
                 log.error("Could not delete Chat: \(chat)")
             }

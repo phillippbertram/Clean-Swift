@@ -12,8 +12,6 @@ import RxCocoa
 
 public final class ChatListViewModel {
 
-    public typealias ChatViewModelFactory = ((Chat) -> ChatViewModel)
-
     let title: Variable<String> = Variable("Chats")
     let chats: Variable<[Chat]> = Variable([])
 
@@ -32,12 +30,12 @@ public final class ChatListViewModel {
 
     // MARK: Dependencies
 
-    private let getChatsUseCase: GetAllChatsUseCase
+    private let getChatsUseCase: ObserveAllChatsUseCase
     private let getChatForContactUseCase: GetChatForContactUseCase
     private let deleteChatUseCase: DeleteChatUseCase
     private let chatViewModelFactory: ChatViewModelFactory
 
-    public init(getChatsUseCase: GetAllChatsUseCase,
+    public init(getChatsUseCase: ObserveAllChatsUseCase,
                 getChatForContactUseCase: GetChatForContactUseCase,
                 deleteChatUseCase: DeleteChatUseCase,
                 chatViewModelFactory: @escaping ChatViewModelFactory) {
@@ -65,16 +63,17 @@ public final class ChatListViewModel {
     }
 
     public func startExistingChat(_ chat: Chat) {
-        let chatViewModel = self.chatViewModelFactory(chat)
+        let chatViewModel = self.chatViewModelFactory(.existing(chat))
         self.showChat?(chatViewModel)
     }
 
     public func startChat(forContact contact: Contact) {
         getChatForContactUseCase
                 .build(contact: contact)
-                .catchErrorJustReturn(Chat.createWith(participant: contact))
-                .do(onNext: { [unowned self] chat in
-                    let chatViewModel = self.chatViewModelFactory(chat)
+                .map({ChatHolder.existing($0)})
+                .catchErrorJustReturn(ChatHolder.temporary(contact))
+                .do(onNext: { [unowned self] chatHolder in
+                    let chatViewModel = self.chatViewModelFactory(chatHolder)
                     self.showChat?(chatViewModel)
                 })
                 .subscribe()

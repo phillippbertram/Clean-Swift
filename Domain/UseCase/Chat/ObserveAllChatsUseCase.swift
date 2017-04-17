@@ -1,5 +1,5 @@
 //
-//  GetAllChatsUseCase.swift
+//  ObserveAllChatsUseCase.swift
 //  Clean
 //
 //  Created by Phillipp Bertram on 30/03/2017.
@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public final class GetAllChatsUseCase: UseCase<Void, [Chat]> {
+public final class ObserveAllChatsUseCase: UseCase<Void, [Chat]> {
 
     private let chatRepository: ChatRepositoryType
 

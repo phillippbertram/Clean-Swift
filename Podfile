@@ -72,3 +72,17 @@ target 'Domain' do
   end
 
 end
+
+target 'Common' do
+  use_frameworks!
+
+  # Pods for Common
+  logging
+
+  target 'CommonTests' do
+    inherit! :search_paths
+    # Pods for testing
+    testing
+  end
+
+end

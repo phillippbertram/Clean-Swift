@@ -9,8 +9,7 @@ import RxSwift
 public final class AccountRepository {
 
     fileprivate var data: Set<CurrentUser> = []
-
-    fileprivate var currentUser: CurrentUser?
+    fileprivate let currentUser: Variable<CurrentUser?> = Variable(nil)
 
     public init() {
 
@@ -47,14 +46,14 @@ extension AccountRepository: AccountRepositoryType {
                 return Observable.error(AccountRepositoryError.invalidCredentials)
             }
 
-            self.currentUser = user
+            self.currentUser.value = user
             return Observable.just(user)
         }
     }
 
     public func logout() -> Observable<Void> {
         return Observable.deferred {
-            self.currentUser = nil
+            self.currentUser.value = nil
             return Observable.just()
         }
     }
@@ -62,7 +61,7 @@ extension AccountRepository: AccountRepositoryType {
     public func getCurrentUser() -> Observable<CurrentUser> {
         return Observable.deferred {
 
-            guard let currentUser = self.currentUser else {
+            guard let currentUser = self.currentUser.value else {
                 return Observable.error(AccountRepositoryError.notLoggedIn)
             }
 
@@ -71,12 +70,7 @@ extension AccountRepository: AccountRepositoryType {
     }
 
     public func isLoggedIn() -> Observable<Bool> {
-        return Observable.deferred {
-            if self.currentUser != nil {
-                return Observable.just(true)
-            }
-            return Observable.just(false)
-        }
+        return currentUser.asObservable().map({ $0 != nil }).distinctUntilChanged()
     }
 
 }
