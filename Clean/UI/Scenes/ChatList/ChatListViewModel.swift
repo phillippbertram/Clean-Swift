@@ -33,12 +33,12 @@ public final class ChatListViewModel {
     private let getChatsUseCase: ObserveAllChatsUseCase
     private let getChatForContactUseCase: GetChatForContactUseCase
     private let deleteChatUseCase: DeleteChatUseCase
-    private let chatViewModelFactory: ChatViewModelFactory
+    private let chatViewModelFactory: ChatViewModel.ViewModelFactory
 
     public init(getChatsUseCase: ObserveAllChatsUseCase,
                 getChatForContactUseCase: GetChatForContactUseCase,
                 deleteChatUseCase: DeleteChatUseCase,
-                chatViewModelFactory: @escaping ChatViewModelFactory) {
+                chatViewModelFactory: @escaping ChatViewModel.ViewModelFactory) {
 
         self.getChatsUseCase = getChatsUseCase
         self.getChatForContactUseCase = getChatForContactUseCase

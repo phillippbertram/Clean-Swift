@@ -24,7 +24,7 @@ public final class MessageEntity: RemoteEntity {
             return Status(rawValue: rawStatus)!
         }
         set {
-            self.rawStatus = status.rawValue
+            self.rawStatus = newValue.rawValue
         }
     }
 

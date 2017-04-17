@@ -32,7 +32,7 @@ public struct Message {
     public var content: Content
     public var status: Status
 
-    public var sender: Contact
+    public let sender: Contact
     public var isIncoming: Bool
     public var isRead: Bool
 

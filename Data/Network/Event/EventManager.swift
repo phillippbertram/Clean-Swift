@@ -51,36 +51,3 @@ public final class EventManager: EventManagerType {
     }
 
 }
-
-// MARK: - Mapping
-
-extension Message {
-
-    init(dto: MessageDTO, sender: Contact, isIncoming: Bool, isRead: Bool) {
-        // Data from dto
-        self.id = dto.id
-        self.chatId = dto.chatId
-        self.content = .text(dto.content)
-        self.status = Message.Status(fromString: dto.status)
-        self.timestamp = dto.timestamp
-
-        // defined data
-        self.sender = sender
-        self.isIncoming = isIncoming
-        self.isRead = isRead
-    }
-
-}
-
-extension Message.Status {
-
-    init(fromString raw: String) {
-        switch raw {
-            case "SENDING": self = .sending
-            case "SENT": self = .sent
-            case "DELIVERED": self = .delivered
-            default: self = .sent
-        }
-    }
-
-}

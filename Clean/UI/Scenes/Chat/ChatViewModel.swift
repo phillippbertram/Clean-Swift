@@ -25,18 +25,21 @@ public enum ChatHolder {
 
 }
 
-public typealias ChatViewModelFactory = ((ChatHolder) -> ChatViewModel)
-
 public final class ChatViewModel {
 
-    let title: Variable<String> = Variable("")
-    let messages: Variable<[Message]> = Variable([])
+    public typealias ViewModelFactory = ((ChatHolder) -> ChatViewModel)
+
+    public let title: Variable<String> = Variable("")
+    public let messages: Variable<[Message]> = Variable([])
 
     fileprivate let disposeBag = DisposeBag()
+
+    // MARK: Dependencies
 
     fileprivate let sendMessageUseCase: SendMessageUseCase
     fileprivate let deleteMessageUseCase: DeleteMessageUseCase
     fileprivate let createChatUseCase: CreateChatForContactUseCase
+    fileprivate let observeMessages: ObserveMessagesUseCase
     fileprivate let chatHolder: Variable<ChatHolder>
 
     public init(chatHolder: ChatHolder,
@@ -48,13 +51,17 @@ public final class ChatViewModel {
         self.sendMessageUseCase = sendMessageUseCase
         self.deleteMessageUseCase = deleteMessageUseCase
         self.createChatUseCase = createChatUseCase
+        self.observeMessages = observeMessages
 
+        setupBinding()
+    }
+
+    private func setupBinding() {
         let chatObserver = self.chatHolder
                 .asObservable()
 
         // observe title
         chatObserver
-                .asObservable()
                 .map { holder in
                     switch holder {
                         case .temporary(let contact):
@@ -67,12 +74,21 @@ public final class ChatViewModel {
                 .addDisposableTo(disposeBag)
 
         // observe messages
-        chatObserver.filter({ $0.chat != nil })
+        chatObserver
+                .filter({ $0.chat != nil })
                 .map({ $0.chat! })
-                .flatMapLatest(observeMessages.build)
+                .flatMapLatest { [unowned self] in
+                    self.observeMessages.build($0)
+                }
                 .bind(to: messages)
                 .addDisposableTo(disposeBag)
     }
+
+}
+
+// MARK: - Public API
+
+extension ChatViewModel {
 
     public func sendTextMessage(_ text: String) {
         Observable.deferred { [unowned self] () -> Observable<Chat> in

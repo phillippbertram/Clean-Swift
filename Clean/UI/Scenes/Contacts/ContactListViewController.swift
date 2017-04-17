@@ -19,8 +19,7 @@ public final class ContactListViewController: UITableViewController {
     }
 
     private func setupBinding() {
-
-        viewModel.contacts.asDriver().drive { _ in
+        viewModel.contacts.asDriver().drive { [unowned self] _ in
             self.tableView.reloadData()
         }.addDisposableTo(disposeBag)
 
@@ -33,8 +32,8 @@ public final class ContactListViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
+        let identifier = R.reuseIdentifier.contactSelectionCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)!
 
         let contact = viewModel.contacts.value[indexPath.item]
         cell.textLabel?.text = contact.displayName

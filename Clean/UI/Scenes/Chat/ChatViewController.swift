@@ -61,7 +61,7 @@ extension ChatViewController: UITableViewDataSource {
         let message = viewModel.messages.value[indexPath.item]
 
         cell.textLabel?.text = message.sender.displayName
-        cell.detailTextLabel?.text = message.text
+        cell.detailTextLabel?.text = "[\(message.status)] \(String(describing: message.text))"
 
         return cell
     }

@@ -85,7 +85,7 @@ final class DataIntegrationModel: DataIntegration {
             .flatMap { [unowned self] sender, currentUser -> Observable<Message> in
                 let param = CreateMessageParam(chatId: messageDTO.chatId,
                                                content: .text(messageDTO.content),
-                                               status: Message.Status.init(fromString: messageDTO.status),
+                                               status: .delivered, //Message.Status(fromString: messageDTO.status),
                                                sender: sender,
                                                isIncoming: sender.userName != currentUser.userName,
                                                isRead: true,

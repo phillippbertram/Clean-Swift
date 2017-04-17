@@ -8,6 +8,10 @@ import RxSwift
 import RxRealm
 import Domain
 
+enum RealmError: Error {
+    case entityNotFound
+}
+
 public class RealmBaseDAO<Entity: BaseEntity> {
 
     private let config: Realm.Configuration
@@ -118,6 +122,24 @@ public class RealmBaseDAO<Entity: BaseEntity> {
             do {
                 realm.beginWrite()
                 let entity = try block()
+                realm.add(entity, update: true)
+                try realm.commitWrite()
+                return Observable.just(entity)
+            } catch (let error) {
+                return Observable.error(error)
+            }
+        }
+    }
+    
+    func update(primaryKey: String, block: @escaping ((Entity) throws -> Entity)) -> Observable<Entity> {
+        return Observable.deferred { [unowned self] in
+            let realm = self.getRealm()
+            do {
+                realm.beginWrite()
+                guard let existing = self.find(byPrimaryKey: primaryKey) else {
+                    throw RealmError.entityNotFound
+                }
+                let entity = try block(existing)
                 realm.add(entity, update: true)
                 try realm.commitWrite()
                 return Observable.just(entity)

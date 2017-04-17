@@ -40,7 +40,9 @@ public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, Message
     }
 
     public override func buildObservable(params: SendMessageUseCaseParams) -> Observable<MessageResult> {
-        return currentUserRepository.getCurrentUser().map({ ($0, params.chat) })
+        return currentUserRepository
+                .getCurrentUser()
+                .map({ ($0, params.chat) })
                 .flatMap { [unowned self] (currentUser, chat) -> Observable<Message> in
                     let param = CreateMessageParam(chatId: params.chat.id,
                                                    content: .text(params.messageText),
@@ -53,7 +55,7 @@ public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, Message
                     return self.messageRepository
                             .create(message: param)
                 }
-                .flatMap { message in
+                .flatMap { [unowned self] message in
                     return self.messageService
                             .send(message: message, toContact: params.chat.participant.userName)
                             .catchError { error in

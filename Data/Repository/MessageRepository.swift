@@ -67,8 +67,17 @@ extension MessageRepository: MessageRepositoryType {
     }
 
     public func update(message: Message) -> Observable<Message> {
-        // TODO: implement me
-        fatalError()
+        return Observable.deferred { [unowned self] in
+            return self.messageDAO.update(primaryKey: message.id) { messageEntity in
+                messageEntity.status = MessageEntity.Status.from(message.status)
+                messageEntity.isIncoming = message.isIncoming
+                messageEntity.isRead = message.isRead
+                messageEntity.message = message.content.text ?? ""
+                return messageEntity
+            }
+        }.map { [unowned self] in
+                self.messageMapper.map($0)
+        }
     }
 
     public func delete(message: Message) -> Observable<Void> {

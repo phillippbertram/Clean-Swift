@@ -8,22 +8,6 @@
 
 import RxSwift
 
-public enum ChatRepositoryError: Error {
-
-    case chatNotFound
-
-}
-
-public struct CreateChatParam {
-
-    public var participant: Contact
-
-    static func `for`(participant: Contact) -> CreateChatParam {
-        return CreateChatParam(participant: participant)
-    }
-
-}
-
 public protocol ChatRepositoryType {
 
     /// Observes all chats. The Observable will emit `onNext` events
@@ -58,6 +42,30 @@ public protocol ChatRepositoryType {
     /// - Returns: Observable
     func getAll() -> Observable<[Chat]>
 
+    /// Deletes given chat
+    ///
+    /// - Parameter chat: chat
+    /// - Returns: Observable
     func delete(chat: Chat) -> Observable<Void>
+
+}
+
+// MARK: - Error
+
+public enum ChatRepositoryError: Error {
+
+    case chatNotFound
+
+}
+
+// MARK: - CreateChatParam
+
+public struct CreateChatParam {
+
+    public var participant: Contact
+
+    static func `for`(participant: Contact) -> CreateChatParam {
+        return CreateChatParam(participant: participant)
+    }
 
 }

@@ -48,7 +48,7 @@ final class ViewAssembly: Assembly {
             let getChatForContactUseCase = resolver.resolve(GetChatForContactUseCase.self)!
             let deleteChatUseCase = resolver.resolve(DeleteChatUseCase.self)!
 
-            let chatViewModelFactory: ChatViewModelFactory = { (chatHolder: ChatHolder) in
+            let chatViewModelFactory: ChatViewModel.ViewModelFactory = { (chatHolder: ChatHolder) in
                 return resolver.resolve(ChatViewModel.self, argument: chatHolder)!
             }
 

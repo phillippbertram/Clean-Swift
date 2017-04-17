@@ -27,10 +27,11 @@ extension MessageService: MessageServiceType {
         let request = MessageRequestDTO()
         return messageAPI.send(message: request, receiver: userName)
                 .map { messageDTO in
-                    return Message(dto: messageDTO,
-                                   sender: message.sender,
-                                   isIncoming: message.isIncoming,
-                                   isRead: message.isRead)
+                    return message // TODO: implement me
+                }
+                .delay(1, scheduler: MainScheduler.instance)
+                .flatMap { _ in
+                    Observable.error(APIError.general)
                 }
     }
 }
