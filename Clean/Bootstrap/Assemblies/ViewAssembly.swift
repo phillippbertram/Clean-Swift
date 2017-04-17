@@ -10,6 +10,7 @@ import Domain
 
 final class ViewAssembly: Assembly {
 
+    // swiftlint:disable:next function_body_length
     func assemble(container: Container) {
 
         // Utils

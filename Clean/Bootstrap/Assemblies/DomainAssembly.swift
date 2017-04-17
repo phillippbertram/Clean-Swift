@@ -9,6 +9,7 @@ import Data
 
 final class DomainAssembly: Assembly {
 
+    // swiftlint:disable:next function_body_length
     func assemble(container: Container) {
 
         // Authentication

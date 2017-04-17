@@ -8,6 +8,11 @@
 
 import RxSwift
 
+public enum MessageRepositoryError: Error {
+    case chatNotFound
+    case contactNotFound
+}
+
 public protocol MessageRepositoryType {
 
     // MARK: Reading

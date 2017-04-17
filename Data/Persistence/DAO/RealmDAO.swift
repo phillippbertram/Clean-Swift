@@ -8,19 +8,7 @@ import RxSwift
 import RxRealm
 import Domain
 
-protocol RealmDAOType {
-
-    associatedtype Entity = BaseEntity
-
-    func findAll() -> [Entity]
-
-    func find(withFilter filter: (Entity) -> Bool) -> [Entity]
-
-    func deleteAll()
-
-}
-
-public class RealmBaseDAO<Entity:BaseEntity> {
+public class RealmBaseDAO<Entity: BaseEntity> {
 
     private let config: Realm.Configuration
 
@@ -105,12 +93,12 @@ public class RealmBaseDAO<Entity:BaseEntity> {
 
     // MARK: Writing
 
-    func write(block: @escaping (() -> [Entity])) -> Observable<[Entity]> {
+    func write(block: @escaping (() throws ->[Entity])) -> Observable<[Entity]> {
         return Observable.deferred { [unowned self] in
             let realm = self.getRealm()
             do {
                 realm.beginWrite()
-                let entities = block()
+                let entities = try block()
                 for entity in entities {
                     realm.add(entity, update: true)
                 }
@@ -124,12 +112,12 @@ public class RealmBaseDAO<Entity:BaseEntity> {
 
     }
 
-    func write(block: @escaping (() -> Entity)) -> Observable<Entity> {
+    func write(block: @escaping (() throws -> Entity)) -> Observable<Entity> {
         return Observable.deferred { [unowned self] in
             let realm = self.getRealm()
             do {
                 realm.beginWrite()
-                let entity = block()
+                let entity = try block()
                 realm.add(entity, update: true)
                 try realm.commitWrite()
                 return Observable.just(entity)

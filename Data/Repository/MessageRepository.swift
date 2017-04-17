@@ -44,8 +44,15 @@ extension MessageRepository: MessageRepositoryType {
     public func create(text: String, sender: Contact, chat: Chat, status: Message.Status) -> Observable<Message> {
         return Observable.deferred {
                     return self.messageDAO.write { () -> MessageEntity in
-                        let senderEntity = self.contactDAO.find(byUserName: sender.userName)!
-                        let chatEntity = self.chatDAO.find(byPrimaryKey: chat.id!)!
+
+                        guard let senderEntity = self.contactDAO.find(byUserName: sender.userName) else {
+                            throw MessageRepositoryError.contactNotFound
+                        }
+
+                        guard let chatEntity = self.chatDAO.find(byPrimaryKey: chat.id!) else {
+                            throw MessageRepositoryError.chatNotFound
+                        }
+
                         let entity = MessageEntity(sender: senderEntity, chat: chatEntity)
                         entity.isIncoming = false
                         entity.isRead = true
@@ -60,14 +67,17 @@ extension MessageRepository: MessageRepositoryType {
     }
 
     public func createMessage(_ message: Message) -> Observable<Message> {
+        // TODO: implement me
         fatalError()
     }
 
     public func updateAll(_ messages: [Message]) -> Observable<[Message]> {
+        // TODO: implement me
         fatalError()
     }
 
     public func update(message: Message) -> Observable<Message> {
+        // TODO: implement me
         fatalError()
     }
 

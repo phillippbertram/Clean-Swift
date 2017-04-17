@@ -10,7 +10,7 @@ public final class DeleteMessageUseCase: UseCase<Message, Void> {
     private let messageRepository: MessageRepositoryType
 
     public init(schedulerProvider: SchedulerProviderType,
-                  messageRepository: MessageRepositoryType) {
+                messageRepository: MessageRepositoryType) {
         self.messageRepository = messageRepository
         super.init(schedulerProvider: schedulerProvider)
     }
@@ -18,6 +18,5 @@ public final class DeleteMessageUseCase: UseCase<Message, Void> {
     override func buildObservable(params: Message) -> Observable<Void> {
         return messageRepository.delete(message: params)
     }
-
 
 }
