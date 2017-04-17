@@ -15,7 +15,7 @@ final class ContactListViewModel {
 
     init(getContactsUseCase: GetContactsUseCase) {
         getContactsUseCase.build()
-            .bindTo(contacts)
+            .bind(to: contacts)
             .addDisposableTo(disposeBag)
     }
 

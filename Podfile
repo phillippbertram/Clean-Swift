@@ -22,8 +22,8 @@ target 'Clean-Swift' do
   logging
   pod 'RxCocoa', '~> 3.4.0'
   pod 'Action', '~> 2.2.2'
-  pod 'Swinject'
-  pod 'SwinjectStoryboard'
+  pod 'Swinject', '~> 2.0.0'
+  pod 'SwinjectStoryboard', '~> 1.0.0'
   pod 'Material', '~> 2.6.3'
   pod 'R.swift', '~> 3.2.0'
   pod 'SwiftLint', '~> 0.18.1'

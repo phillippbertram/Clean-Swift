@@ -28,8 +28,8 @@ final class LoginViewController: UIViewController, SegueHandlerType {
     }
 
     private func setupBinding() {
-        userNameTextField.rx.text.bindTo(viewModel.userName).addDisposableTo(disposeBag)
-        passwordTextField.rx.text.bindTo(viewModel.password).addDisposableTo(disposeBag)
+        userNameTextField.rx.text.bind(to: viewModel.userName).addDisposableTo(disposeBag)
+        passwordTextField.rx.text.bind(to: viewModel.password).addDisposableTo(disposeBag)
 
         loginButton.rx.action = viewModel.loginAction
         viewModel

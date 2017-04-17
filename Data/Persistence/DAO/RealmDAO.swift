@@ -7,6 +7,7 @@ import RealmSwift
 import RxSwift
 
 protocol RealmDAOType {
+
     associatedtype Entity = BaseEntity
 
     func findAll() -> [Entity]

@@ -39,7 +39,7 @@ public final class ChatListViewModel {
 
         getChatsUseCase
                 .build()
-                .bindTo(chats)
+                .bind(to: chats)
                 .addDisposableTo(disposeBag)
     }
 

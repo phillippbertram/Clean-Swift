@@ -14,7 +14,7 @@ public final class ContactSelectionViewModel {
     private let disposeBag = DisposeBag()
 
     init(getContactsUseCase: GetContactsUseCase) {
-        getContactsUseCase.build().bindTo(contacts).addDisposableTo(disposeBag)
+        getContactsUseCase.build().bind(to: contacts).addDisposableTo(disposeBag)
     }
 
 }
