@@ -39,6 +39,10 @@ public final class ChatViewController: UIViewController {
             self.tableView.reloadData()
         }).addDisposableTo(disposeBag)
 
+        tableView.rx.itemDeleted.asDriver().drive(onNext: { [unowned self] indexPath in
+            let message = self.viewModel.messages.value[indexPath.item]
+            self.viewModel.delete(message: message)
+        }).addDisposableTo(disposeBag)
     }
 
 }

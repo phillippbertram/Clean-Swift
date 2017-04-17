@@ -15,14 +15,17 @@ public final class ChatViewModel {
     fileprivate let disposeBag = DisposeBag()
 
     fileprivate let sendMessageUseCase: SendMessageUseCase
+    fileprivate let deleteMessageUseCase: DeleteMessageUseCase
     fileprivate let chat: Variable<Chat>
 
     public init(chat: Chat,
                 sendMessageUseCase: SendMessageUseCase,
-                observeMessages: ObserveMessagesUseCase) {
+                observeMessages: ObserveMessagesUseCase,
+                deleteMessageUseCase: DeleteMessageUseCase) {
         self.chat = Variable(chat)
         self.title = Variable(chat.participant.displayName)
         self.sendMessageUseCase = sendMessageUseCase
+        self.deleteMessageUseCase = deleteMessageUseCase
 
         observeMessages
                 .build(chat)
@@ -35,6 +38,13 @@ public final class ChatViewModel {
             .build(SendMessageUseCaseParams.from(chat: chat.value, messageText: text))
             .subscribe()
             .addDisposableTo(disposeBag)
+    }
+
+    public func delete(message: Message) {
+        deleteMessageUseCase
+                .build(message)
+                .subscribe()
+                .addDisposableTo(disposeBag)
     }
 
 }

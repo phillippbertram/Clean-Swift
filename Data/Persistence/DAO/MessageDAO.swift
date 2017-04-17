@@ -4,7 +4,18 @@
 //
 
 import RealmSwift
+import RxSwift
 
 public final class MessageDAO: RealmBaseDAO<MessageEntity> {
+
+    func observe(forChat chatId: String) -> Observable<[MessageEntity]> {
+        return observe(byFilter: NSPredicate(format: "chat.id == '\(chatId)'"))
+    }
+
+    func deleteAll(forChatWithId chatId: String) throws {
+        try deleteAll { entity in
+            entity.chat?.id == chatId
+        }
+    }
 
 }

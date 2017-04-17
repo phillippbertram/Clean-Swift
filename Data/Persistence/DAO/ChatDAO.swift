@@ -29,17 +29,13 @@ public final class ChatDAO: RealmBaseDAO<ChatEntity> {
     // MARK: - Delete
 
     override func delete(entity chatEntity: ChatEntity) throws {
+        try messageDAO.deleteAll(forChatWithId: chatEntity.id)
         try super.delete(entity: chatEntity)
-        try messageDAO.deleteAll { entity in
-            entity.chat.id == entity.id
-        }
     }
 
     override func delete(byId primaryKey: String) throws {
+        try messageDAO.deleteAll(forChatWithId: primaryKey)
         try super.delete(byId: primaryKey)
-        try messageDAO.deleteAll { entity in
-            entity.chat.id == primaryKey
-        }
     }
 
     override func deleteAll() throws {

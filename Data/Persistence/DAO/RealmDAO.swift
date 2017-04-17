@@ -20,7 +20,7 @@ protocol RealmDAOType {
 
 }
 
-public class RealmBaseDAO<Entity: BaseEntity> {
+public class RealmBaseDAO<Entity:BaseEntity> {
 
     private let config: Realm.Configuration
 
@@ -80,17 +80,27 @@ public class RealmBaseDAO<Entity: BaseEntity> {
     /// - Parameter primaryKey: primary key
     /// - Returns: entity
     func find(byPrimaryKey primaryKey: String) -> Entity? {
-        return find(withFilter:({ $0.id == primaryKey })).first
+        return find(withFilter: ({ $0.id == primaryKey })).first
     }
 
     // MARK: Observing
 
     func observeAll() -> Observable<[Entity]> {
         return Observable.deferred { [unowned self] () -> Observable<[Entity]> in
-            let all = self.queryAll()
-            return Observable.arrayWithChangeset(from: all).map({ return $0.0 })
-        }
-        .subscribeOn(schedulerProvider.mainScheduler)
+                    let all = self.queryAll()
+                    return Observable.arrayWithChangeset(from: all).map({ return $0.0 })
+                }
+                .subscribeOn(schedulerProvider.mainScheduler)
+                .observeOn(schedulerProvider.mainScheduler)
+    }
+
+    func observe(byFilter predicate: NSPredicate) -> Observable<[Entity]> {
+        return Observable.deferred { [unowned self] () -> Observable<[Entity]> in
+                    let all = self.query(withFilter: predicate)
+                    return Observable.arrayWithChangeset(from: all).map({ return $0.0 })
+                }
+                .subscribeOn(schedulerProvider.mainScheduler)
+                .observeOn(schedulerProvider.mainScheduler)
     }
 
     // MARK: Writing

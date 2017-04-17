@@ -37,7 +37,7 @@ extension MessageRepository: MessageRepositoryType {
                 return Observable.just([])
             }
 
-            return self.messageDAO.observeAll()
+            return self.messageDAO.observe(forChat: chatId)
         }.map(self.messageMapper.mapAll)
     }
 
@@ -72,7 +72,14 @@ extension MessageRepository: MessageRepositoryType {
     }
 
     public func delete(message: Message) -> Observable<Void> {
-        fatalError()
+        return Observable.deferred { [unowned self] in
+            do {
+                try self.messageDAO.delete(byId: message.id)
+            } catch {
+                log.error("Could not delete Message: \(message)")
+            }
+            return Observable.just(())
+        }
     }
 
 }

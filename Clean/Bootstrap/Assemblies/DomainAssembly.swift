@@ -79,6 +79,13 @@ final class DomainAssembly: Assembly {
             return ObserveMessagesUseCase(schedulerProvider: schedulerProvider, messageRepository: messageRepository)
         }
 
+        container.register(DeleteMessageUseCase.self) { resolver in
+            let messageRepository = resolver.resolve(MessageRepositoryType.self)!
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return DeleteMessageUseCase(schedulerProvider: schedulerProvider,
+                                        messageRepository: messageRepository)
+        }
+
     }
 
 }
