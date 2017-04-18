@@ -16,8 +16,8 @@ final class ViewAssembly: Assembly {
         // Utils
 
         container.register(Seeder.self) { resolver in
-            let contactRepo = resolver.resolve(ContactRepositoryType.self)!
-            return Seeder(contactRepo: contactRepo)
+            let createContactUseCase = resolver.resolve(CreateContactUseCase.self)!
+            return Seeder(createContactUseCase: createContactUseCase)
         }
 
         container.register(DataBaseLogger.self) { resolver in

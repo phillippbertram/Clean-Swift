@@ -14,7 +14,7 @@ final class ChatEntityDomainMapper {
         return Chat(id: entity.id,
                     participant: contactMapper.map(entity.participant),
                     lastMessage: nil,
-                    lastModifiedAt: entity.modifiedAt,
+                    modifiedAt: entity.modifiedAt,
                     createdAt: entity.createdAt)
     }
 

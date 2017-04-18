@@ -68,6 +68,7 @@
 		A95D245A654DBDC47995BA56 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D257C49CF49E973B1D303 /* Contact.swift */; };
 		A95D2484393145D1E014C023 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D217EFFC83274E4351F50 /* ViewAssembly.swift */; };
 		A95D24D1C5B163AC9DD1F6B2 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2E935CFFD909B168EC80 /* EventManager.swift */; };
+		A95D24D79A21F5E3F9DDD95F /* CreateContactUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2254E25A951A75E91196 /* CreateContactUseCase.swift */; };
 		A95D24DC855BC32C28B7741B /* GetChatForContactUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D20EEF39F0C16DAF8FB4E /* GetChatForContactUseCase.swift */; };
 		A95D24E8B0607BD2BDC4236A /* LoginUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D287E3EE59587674D98F0 /* LoginUseCaseSpec.swift */; };
 		A95D25749C58EE08B9323A01 /* Observable+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D22EB0229F2BCAA4021B2 /* Observable+Test.swift */; };
@@ -264,6 +265,7 @@
 		A95D21FA86B7757A66817102 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A95D2234A754303AAA2925EB /* DatabaseLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseLogger.swift; sourceTree = "<group>"; };
 		A95D2253615A73C3AA2DED12 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		A95D2254E25A951A75E91196 /* CreateContactUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateContactUseCase.swift; sourceTree = "<group>"; };
 		A95D22B28A5BF4102C03A85D /* Seeder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seeder.swift; sourceTree = "<group>"; };
 		A95D22EB0229F2BCAA4021B2 /* Observable+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Test.swift"; sourceTree = "<group>"; };
 		A95D230AB1D00C282A78C46A /* MessageEntityDomainMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntityDomainMapper.swift; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 				A95D28AA58991E8B0A9240CD /* UseCase */,
 				A95D2B3CAAE812927D42E6B2 /* TestUtils */,
 				A95D223D5965798CE5A119F7 /* Mocks */,
+				A95D2A43D819DBA902E9ADC2 /* Entities */,
 			);
 			path = DomainTests;
 			sourceTree = "<group>";
@@ -853,6 +856,13 @@
 			path = Entitiy;
 			sourceTree = "<group>";
 		};
+		A95D2A43D819DBA902E9ADC2 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		A95D2A8A94F83424826D96CD /* ContactSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -902,6 +912,7 @@
 			children = (
 				A95D25C920C972A3819ED759 /* GetContactsUseCase.swift */,
 				A95D2C4680FADC1FDFA20941 /* BlockContact.swift */,
+				A95D2254E25A951A75E91196 /* CreateContactUseCase.swift */,
 			);
 			path = Contact;
 			sourceTree = "<group>";
@@ -1747,6 +1758,7 @@
 				A95D20486178393EB7B3F332 /* DeleteChatUseCase.swift in Sources */,
 				A95D2C1980023F005C479400 /* DeleteMessageUseCase.swift in Sources */,
 				A95D2ABA5C49FEA4B2411C09 /* Logger.swift in Sources */,
+				A95D24D79A21F5E3F9DDD95F /* CreateContactUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

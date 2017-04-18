@@ -28,6 +28,10 @@ public final class ChatViewController: UIViewController {
         prepare()
     }
 
+    deinit {
+        log.debug("Deinit")
+    }
+
     private func prepare() {
         viewModel.title.asDriver().drive(rx.title).addDisposableTo(disposeBag)
 

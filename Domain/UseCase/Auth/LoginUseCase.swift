@@ -24,6 +24,7 @@ public final class LoginUseCase: UseCase<LoginUseCaseParams, CurrentUser> {
     public override func buildObservable(params: LoginUseCaseParams) -> Observable<CurrentUser> {
         return currentUserRepository
             .login(withUserName: params.userName, andPassword: params.password)
+            .asObservable()
     }
 
 }

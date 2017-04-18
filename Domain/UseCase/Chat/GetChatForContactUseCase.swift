@@ -17,7 +17,7 @@ public final class GetChatForContactUseCase {
     }
 
     public func build(contact: Contact) -> Observable<Chat> {
-        return chatRepository.get(forContact: contact)
+        return chatRepository.get(forContact: contact).asObservable()
     }
 
 }

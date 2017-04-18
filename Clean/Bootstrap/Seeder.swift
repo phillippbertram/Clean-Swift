@@ -6,12 +6,13 @@
 import RxSwift
 import Domain
 
+// swiftlint:disable line_length
 final class Seeder {
 
-    fileprivate let contactRepo: ContactRepositoryType
+    fileprivate let createContactUseCase: CreateContactUseCase
 
-    init(contactRepo: ContactRepositoryType) {
-        self.contactRepo = contactRepo
+    init(createContactUseCase: CreateContactUseCase) {
+        self.createContactUseCase = createContactUseCase
     }
 
     func seedData() -> Observable<Void> {
@@ -19,8 +20,8 @@ final class Seeder {
     }
 
     private func createContacts() -> Observable<Void> {
-        let c1 = contactRepo.create(contact: Contact(userName: "pbe", firstName: "Phillipp", lastName: "Bertram"))
-        let c2 = contactRepo.create(contact: Contact(userName: "alb", firstName: "Alexander", lastName: "Brechmann"))
+        let c1 = createContactUseCase.build(CreateContactParam(userName: "pbe", firstName: "Phillipp", lastName: "Bertram"))
+        let c2 = createContactUseCase.build(CreateContactParam(userName: "alb", firstName: "Alexander", lastName: "Brechmann"))
 
         return Observable.concat(c1, c2).toArray().map({ _ in () })
     }

@@ -59,6 +59,12 @@ final class DomainAssembly: Assembly {
             return GetContactsUseCase(schedulerProvider: schedulerProvider, contactRepository: contactRepository)
         }
 
+        container.register(CreateContactUseCase.self) { resolver in
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            let contactRepository = resolver.resolve(ContactRepositoryType.self)!
+            return CreateContactUseCase(schedulerProvider: schedulerProvider, contactRepository: contactRepository)
+        }
+
         // MARK: Messages
 
         container.register(SendMessageUseCase.self) { resolver in

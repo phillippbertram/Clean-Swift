@@ -22,16 +22,17 @@ public final class MarkMessagesReadUseCase: UseCase<Chat, Void> {
                 .getAll(for: chat)
                 .flatMap(updateMessages)
                 .map({ _ in () })
+                .asObservable()
     }
 
-    private func updateMessages(messages: [Message]) -> Observable<[Message]> {
-        return Observable.deferred {
+    private func updateMessages(messages: [Message]) -> Single<[Message]> {
+        return Single.deferred {
                     let updatedMessages = messages.map { message -> Message in
                         var mutableMessage = message
                         mutableMessage.isRead = true
                         return mutableMessage
                     }
-                    return Observable.just(updatedMessages)
+                    return Single.just(updatedMessages)
                 }
                 .flatMap(messageRepository.updateAll)
     }

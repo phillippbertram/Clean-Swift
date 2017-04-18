@@ -22,31 +22,31 @@ public protocol ChatRepositoryType {
     ///
     /// - Parameter chat: the chat to create
     /// - Returns: Observable
-    func create(chat: CreateChatParam) -> Observable<Chat>
+    func create(chat: CreateChatParam) -> Single<Chat>
 
     /// Find a chat with given id. If chat does not exist, the observable will
     /// emit an appropriate error.
     ///
     /// - Parameter withId: the id.
     /// - Returns: Observable
-    func get(byId: String) -> Observable<Chat>
+    func get(byId: String) -> Single<Chat>
 
     /// Finds a chat for given contact
     ///
     /// - Parameter forContact: contact
     /// - Returns: Observable
-    func get(forContact: Contact) -> Observable<Chat>
+    func get(forContact: Contact) -> Single<Chat>
 
     /// Gets all available chats.
     ///
     /// - Returns: Observable
-    func getAll() -> Observable<[Chat]>
+    func getAll() -> Single<[Chat]>
 
     /// Deletes given chat
     ///
     /// - Parameter chat: chat
     /// - Returns: Observable
-    func delete(chat: Chat) -> Observable<Void>
+    func delete(chat: Chat) -> Completable
 
 }
 

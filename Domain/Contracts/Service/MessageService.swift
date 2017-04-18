@@ -15,6 +15,6 @@ public protocol MessageServiceType {
     ///
     /// - Parameter message: the message
     /// - Returns: Observable
-    func send(message: Message, toContact: String) -> Observable<Message>
+    func send(message: Message, toContact: String) -> Single<Message>
 
 }

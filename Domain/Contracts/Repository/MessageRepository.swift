@@ -52,7 +52,7 @@ public protocol MessageRepositoryType {
     ///
     /// - Parameter chat: the chat.
     /// - Returns: Observable
-    func getAll(`for` chat: Chat) -> Observable<[Message]>
+    func getAll(`for` chat: Chat) -> Single<[Message]>
 
     /// Observes all messages for given chat.
     ///
@@ -66,7 +66,7 @@ public protocol MessageRepositoryType {
     ///
     /// - Parameter message: message
     /// - Returns: Observable
-    func create(message: CreateMessageParam) -> Observable<Message>
+    func create(message: CreateMessageParam) -> Single<Message>
 
     // MARK: Updating
 
@@ -74,13 +74,13 @@ public protocol MessageRepositoryType {
     ///
     /// - Parameter message: the Message to update
     /// - Returns: Observable
-    func update(message: Message) -> Observable<Message>
+    func update(message: Message) -> Single<Message>
 
     /// Updates all messages. Not existing chats are ignored.
     ///
     /// - Parameter messages: The messages.
     /// - Returns: Observable
-    func updateAll(_ messages: [Message]) -> Observable<[Message]>
+    func updateAll(_ messages: [Message]) -> Single<[Message]>
 
     // MARK: Deleting
 
@@ -88,6 +88,11 @@ public protocol MessageRepositoryType {
     ///
     /// - Parameter message: message to delete
     /// - Returns: Observable
-    func delete(message: Message) -> Observable<Void>
+    func delete(message: Message) -> Completable
+
+    /// Returns all unsynced messages
+    ///
+    /// - Returns: Observable
+    func getAllUnSynced() -> Single<[Message]>
 
 }

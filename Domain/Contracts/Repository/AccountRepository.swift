@@ -20,17 +20,17 @@ public protocol AccountRepositoryType {
     ///   - username: the user name.
     ///   - password: awesome secret.
     /// - Returns: Observable
-    func login(withUserName username: String, andPassword password: String) -> Observable<CurrentUser>
+    func login(withUserName username: String, andPassword password: String) -> Single<CurrentUser>
 
     /// Deletes the entire user model and its credentials.
     ///
     /// - Returns: Observable
-    func logout() -> Observable<Void>
+    func logout() -> Completable
 
     /// Gets the current user. If not available, it will emit a `notLoggedIn` error.
     ///
     /// - Returns: Observable
-    func getCurrentUser() -> Observable<CurrentUser>
+    func getCurrentUser() -> Single<CurrentUser>
 
     /// Indicates if the user is logged in or not.
     ///

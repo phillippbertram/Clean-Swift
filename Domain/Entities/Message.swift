@@ -88,7 +88,7 @@ public extension Message.Content {
 
 }
 
-// MARK: - Comparable
+// MARK: - Comparable, Hashable
 
 extension Message: Comparable, Hashable {
 
