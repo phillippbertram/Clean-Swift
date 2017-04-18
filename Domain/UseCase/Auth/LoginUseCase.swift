@@ -11,7 +11,7 @@ enum LoginError: Error {
 
 }
 
-public final class LoginUseCase: UseCase<LoginUseCaseParams, CurrentUser> {
+public final class LoginUseCase: SingleUseCase<LoginUseCaseParams, CurrentUser> {
 
     private let currentUserRepository: AccountRepositoryType
 
@@ -21,10 +21,9 @@ public final class LoginUseCase: UseCase<LoginUseCaseParams, CurrentUser> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    public override func buildObservable(params: LoginUseCaseParams) -> Observable<CurrentUser> {
+    public override func buildObservable(params: LoginUseCaseParams) -> Single<CurrentUser> {
         return currentUserRepository
             .login(withUserName: params.userName, andPassword: params.password)
-            .asObservable()
     }
 
 }
