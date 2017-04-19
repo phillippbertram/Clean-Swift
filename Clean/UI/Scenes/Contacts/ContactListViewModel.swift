@@ -13,7 +13,7 @@ final class ContactListViewModel {
 
     fileprivate let disposeBag = DisposeBag()
 
-    init(getContactsUseCase: GetContactsUseCase) {
+    init(getContactsUseCase: ObserveContactsUseCase) {
         getContactsUseCase.build()
             .bind(to: contacts)
             .addDisposableTo(disposeBag)

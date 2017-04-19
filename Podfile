@@ -79,6 +79,7 @@ target 'Common' do
 
   # Pods for Common
   logging
+  rx_swift
 
   target 'CommonTests' do
     inherit! :search_paths

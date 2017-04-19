@@ -91,10 +91,10 @@ public final class ChatViewModel {
 extension ChatViewModel {
 
     public func sendTextMessage(_ text: String) {
-        Observable.deferred { [unowned self] () -> Observable<Chat> in
+        Single.deferred { [unowned self] () -> Single<Chat> in
                     switch self.chatHolder.value {
                         case .existing(let chat):
-                            return Observable.just(chat)
+                            return Single.just(chat)
                         case .temporary(let contact):
                             return self.createChatUseCase.build(contact)
                                     .do(onNext: { [unowned self] chat in
@@ -104,7 +104,7 @@ extension ChatViewModel {
                                     })
                     }
                 }
-                .flatMap { [unowned self] chat -> Observable<MessageResult> in
+                .flatMap { [unowned self] chat -> Single<MessageResult> in
                     return self.sendMessageUseCase
                             .build(SendMessageUseCaseParams.from(chat: chat, messageText: text))
                 }

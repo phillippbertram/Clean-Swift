@@ -8,16 +8,17 @@
 
 import RxSwift
 
-public final class GetChatForContactUseCase {
+public final class GetChatForContactUseCase: SingleUseCase<Contact, Chat> {
 
     private let chatRepository: ChatRepositoryType
 
-    public init(chatRepository: ChatRepositoryType) {
+    public init(schedulerProvider: SchedulerProviderType, chatRepository: ChatRepositoryType) {
         self.chatRepository = chatRepository
+        super.init(schedulerProvider: schedulerProvider)
     }
 
-    public func build(contact: Contact) -> Observable<Chat> {
-        return chatRepository.get(forContact: contact).asObservable()
+    override func buildObservable(params contact: Contact) -> Single<Chat> {
+        return chatRepository.get(forContact: contact)
     }
 
 }

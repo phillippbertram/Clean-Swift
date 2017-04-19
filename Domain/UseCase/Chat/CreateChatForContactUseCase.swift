@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public final class CreateChatForContactUseCase: UseCase<Contact, Chat> {
+public final class CreateChatForContactUseCase: SingleUseCase<Contact, Chat> {
 
     private let chatRepository: ChatRepositoryType
 
@@ -18,7 +18,7 @@ public final class CreateChatForContactUseCase: UseCase<Contact, Chat> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    override func buildObservable(params contact: Contact) -> Observable<Chat> {
+    override func buildObservable(params contact: Contact) -> Single<Chat> {
         return chatRepository
                 .get(forContact: contact)
                 .catchError { [unowned self] error -> Single<Chat> in
@@ -27,7 +27,6 @@ public final class CreateChatForContactUseCase: UseCase<Contact, Chat> {
                     }
                     return Single.error(error)
                 }
-                .asObservable()
     }
 
     private func createChat(participant: Contact) -> Single<Chat> {

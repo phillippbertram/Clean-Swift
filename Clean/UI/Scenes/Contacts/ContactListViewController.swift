@@ -32,7 +32,7 @@ public final class ContactListViewController: UITableViewController {
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = R.reuseIdentifier.contactSelectionCell
+        let identifier = R.reuseIdentifier.contactCell
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)!
 
         let contact = viewModel.contacts.value[indexPath.item]

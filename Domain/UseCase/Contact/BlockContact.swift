@@ -5,7 +5,7 @@
 
 import RxSwift
 
-final class BlockContactUseCase: UseCase<Contact, Void> {
+final class BlockContactUseCase: CompletableUseCase<Contact> {
 
     fileprivate let contactRepository: ContactRepositoryType
 
@@ -15,8 +15,8 @@ final class BlockContactUseCase: UseCase<Contact, Void> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    override func buildObservable(params: Contact) -> Observable<Void> {
-        return Observable.empty()
+    override func buildObservable(params: Contact) -> Completable {
+        return Completable.empty()
     }
 
 }

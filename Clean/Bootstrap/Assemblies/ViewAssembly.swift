@@ -83,7 +83,7 @@ final class ViewAssembly: Assembly {
         }
 
         container.register(ContactListViewModel.self) { resolver in
-            let getContactsUseCase = resolver.resolve(GetContactsUseCase.self)!
+            let getContactsUseCase = resolver.resolve(ObserveContactsUseCase.self)!
             return ContactListViewModel(getContactsUseCase: getContactsUseCase)
         }
 
@@ -94,7 +94,7 @@ final class ViewAssembly: Assembly {
         }
 
         container.register(ContactSelectionViewModel.self) { resolver in
-            let getContacts = resolver.resolve(GetContactsUseCase.self)!
+            let getContacts = resolver.resolve(ObserveContactsUseCase.self)!
             return ContactSelectionViewModel(getContactsUseCase: getContacts)
         }
 

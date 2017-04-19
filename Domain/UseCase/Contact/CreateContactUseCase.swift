@@ -5,7 +5,7 @@
 
 import RxSwift
 
-public final class CreateContactUseCase: UseCase<CreateContactParam, Contact> {
+public final class CreateContactUseCase: SingleUseCase<CreateContactParam, Contact> {
 
     private let contactRepository: ContactRepositoryType
 
@@ -15,8 +15,8 @@ public final class CreateContactUseCase: UseCase<CreateContactParam, Contact> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    override func buildObservable(params: CreateContactParam) -> Observable<Contact> {
-        return contactRepository.create(params: params).asObservable()
+    override func buildObservable(params: CreateContactParam) -> Single<Contact> {
+        return contactRepository.create(params: params)
     }
 
 }

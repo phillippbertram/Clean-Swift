@@ -23,7 +23,7 @@ public enum MessageResult {
     case sending(progress: Double)
 }
 
-public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, MessageResult> {
+public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, MessageResult> {
 
     private let messageRepository: MessageRepositoryType
     private let messageService: MessageServiceType
@@ -39,7 +39,7 @@ public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, Message
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    public override func buildObservable(params: SendMessageUseCaseParams) -> Observable<MessageResult> {
+    public override func buildObservable(params: SendMessageUseCaseParams) -> Single<MessageResult> {
         return currentUserRepository
                 .getCurrentUser()
                 .map({ ($0, params.chat) })
@@ -63,7 +63,6 @@ public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, Message
                             }
                 }
                 .map({ _ in MessageResult.sending(progress: 1) })
-                .asObservable()
     }
 
     private func handleError(_ error: Error, forMessage message: Message) -> Single<Message> {
