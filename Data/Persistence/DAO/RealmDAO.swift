@@ -130,7 +130,7 @@ public class RealmBaseDAO<Entity: BaseEntity> {
             }
         }
     }
-    
+
     func update(primaryKey: String, block: @escaping ((Entity) throws -> Entity)) -> Observable<Entity> {
         return Observable.deferred { [unowned self] in
             let realm = self.getRealm()

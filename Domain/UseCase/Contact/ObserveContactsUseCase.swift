@@ -1,5 +1,5 @@
 //
-//  GetContactsUseCase.swift
+//  ObserveContactsUseCase.swift
 //  Clean
 //
 //  Created by Phillipp Bertram on 30/03/2017.
@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public final class GetContactsUseCase: UseCase<Void, [Contact]> {
+public final class ObserveContactsUseCase: UseCase<Void, [Contact]> {
 
     private let contactRepository: ContactRepositoryType
 
@@ -18,7 +18,7 @@ public final class GetContactsUseCase: UseCase<Void, [Contact]> {
     }
 
     public override func buildObservable(params: Void) -> Observable<[Contact]> {
-        return contactRepository.getAll().map({$0.sorted(by: <)})
+        return contactRepository.getAll().map({ $0.sorted(by: <) }).asObservable()
     }
 
 }

@@ -23,7 +23,7 @@ public enum MessageResult {
     case sending(progress: Double)
 }
 
-public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, MessageResult> {
+public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, MessageResult> {
 
     private let messageRepository: MessageRepositoryType
     private let messageService: MessageServiceType
@@ -39,11 +39,11 @@ public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, Message
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    public override func buildObservable(params: SendMessageUseCaseParams) -> Observable<MessageResult> {
+    public override func buildObservable(params: SendMessageUseCaseParams) -> Single<MessageResult> {
         return currentUserRepository
                 .getCurrentUser()
                 .map({ ($0, params.chat) })
-                .flatMap { [unowned self] (currentUser, chat) -> Observable<Message> in
+                .flatMap { [unowned self] (currentUser, chat) -> Single<Message> in
                     let param = CreateMessageParam(chatId: params.chat.id,
                                                    content: .text(params.messageText),
                                                    status: .sending,
@@ -58,14 +58,14 @@ public final class SendMessageUseCase: UseCase<SendMessageUseCaseParams, Message
                 .flatMap { [unowned self] message in
                     return self.messageService
                             .send(message: message, toContact: params.chat.participant.userName)
-                            .catchError { error in
+                            .catchError { [unowned self] error in
                                 return self.handleError(error, forMessage: message)
                             }
                 }
                 .map({ _ in MessageResult.sending(progress: 1) })
     }
 
-    private func handleError(_ error: Error, forMessage message: Message) -> Observable<Message> {
+    private func handleError(_ error: Error, forMessage message: Message) -> Single<Message> {
         var modifiedMessage = message
         modifiedMessage.status = .failure
         return messageRepository.update(message: modifiedMessage)

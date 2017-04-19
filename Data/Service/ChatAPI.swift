@@ -21,8 +21,8 @@ public final class ChatAPI {
     }
     // swiftlint:enable line_length
 
-    func getChats() -> Observable<[ChatDTO]> {
-        return Observable.just(data)
+    func getChats() -> Single<[ChatDTO]> {
+        return Single.just(data)
     }
 
 }

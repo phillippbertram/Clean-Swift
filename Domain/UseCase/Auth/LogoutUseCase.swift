@@ -5,7 +5,7 @@
 
 import RxSwift
 
-public final class LogoutUseCase: UseCase<Void, Void> {
+public final class LogoutUseCase: CompletableUseCase<Void> {
 
     fileprivate let currentUserRepository: AccountRepositoryType
 
@@ -14,7 +14,7 @@ public final class LogoutUseCase: UseCase<Void, Void> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    override func buildObservable(params: Void) -> Observable<Void> {
+    override func buildObservable(params: Void) -> Completable {
         return self.currentUserRepository.logout()
     }
 

@@ -35,37 +35,37 @@ public final class AccountRepository {
 
 extension AccountRepository: AccountRepositoryType {
 
-    public func login(withUserName userName: String, andPassword password: String) -> Observable<CurrentUser> {
-        return Observable.deferred { [unowned self] in
+    public func login(withUserName userName: String, andPassword password: String) -> Single<CurrentUser> {
+        return Single.deferred { [unowned self] in
 
             guard let user = self.data.filter({$0.userName == userName}).first else {
-                return Observable.error(AccountRepositoryError.invalidCredentials)
+                return Single.error(AccountRepositoryError.invalidCredentials)
             }
 
             guard user.password == password else {
-                return Observable.error(AccountRepositoryError.invalidCredentials)
+                return Single.error(AccountRepositoryError.invalidCredentials)
             }
 
             self.currentUser.value = user
-            return Observable.just(user)
+            return Single.just(user)
         }
     }
 
-    public func logout() -> Observable<Void> {
-        return Observable.deferred {
+    public func logout() -> Completable {
+        return Completable.deferred {
             self.currentUser.value = nil
-            return Observable.just()
+            return Completable.empty()
         }
     }
 
-    public func getCurrentUser() -> Observable<CurrentUser> {
-        return Observable.deferred {
+    public func getCurrentUser() -> Single<CurrentUser> {
+        return Single.deferred {
 
             guard let currentUser = self.currentUser.value else {
-                return Observable.error(AccountRepositoryError.notLoggedIn)
+                return Single.error(AccountRepositoryError.notLoggedIn)
             }
 
-            return Observable.just(currentUser)
+            return Single.just(currentUser)
         }
     }
 

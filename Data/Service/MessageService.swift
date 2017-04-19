@@ -23,7 +23,7 @@ public final class MessageService {
 
 extension MessageService: MessageServiceType {
 
-    public func send(message: Message, toContact userName: String) -> Observable<Message> {
+    public func send(message: Message, toContact userName: String) -> Single<Message> {
         let request = MessageRequestDTO()
         return messageAPI.send(message: request, receiver: userName)
                 .map { messageDTO in
@@ -31,7 +31,7 @@ extension MessageService: MessageServiceType {
                 }
                 .delay(1, scheduler: MainScheduler.instance)
                 .flatMap { _ in
-                    Observable.error(APIError.general)
+                    Single<Message>.error(APIError.general)
                 }
     }
 }

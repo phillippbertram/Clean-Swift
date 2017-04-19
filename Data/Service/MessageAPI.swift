@@ -27,18 +27,18 @@ public final class MessageAPI {
 
 extension MessageAPI {
 
-    public func send(message request: MessageRequestDTO, receiver: String) -> Observable<MessageDTO> {
+    public func send(message request: MessageRequestDTO, receiver: String) -> Single<MessageDTO> {
         let dto = MessageDTO(id: "123-456",
                    chatId: "",
                    content: "",
                    status: "",
                    sender: "",
                    timestamp: Date())
-        return Observable.just(dto)
+        return Single.just(dto)
     }
 
-    public func getAllForChat(withId chatId: String) -> Observable<[MessageDTO]> {
-        return Observable.empty()
+    public func getAllForChat(withId chatId: String) -> Single<[MessageDTO]> {
+        return Single.just([])
     }
 
 }

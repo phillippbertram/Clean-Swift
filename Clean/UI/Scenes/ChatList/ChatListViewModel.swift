@@ -69,7 +69,7 @@ public final class ChatListViewModel {
 
     public func startChat(forContact contact: Contact) {
         getChatForContactUseCase
-                .build(contact: contact)
+                .build(contact)
                 .map({ChatHolder.existing($0)})
                 .catchErrorJustReturn(ChatHolder.temporary(contact))
                 .do(onNext: { [unowned self] chatHolder in

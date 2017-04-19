@@ -36,7 +36,8 @@ final class DomainAssembly: Assembly {
 
         container.register(GetChatForContactUseCase.self) { resolver in
             let chatRepository = resolver.resolve(ChatRepositoryType.self)!
-            return GetChatForContactUseCase(chatRepository: chatRepository)
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            return GetChatForContactUseCase(schedulerProvider: schedulerProvider, chatRepository: chatRepository)
         }
 
         container.register(CreateChatForContactUseCase.self) { resolver in
@@ -53,10 +54,16 @@ final class DomainAssembly: Assembly {
 
         // MARK: Contacts
 
-        container.register(GetContactsUseCase.self) { resolver in
+        container.register(ObserveContactsUseCase.self) { resolver in
             let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
             let contactRepository = resolver.resolve(ContactRepositoryType.self)!
-            return GetContactsUseCase(schedulerProvider: schedulerProvider, contactRepository: contactRepository)
+            return ObserveContactsUseCase(schedulerProvider: schedulerProvider, contactRepository: contactRepository)
+        }
+
+        container.register(CreateContactUseCase.self) { resolver in
+            let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
+            let contactRepository = resolver.resolve(ContactRepositoryType.self)!
+            return CreateContactUseCase(schedulerProvider: schedulerProvider, contactRepository: contactRepository)
         }
 
         // MARK: Messages

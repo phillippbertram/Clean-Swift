@@ -26,8 +26,8 @@ public final class MessageRepository {
 
 extension MessageRepository: MessageRepositoryType {
 
-    public func getAll(for chat: Chat) -> Observable<[Message]> {
-        return observeAll(for: chat).take(1)
+    public func getAll(for chat: Chat) -> Single<[Message]> {
+        return observeAll(for: chat).asSingle()
     }
 
     public func observeAll(for chat: Chat) -> Observable<[Message]> {
@@ -36,7 +36,7 @@ extension MessageRepository: MessageRepositoryType {
         }.map(self.messageMapper.mapAll)
     }
 
-    public func create(message: CreateMessageParam) -> Observable<Message> {
+    public func create(message: CreateMessageParam) -> Single<Message> {
         return Observable.deferred {
                     return self.messageDAO.write { () -> MessageEntity in
 
@@ -59,14 +59,15 @@ extension MessageRepository: MessageRepositoryType {
                 .map { [unowned self] in
                     self.messageMapper.map($0)
                 }
+                .asSingle()
     }
 
-    public func updateAll(_ messages: [Message]) -> Observable<[Message]> {
+    public func updateAll(_ messages: [Message]) -> Single<[Message]> {
         // TODO: implement me
         fatalError()
     }
 
-    public func update(message: Message) -> Observable<Message> {
+    public func update(message: Message) -> Single<Message> {
         return Observable.deferred { [unowned self] in
             return self.messageDAO.update(primaryKey: message.id) { messageEntity in
                 messageEntity.status = MessageEntity.Status.from(message.status)
@@ -76,18 +77,34 @@ extension MessageRepository: MessageRepositoryType {
                 return messageEntity
             }
         }.map { [unowned self] in
-                self.messageMapper.map($0)
-        }
+            self.messageMapper.map($0)
+        }.asSingle()
     }
 
-    public func delete(message: Message) -> Observable<Void> {
-        return Observable.deferred { [unowned self] in
+    public func delete(message: Message) -> Completable {
+        return Completable.deferred { [unowned self] in
             do {
                 try self.messageDAO.delete(byId: message.id)
             } catch {
                 log.error("Could not delete Message: \(message)")
             }
-            return Observable.just(())
+            return Completable.empty()
+        }
+    }
+
+    public func getAllUnSynced() -> Single<[Message]> {
+        return Single.deferred { [unowned self] in
+            let messages = self.messageDAO.find { entity in
+                switch entity.status {
+                    case .sent, .delivered:
+                        return false
+                    case .sending, .failed:
+                        return true
+                }
+            }
+            return Single.just(messages)
+        }.map { [unowned self] in
+            self.messageMapper.mapAll($0)
         }
     }
 

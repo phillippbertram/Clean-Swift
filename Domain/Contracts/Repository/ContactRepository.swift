@@ -12,23 +12,36 @@ public enum ContactRepositoryError: Error {
     case contactNotFound
 }
 
+public struct CreateContactParam {
+
+    public let userName: String
+    public let firstName: String
+    public let lastName: String
+
+    public init(userName: String, firstName: String, lastName: String) {
+        self.userName = userName
+        self.firstName = firstName
+        self.lastName = lastName
+    }
+}
+
 public protocol ContactRepositoryType {
 
     /// Gets all contacts.
     ///
-    /// - Returns: Observble
-    func getAll() -> Observable<[Contact]>
+    /// - Returns: Observable
+    func getAll() -> Single<[Contact]>
 
     /// Gets a contact by it's username.
     ///
     /// - Parameter userName: username
     /// - Returns: Observable
-    func getBy(userName: String) -> Observable<Contact>
+    func getBy(userName: String) -> Single<Contact>
 
     /// Creates a contact with given information
     ///
     /// - Parameter contact: contact to create
     /// - Returns: Observable
-    func create(contact: Contact) -> Observable<Contact>
+    func create(params: CreateContactParam) -> Single<Contact>
 
 }

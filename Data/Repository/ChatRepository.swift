@@ -30,7 +30,7 @@ extension ChatRepository: ChatRepositoryType {
         }
     }
 
-    public func create(chat: CreateChatParam) -> Observable<Chat> {
+    public func create(chat: CreateChatParam) -> Single<Chat> {
         return Observable.deferred { [unowned self] in
             return self.chatDao.write { () -> ChatEntity in
                 let contact = chat.participant
@@ -41,23 +41,25 @@ extension ChatRepository: ChatRepositoryType {
                 let chatEntity = ChatEntity(participant: contactEntity)
                 return chatEntity
             }
-        }.map { [unowned self] in
+        }
+        .map { [unowned self] in
             self.chatMapper.map($0)
         }
+        .asSingle()
     }
 
-    public func get(byId chatId: String) -> Observable<Chat> {
-        return Observable.deferred { [unowned self] () -> Observable<ChatEntity> in
+    public func get(byId chatId: String) -> Single<Chat> {
+        return Single.deferred { [unowned self] () -> Single<ChatEntity> in
             guard let chat = self.chatDao.find(byPrimaryKey: chatId) else {
-                return Observable.error(ChatRepositoryError.chatNotFound)
+                return Single.error(ChatRepositoryError.chatNotFound)
 
             }
 
-            return Observable.just(chat)
+            return Single.just(chat)
         }.map(chatMapper.map)
     }
 
-    public func get(forContact contact: Contact) -> Observable<Chat> {
+    public func get(forContact contact: Contact) -> Single<Chat> {
         return getAll()
                 .map { chats in
                     guard let chat = chats.filter({ $0.participant == contact }).first else {
@@ -67,23 +69,23 @@ extension ChatRepository: ChatRepositoryType {
                 }
     }
 
-    public func getAll() -> Observable<[Chat]> {
-        return Observable.deferred { [unowned self] in
+    public func getAll() -> Single<[Chat]> {
+        return Single.deferred { [unowned self] in
             let entities = self.chatDao.findAll()
-            return Observable.just(entities)
+            return Single.just(entities)
         }.map(chatMapper.mapAll)
     }
 
     // MARK: Deleting
 
-    public func delete(chat: Chat) -> Observable<Void> {
-        return Observable.deferred { [unowned self] in
+    public func delete(chat: Chat) -> Completable {
+        return Completable.deferred { [unowned self] in
             do {
                 try self.chatDao.delete(byId: chat.id)
             } catch {
                 log.error("Could not delete Chat: \(chat)")
             }
-            return Observable.just(())
+            return Completable.empty()
         }
     }
 

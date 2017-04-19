@@ -16,8 +16,8 @@ final class ViewAssembly: Assembly {
         // Utils
 
         container.register(Seeder.self) { resolver in
-            let contactRepo = resolver.resolve(ContactRepositoryType.self)!
-            return Seeder(contactRepo: contactRepo)
+            let createContactUseCase = resolver.resolve(CreateContactUseCase.self)!
+            return Seeder(createContactUseCase: createContactUseCase)
         }
 
         container.register(DataBaseLogger.self) { resolver in
@@ -83,7 +83,7 @@ final class ViewAssembly: Assembly {
         }
 
         container.register(ContactListViewModel.self) { resolver in
-            let getContactsUseCase = resolver.resolve(GetContactsUseCase.self)!
+            let getContactsUseCase = resolver.resolve(ObserveContactsUseCase.self)!
             return ContactListViewModel(getContactsUseCase: getContactsUseCase)
         }
 
@@ -94,7 +94,7 @@ final class ViewAssembly: Assembly {
         }
 
         container.register(ContactSelectionViewModel.self) { resolver in
-            let getContacts = resolver.resolve(GetContactsUseCase.self)!
+            let getContacts = resolver.resolve(ObserveContactsUseCase.self)!
             return ContactSelectionViewModel(getContactsUseCase: getContacts)
         }
 

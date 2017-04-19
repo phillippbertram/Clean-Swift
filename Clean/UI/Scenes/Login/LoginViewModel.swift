@@ -20,6 +20,7 @@ final class LoginViewModel {
             return self.loginUseCase
                     .build(LoginUseCaseParams(userName: userName, password: password))
                     .map({ _ in () })
+                    .asObservable()
         }
     }()
 

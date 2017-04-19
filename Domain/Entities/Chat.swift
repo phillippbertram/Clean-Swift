@@ -8,26 +8,34 @@
 
 import Foundation
 
+/// Entity that represents a conversation with a user
 public struct Chat {
 
+    /// Unique identifier
     public var id: String
 
+    /// participant of the chat
     public var participant: Contact
+
+    /// last message if exists
     public var lastMessage: Message?
 
-    public var lastModifiedAt: Date
+    /// last modification date
+    public var modifiedAt: Date
+
+    /// creation date
     public var createdAt: Date
 
     public init(
             id: String,
             participant: Contact,
             lastMessage: Message?,
-            lastModifiedAt: Date,
+            modifiedAt: Date,
             createdAt: Date) {
         self.id = id
         self.participant = participant
         self.lastMessage = lastMessage
-        self.lastModifiedAt = lastModifiedAt
+        self.modifiedAt = modifiedAt
         self.createdAt = createdAt
     }
 
@@ -35,14 +43,18 @@ public struct Chat {
 
 // MARK: - Comparable, Hashable
 
-extension Chat: Comparable {
+extension Chat: Comparable, Hashable {
+
+    public var hashValue: Int {
+        return id.hash
+    }
 
     public static func < (lhs: Chat, rhs: Chat) -> Bool {
         if let lhsLastMessage = lhs.lastMessage, let rhsLastMessage = rhs.lastMessage {
             return lhsLastMessage < rhsLastMessage
         }
 
-        return lhs.lastModifiedAt < rhs.lastModifiedAt
+        return lhs.modifiedAt < rhs.modifiedAt
     }
 
     public static func == (lhs: Chat, rhs: Chat) -> Bool {

@@ -22,39 +22,39 @@ public final class ContactRepository {
 
 extension ContactRepository: ContactRepositoryType {
 
-    public func getAll() -> Observable<[Contact]> {
-        return Observable.deferred { [unowned self] in
+    public func getAll() -> Single<[Contact]> {
+        return Single.deferred { [unowned self] in
             let contacts = self.contactDao
                     .findAll()
-            return Observable.just(contacts)
+            return Single.just(contacts)
         }.map {
             self.mapAll($0)
         }
     }
 
-    public func getBy(userName: String) -> Observable<Contact> {
-        return Observable.deferred { [unowned self] in
+    public func getBy(userName: String) -> Single<Contact> {
+        return Single.deferred { [unowned self] in
             let contact = self.contactDao.find(byUserName: userName)
-            return Observable.just(contact!)
+            return Single.just(contact!)
         }
         .map { [unowned self] contactEntity in
             return self.mapContact(contactEntity)
         }
     }
 
-    public func create(contact: Contact) -> Observable<Contact> {
+    public func create(params: CreateContactParam) -> Single<Contact> {
         return Observable.deferred { [unowned self] in
-            log.debug("Creating Contact: \(contact)")
+            log.debug("Creating Contact: \(params)")
             return self.contactDao.write { () -> ContactEntity in
                 let entity = ContactEntity()
-                entity.userName = contact.userName
-                entity.firstName = contact.firstName
-                entity.lastName = contact.lastName
+                entity.userName = params.userName
+                entity.firstName = params.firstName
+                entity.lastName = params.lastName
                 return entity
             }
         }.map { [unowned self] in
             self.contactMapper.map($0)
-        }
+        }.asSingle()
     }
 
 }

@@ -2,6 +2,7 @@ platform :ios, '9.0'
 
 def rx_swift
   pod 'RxSwift', '~> 3.4.0'
+  pod 'RxSwiftExt', '~> 2.4.1'
 end
 
 def rx_cocoa
@@ -78,6 +79,7 @@ target 'Common' do
 
   # Pods for Common
   logging
+  rx_swift
 
   target 'CommonTests' do
     inherit! :search_paths

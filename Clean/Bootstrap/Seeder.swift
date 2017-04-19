@@ -5,24 +5,32 @@
 
 import RxSwift
 import Domain
+import Common
 
+// swiftlint:disable line_length
 final class Seeder {
 
-    fileprivate let contactRepo: ContactRepositoryType
+    fileprivate let createContactUseCase: CreateContactUseCase
 
-    init(contactRepo: ContactRepositoryType) {
-        self.contactRepo = contactRepo
+    init(createContactUseCase: CreateContactUseCase) {
+        self.createContactUseCase = createContactUseCase
     }
 
-    func seedData() -> Observable<Void> {
+    func seedData() -> Completable {
         return createContacts()
     }
 
-    private func createContacts() -> Observable<Void> {
-        let c1 = contactRepo.create(contact: Contact(userName: "pbe", firstName: "Phillipp", lastName: "Bertram"))
-        let c2 = contactRepo.create(contact: Contact(userName: "alb", firstName: "Alexander", lastName: "Brechmann"))
+    private func createContacts() -> Completable {
+        let c1 = createContactUseCase.build(CreateContactParam(userName: "pbe", firstName: "Phillipp", lastName: "Bertram"))
+        let c2 = createContactUseCase.build(CreateContactParam(userName: "alb", firstName: "Alexander", lastName: "Brechmann"))
 
-        return Observable.concat(c1, c2).toArray().map({ _ in () })
+        return Observable.of(c1, c2)
+            .merge()
+            .toArray()
+            .flatMap { _ in
+                return Observable<Never>.empty()
+            }
+            .asCompletable()
     }
 
 }

@@ -5,7 +5,7 @@
 
 import RxSwift
 
-public final class DeleteChatUseCase: UseCase<Chat, Void> {
+public final class DeleteChatUseCase: CompletableUseCase<Chat> {
 
     private let chatRepository: ChatRepositoryType
 
@@ -14,7 +14,7 @@ public final class DeleteChatUseCase: UseCase<Chat, Void> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    override func buildObservable(params chat: Chat) -> Observable<Void> {
+    override func buildObservable(params chat: Chat) -> Completable {
         return chatRepository.delete(chat: chat)
     }
 

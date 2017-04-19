@@ -58,6 +58,7 @@
 		A95D222D53EE3E9D8521DE19 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2874BC614C1CA43ECEA3 /* LoginViewController.swift */; };
 		A95D2258B7BE22FB5085E69C /* MockCurrentUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D241BE401EB9CB3E82C25 /* MockCurrentUserRepository.swift */; };
 		A95D2268F8DD243AD30761D6 /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D27B1DBF14A58D759D1E0 /* ChatRepository.swift */; };
+		A95D22BE631CD9FF40AFE00A /* SingleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25B69585DD58B216332C /* SingleUseCase.swift */; };
 		A95D22C906316D9DFC337D2F /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21743F6670D0CAAD533B /* ChatRepository.swift */; };
 		A95D2393A19DE1BFF79FD513 /* ContactEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2E50C466A1E420D9901F /* ContactEntity.swift */; };
 		A95D23A8E0BE8D8D61D29FAE /* CleanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2096E98591F30CE9DAA2 /* CleanTests.swift */; };
@@ -68,6 +69,7 @@
 		A95D245A654DBDC47995BA56 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D257C49CF49E973B1D303 /* Contact.swift */; };
 		A95D2484393145D1E014C023 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D217EFFC83274E4351F50 /* ViewAssembly.swift */; };
 		A95D24D1C5B163AC9DD1F6B2 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2E935CFFD909B168EC80 /* EventManager.swift */; };
+		A95D24D79A21F5E3F9DDD95F /* CreateContactUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2254E25A951A75E91196 /* CreateContactUseCase.swift */; };
 		A95D24DC855BC32C28B7741B /* GetChatForContactUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D20EEF39F0C16DAF8FB4E /* GetChatForContactUseCase.swift */; };
 		A95D24E8B0607BD2BDC4236A /* LoginUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D287E3EE59587674D98F0 /* LoginUseCaseSpec.swift */; };
 		A95D25749C58EE08B9323A01 /* Observable+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D22EB0229F2BCAA4021B2 /* Observable+Test.swift */; };
@@ -78,6 +80,7 @@
 		A95D25DC2316FDEC4EDE836C /* ChatDaoSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25B3CBD50F0AB50C90DE /* ChatDaoSpec.swift */; };
 		A95D261B1A3D7121ACB6E113 /* DomainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2D811B9313A2AC1875F3 /* DomainAssembly.swift */; };
 		A95D2696BB700847B922C18C /* ChatListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2C4F2D35BBFE66656A80 /* ChatListCellViewModel.swift */; };
+		A95D26A8F03C5A3CB13F7051 /* Traits+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2A1A701C2736396DA272 /* Traits+Convenience.swift */; };
 		A95D26A90254232735D11C9D /* DataAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2843D07DA9C793F7D17A /* DataAssembly.swift */; };
 		A95D26D124CAC5A0C9E57075 /* ContactSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D265A3F76B013A9DE21E8 /* ContactSelectionViewController.swift */; };
 		A95D2714E415340FE9C4569B /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D210180C3F17A47FA4BBB /* LogoutUseCase.swift */; };
@@ -85,7 +88,7 @@
 		A95D2758EC0DEEA8106FFA2F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2CFD5440429C99E81F20 /* LoginViewModel.swift */; };
 		A95D2759D8751F5ED5E5314F /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D289461C6A40D120A234F /* Chat.swift */; };
 		A95D27A959FBCB4B998CD4DE /* RemoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D28AE8B4382F1241AC3FE /* RemoteEntity.swift */; };
-		A95D27DEBAED1B70C6312D8B /* GetContactsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25C920C972A3819ED759 /* GetContactsUseCase.swift */; };
+		A95D27DEBAED1B70C6312D8B /* ObserveContactsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25C920C972A3819ED759 /* ObserveContactsUseCase.swift */; };
 		A95D28039E752F055FC8B8EB /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2909D397C00DCDC4A739 /* MessageService.swift */; };
 		A95D281EA266AB3E78237811 /* DatabaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2234A754303AAA2925EB /* DatabaseLogger.swift */; };
 		A95D2825BDA1B1677529C1FA /* MessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2C44A706366758D89F62 /* MessageAPI.swift */; };
@@ -93,6 +96,7 @@
 		A95D287AB8DD243DCE7A40E9 /* ContactRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2B0AEE98F56FBBE03C5C /* ContactRepository.swift */; };
 		A95D28C65372772D9AA06D44 /* ChatEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25BB20E8FE1CDC2CAFA1 /* ChatEntity.swift */; };
 		A95D29043964B5F540FB6AB0 /* EventDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21440EAF0AAC49CBEB8F /* EventDTO.swift */; };
+		A95D290595BB4608444718E0 /* CompletableUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D23C6D04AA018A435EDB2 /* CompletableUseCase.swift */; };
 		A95D293332B171F11461C4B8 /* ContactEntityDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21D1CD995C3989514D71 /* ContactEntityDomainMapper.swift */; };
 		A95D294110F3D09720E09EBB /* ContactDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D289592F397A8DA600916 /* ContactDAO.swift */; };
 		A95D2952DD69DCE4E6559E5D /* CreateChatForContactUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21CEFBD65E2EA5301CB0 /* CreateChatForContactUseCase.swift */; };
@@ -264,11 +268,13 @@
 		A95D21FA86B7757A66817102 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A95D2234A754303AAA2925EB /* DatabaseLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseLogger.swift; sourceTree = "<group>"; };
 		A95D2253615A73C3AA2DED12 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		A95D2254E25A951A75E91196 /* CreateContactUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateContactUseCase.swift; sourceTree = "<group>"; };
 		A95D22B28A5BF4102C03A85D /* Seeder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seeder.swift; sourceTree = "<group>"; };
 		A95D22EB0229F2BCAA4021B2 /* Observable+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Test.swift"; sourceTree = "<group>"; };
 		A95D230AB1D00C282A78C46A /* MessageEntityDomainMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntityDomainMapper.swift; sourceTree = "<group>"; };
 		A95D2324CE8E074148EF6468 /* MarkMessagesReadUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkMessagesReadUseCase.swift; sourceTree = "<group>"; };
 		A95D23C4DA687C5FD8A63DDF /* ChatDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDAO.swift; sourceTree = "<group>"; };
+		A95D23C6D04AA018A435EDB2 /* CompletableUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletableUseCase.swift; sourceTree = "<group>"; };
 		A95D241BE401EB9CB3E82C25 /* MockCurrentUserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCurrentUserRepository.swift; sourceTree = "<group>"; };
 		A95D243CDCCCDB5EB1838444 /* AccountRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		A95D2441CD401BBDCC1F861C /* MessageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
@@ -281,8 +287,9 @@
 		A95D257C49CF49E973B1D303 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		A95D258FD12B13C713BE6A74 /* ChatEntityDomainMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatEntityDomainMapper.swift; sourceTree = "<group>"; };
 		A95D25B3CBD50F0AB50C90DE /* ChatDaoSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDaoSpec.swift; sourceTree = "<group>"; };
+		A95D25B69585DD58B216332C /* SingleUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleUseCase.swift; sourceTree = "<group>"; };
 		A95D25BB20E8FE1CDC2CAFA1 /* ChatEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatEntity.swift; sourceTree = "<group>"; };
-		A95D25C920C972A3819ED759 /* GetContactsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetContactsUseCase.swift; sourceTree = "<group>"; };
+		A95D25C920C972A3819ED759 /* ObserveContactsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObserveContactsUseCase.swift; sourceTree = "<group>"; };
 		A95D2624844B0CA7759A56AC /* ChatListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		A95D265A3F76B013A9DE21E8 /* ContactSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSelectionViewController.swift; sourceTree = "<group>"; };
 		A95D26D9289E82B225301701 /* ChatDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDTO.swift; sourceTree = "<group>"; };
@@ -305,6 +312,7 @@
 		A95D29528C41A283C979F9B0 /* ChatAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatAPI.swift; sourceTree = "<group>"; };
 		A95D29600A5F6251842765D7 /* RealmDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDAO.swift; sourceTree = "<group>"; };
 		A95D29977AF76E325D02183A /* SegueHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueHandler.swift; sourceTree = "<group>"; };
+		A95D2A1A701C2736396DA272 /* Traits+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Traits+Convenience.swift"; sourceTree = "<group>"; };
 		A95D2A2768A5BFF26487B5AF /* MessageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageRepository.swift; sourceTree = "<group>"; };
 		A95D2AFAB951829F4AA789CE /* MessageDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDAO.swift; sourceTree = "<group>"; };
 		A95D2B0ABA10FA7E779C5C12 /* DataIntegrationEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataIntegrationEntity.swift; sourceTree = "<group>"; };
@@ -423,6 +431,7 @@
 				512A7D141EA503590075A91F /* Common.h */,
 				512A7D151EA503590075A91F /* Info.plist */,
 				A95D2615F1B0F84BCE705C5A /* Utils */,
+				A95D2EE782942DC458A1ED77 /* Rx */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -596,6 +605,8 @@
 				A95D2C8187D79FEDA5B8D1B3 /* Auth */,
 				A95D2BD135584E3C062907B2 /* Contact */,
 				A95D2E18AD2A3D6F3BF2A168 /* UseCase.swift */,
+				A95D25B69585DD58B216332C /* SingleUseCase.swift */,
+				A95D23C6D04AA018A435EDB2 /* CompletableUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -634,6 +645,7 @@
 				A95D28AA58991E8B0A9240CD /* UseCase */,
 				A95D2B3CAAE812927D42E6B2 /* TestUtils */,
 				A95D223D5965798CE5A119F7 /* Mocks */,
+				A95D2A43D819DBA902E9ADC2 /* Entities */,
 			);
 			path = DomainTests;
 			sourceTree = "<group>";
@@ -853,6 +865,13 @@
 			path = Entitiy;
 			sourceTree = "<group>";
 		};
+		A95D2A43D819DBA902E9ADC2 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		A95D2A8A94F83424826D96CD /* ContactSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,8 +919,9 @@
 		A95D2BD135584E3C062907B2 /* Contact */ = {
 			isa = PBXGroup;
 			children = (
-				A95D25C920C972A3819ED759 /* GetContactsUseCase.swift */,
+				A95D25C920C972A3819ED759 /* ObserveContactsUseCase.swift */,
 				A95D2C4680FADC1FDFA20941 /* BlockContact.swift */,
+				A95D2254E25A951A75E91196 /* CreateContactUseCase.swift */,
 			);
 			path = Contact;
 			sourceTree = "<group>";
@@ -962,6 +982,14 @@
 				A95D2CFD5440429C99E81F20 /* LoginViewModel.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		A95D2EE782942DC458A1ED77 /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				A95D2A1A701C2736396DA272 /* Traits+Convenience.swift */,
+			);
+			path = Rx;
 			sourceTree = "<group>";
 		};
 		A95D2F9B207FFC3E0E888324 /* Util */ = {
@@ -1671,6 +1699,7 @@
 			files = (
 				512A7D2A1EA503B90075A91F /* Error.swift in Sources */,
 				512A7D291EA503B90075A91F /* Logger.swift in Sources */,
+				A95D26A8F03C5A3CB13F7051 /* Traits+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1741,12 +1770,15 @@
 				A95D2D3A39F2B308FC6CEF0A /* LoginUseCase.swift in Sources */,
 				A95D2714E415340FE9C4569B /* LogoutUseCase.swift in Sources */,
 				512A7D0B1EA275440075A91F /* BlockContact.swift in Sources */,
-				A95D27DEBAED1B70C6312D8B /* GetContactsUseCase.swift in Sources */,
+				A95D27DEBAED1B70C6312D8B /* ObserveContactsUseCase.swift in Sources */,
 				A95D24DC855BC32C28B7741B /* GetChatForContactUseCase.swift in Sources */,
 				A95D2C24960872663F053D9C /* ObserveMessagesUseCase.swift in Sources */,
 				A95D20486178393EB7B3F332 /* DeleteChatUseCase.swift in Sources */,
 				A95D2C1980023F005C479400 /* DeleteMessageUseCase.swift in Sources */,
 				A95D2ABA5C49FEA4B2411C09 /* Logger.swift in Sources */,
+				A95D24D79A21F5E3F9DDD95F /* CreateContactUseCase.swift in Sources */,
+				A95D22BE631CD9FF40AFE00A /* SingleUseCase.swift in Sources */,
+				A95D290595BB4608444718E0 /* CompletableUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

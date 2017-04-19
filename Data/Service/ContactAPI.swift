@@ -33,17 +33,17 @@ public final class ContactAPI {
 
 extension ContactAPI {
 
-    public func getAll() -> Observable<[ContactDTO]> {
+    public func getAll() -> Single<[ContactDTO]> {
         return Observable.just(Array(data.values))
-                .delay(2, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
+                .delay(2, scheduler: ConcurrentDispatchQueueScheduler(qos: .background)).asSingle()
     }
 
-    public func get(byId id: String) -> Observable<ContactDTO> {
-        return Observable.deferred {
+    public func get(byId id: String) -> Single<ContactDTO> {
+        return Single.deferred {
             guard let contact = self.data[id] else {
-                return Observable.error(APIError.general)
+                return Single.error(APIError.general)
             }
-            return Observable.just(contact)
+            return Single.just(contact)
                     .delay(2, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
         }
     }

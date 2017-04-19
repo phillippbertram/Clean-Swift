@@ -39,11 +39,11 @@ class LoginUseCaseSpec: QuickSpec {
                         expect(userName) == params.userName
                         expect(password) == params.password
                         let user = CurrentUser(userName: "pbe", password: "secret", firstName: "Phillipp", lastName: "Bertram")
-                        return Observable.just(user)
+                        return Single.just(user)
                     }
                     
                     // when
-                    let testObserver = sut.buildObservable(params: params).test()
+                    let testObserver = sut.buildObservable(params: params).asObservable().test()
                     
                     // then
                     expect(testObserver.elementCount) == 1

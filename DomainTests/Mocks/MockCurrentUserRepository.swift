@@ -9,18 +9,18 @@ import RxSwift
 
 class MockCurrentUserRepository: AccountRepositoryType {
 
-    var loginObservableStub: ((String, String) -> Observable<CurrentUser>)?
-    func login(withUserName username: String, andPassword password: String) -> Observable<CurrentUser> {
+    var loginObservableStub: ((String, String) -> Single<CurrentUser>)?
+    func login(withUserName username: String, andPassword password: String) -> Single<CurrentUser> {
         return loginObservableStub!(username, password)
     }
 
-    var logoutStub: (() -> Observable<Void>)?
-    func logout() -> Observable<Void> {
+    var logoutStub: (() -> Completable)?
+    func logout() -> Completable {
         return logoutStub!()
     }
 
-    var getCurrentUserStub: (() -> Observable<CurrentUser>)?
-    func getCurrentUser() -> Observable<CurrentUser> {
+    var getCurrentUserStub: (() -> Single<CurrentUser>)?
+    func getCurrentUser() -> Single<CurrentUser> {
         return getCurrentUserStub!()
     }
 

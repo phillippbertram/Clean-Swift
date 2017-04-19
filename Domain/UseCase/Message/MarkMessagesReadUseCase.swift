@@ -7,8 +7,9 @@
 //
 
 import RxSwift
+import Common
 
-public final class MarkMessagesReadUseCase: UseCase<Chat, Void> {
+public final class MarkMessagesReadUseCase: CompletableUseCase<Chat> {
 
     private let messageRepository: MessageRepositoryType
 
@@ -17,22 +18,24 @@ public final class MarkMessagesReadUseCase: UseCase<Chat, Void> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    override func buildObservable(params chat: Chat) -> Observable<Void> {
+    override func buildObservable(params chat: Chat) -> Completable {
         return messageRepository
                 .getAll(for: chat)
-                .flatMap(updateMessages)
-                .map({ _ in () })
+                .flatMap { [unowned self] messages in
+                    return self.updateMessages(messages: messages)
+                }
+                .asCompletable()
     }
 
-    private func updateMessages(messages: [Message]) -> Observable<[Message]> {
-        return Observable.deferred {
+    private func updateMessages(messages: [Message]) -> Single<[Message]> {
+        return Single.deferred {
                     let updatedMessages = messages.map { message -> Message in
                         var mutableMessage = message
                         mutableMessage.isRead = true
                         return mutableMessage
                     }
-                    return Observable.just(updatedMessages)
+                    return Single.just(updatedMessages)
                 }
                 .flatMap(messageRepository.updateAll)
-    }
+        }
 }

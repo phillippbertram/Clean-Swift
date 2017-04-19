@@ -18,7 +18,8 @@ class ChatDaoSpec: QuickSpec {
 
             beforeEach {
                 let config = Realm.Configuration.test(withName: self.name)
-                sut = ChatDao(config: config)
+                let messageDAO = MessageDAO(config: config)
+                sut = ChatDAO(config: config, messageDAO: messageDAO)
             }
 
             beforeEach {
