@@ -13,6 +13,18 @@ def logging
   pod 'SwiftyBeaver', '~> 1.2.0'
 end
 
+def persistence
+  pod 'RealmSwift', '~> 2.5.1'
+  pod 'RxRealm', '~> 0.6.0'
+end
+
+def networking
+  pod 'Alamofire', '~> 4.4.0'
+  pod 'RxAlamofire', '~> 3.0.2'
+  pod 'ObjectMapper', '~> 2.2.5'
+  pod 'AlamofireObjectMapper', '~> 4.1.0'
+end
+
 def testing
   pod 'Quick', '~> 1.1.0'
   pod 'Nimble', '~> 6.1.0'
@@ -46,10 +58,10 @@ target 'Data' do
   # Pods for Data
   rx_swift
   rx_cocoa
+  persistence
+  networking
   logging
 
-  pod 'RealmSwift', '~> 2.5.1'
-  pod 'RxRealm', '~> 0.6.0'
 
   target 'DataTests' do
     inherit! :search_paths

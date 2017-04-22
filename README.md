@@ -1,5 +1,5 @@
 # Clean-Swift
-![Swift-Version](https://img.shields.io/badge/Swift-3.0.1-Purple.svg)
+![Swift-Version](https://img.shields.io/badge/Swift-3.1-Purple.svg)
 
 
 ## Technology Stack

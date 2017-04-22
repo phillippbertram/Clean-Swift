@@ -15,7 +15,6 @@ final class DataAssembly: Assembly {
         registerRepositories(container: container, scope: .container)
         registerDAOs(container: container, scope: .graph)
         registerAPIs(container: container, scope: .container)
-        registerServices(container: container, scope: .container)
 
         // Utils
 
@@ -72,24 +71,9 @@ final class DataAssembly: Assembly {
     }
 
     private func registerAPIs(container: Container, scope: ObjectScope) {
-        container.register(ChatAPI.self) { _ in
-            return ChatAPI()
-        }.inObjectScope(scope)
-
-        container.register(ContactAPI.self) { _ in
-            return ContactAPI()
-        }.inObjectScope(scope)
-
-        container.register(MessageAPI.self) { _ in
-            return MessageAPI()
-        }.inObjectScope(scope)
-    }
-
-    private func registerServices(container: Container, scope: ObjectScope) {
         container.register(MessageServiceType.self) { resolver in
-            let messageAPI = resolver.resolve(MessageAPI.self)!
-            return MessageService(messageAPI: messageAPI)
+            let accountRepository = resolver.resolve(AccountRepositoryType.self)!
+            return MessageService(accountRepository: accountRepository)
         }.inObjectScope(scope)
     }
-
 }

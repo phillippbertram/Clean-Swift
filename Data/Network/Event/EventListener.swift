@@ -4,6 +4,7 @@
 //
 
 import RxSwift
+import Domain
 
 public protocol EventListenerType {
 

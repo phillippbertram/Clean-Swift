@@ -30,6 +30,16 @@ extension MessageRepository: MessageRepositoryType {
         return observeAll(for: chat).asSingle()
     }
 
+    public func find(byRemoteId remoteId: String) -> Single<Message> {
+        return Single.deferred { [unowned self] in
+                    guard let entity = self.messageDAO.find(byRemoteId: remoteId) else {
+                        return Single.error(MessageRepositoryError.messageNotFound)
+                    }
+                    return Single.just(entity)
+                }
+                .map(messageMapper.map)
+    }
+
     public func observeAll(for chat: Chat) -> Observable<[Message]> {
         return Observable.deferred { [unowned self] () -> Observable<[MessageEntity]> in
             return self.messageDAO.observe(forChat: chat.id)
@@ -37,7 +47,7 @@ extension MessageRepository: MessageRepositoryType {
     }
 
     public func create(message: CreateMessageParam) -> Single<Message> {
-        return Observable.deferred {
+        return Observable.deferred { [unowned self] in
                     return self.messageDAO.write { () -> MessageEntity in
 
                         guard let senderEntity = self.contactDAO.find(byUserName: message.sender.userName) else {

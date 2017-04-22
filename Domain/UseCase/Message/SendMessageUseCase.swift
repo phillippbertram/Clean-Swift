@@ -25,26 +25,40 @@ public enum MessageResult {
 
 public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, MessageResult> {
 
-    private let messageRepository: MessageRepositoryType
-    private let messageService: MessageServiceType
-    private let currentUserRepository: AccountRepositoryType
+    fileprivate let messageService: MessageServiceType
+    fileprivate let accountRepository: AccountRepositoryType
+    fileprivate let messageRepository: MessageRepositoryType
 
     public init(schedulerProvider: SchedulerProviderType,
+                accountRepository: AccountRepositoryType,
                 messageRepository: MessageRepositoryType,
-                messageService: MessageServiceType,
-                currentUserRepository: AccountRepositoryType) {
+                messageAPI: MessageServiceType) {
+        self.messageService = messageAPI
+        self.accountRepository = accountRepository
         self.messageRepository = messageRepository
-        self.messageService = messageService
-        self.currentUserRepository = currentUserRepository
         super.init(schedulerProvider: schedulerProvider)
     }
 
     public override func buildObservable(params: SendMessageUseCaseParams) -> Single<MessageResult> {
-        return currentUserRepository
+        return createMessage(params: params)
+                .flatMap { [unowned self] in
+                    self.sendMessage($0, receiver: params.chat.participant.userName)
+                }
+                .map({ _ in MessageResult.sending(progress: 1) })
+    }
+}
+
+// MARK: Helper
+
+fileprivate extension SendMessageUseCase {
+
+    fileprivate func createMessage(params: SendMessageUseCaseParams) -> Single<Message> {
+        return accountRepository
                 .getCurrentUser()
                 .map({ ($0, params.chat) })
                 .flatMap { [unowned self] (currentUser, chat) -> Single<Message> in
                     let param = CreateMessageParam(chatId: params.chat.id,
+                                                   remoteId: nil,
                                                    content: .text(params.messageText),
                                                    status: .sending,
                                                    sender: currentUser.asContact(),
@@ -55,17 +69,25 @@ public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, M
                     return self.messageRepository
                             .create(message: param)
                 }
-                .flatMap { [unowned self] message in
-                    return self.messageService
-                            .send(message: message, toContact: params.chat.participant.userName)
-                            .catchError { [unowned self] error in
-                                return self.handleError(error, forMessage: message)
-                            }
-                }
-                .map({ _ in MessageResult.sending(progress: 1) })
     }
 
-    private func handleError(_ error: Error, forMessage message: Message) -> Single<Message> {
+    fileprivate func sendMessage(_ message: Message, receiver: String) -> Single<Message> {
+        let messageRequest = MessageRequestDTO()
+        return messageService
+                .send(message: messageRequest, receiver: receiver)
+                .flatMap { [unowned self] messageDTO -> Single<Message> in
+                    log.debug("successfully sent message with result: \(messageDTO)")
+                    var modifiedMessage = message
+                    modifiedMessage.status = .sent
+                    // TODO: import messageDTO?
+                    return self.messageRepository.update(message: modifiedMessage)
+                }
+                .catchError { [unowned self] error -> Single<Message> in
+                    return self.handleError(error, forMessage: message)
+                }
+    }
+
+    fileprivate func handleError(_ error: Error, forMessage message: Message) -> Single<Message> {
         var modifiedMessage = message
         modifiedMessage.status = .failure
         return messageRepository.update(message: modifiedMessage)

@@ -26,7 +26,8 @@ public struct Message {
 
     // MARK: Properties
 
-    public var id: String
+    public let id: String
+    public var remoteId: String?
     public var chatId: String
 
     public var content: Content
@@ -40,6 +41,7 @@ public struct Message {
 
     public init(
             id: String,
+            remoteId: String?,
             chatId: String,
             content: Content,
             status: Status,
