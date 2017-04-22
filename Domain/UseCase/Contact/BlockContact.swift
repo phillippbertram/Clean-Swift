@@ -1,6 +1,6 @@
 //
 // Created by Phillipp Bertram on 15.04.17.
-// Copyright (c) 2017 LMIS AG. All rights reserved.
+// Copyright (c) 2017 Phillipp Bertram. All rights reserved.
 //
 
 import RxSwift

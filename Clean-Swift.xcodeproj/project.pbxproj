@@ -64,6 +64,7 @@
 		A95D2258B7BE22FB5085E69C /* MockCurrentUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D241BE401EB9CB3E82C25 /* MockCurrentUserRepository.swift */; };
 		A95D2268F8DD243AD30761D6 /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D27B1DBF14A58D759D1E0 /* ChatRepository.swift */; };
 		A95D22BE631CD9FF40AFE00A /* SingleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D25B69585DD58B216332C /* SingleUseCase.swift */; };
+		A95D22D0FA8FF37E44D5F9F8 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2AB87E35F4DD9AA7F997 /* ChatService.swift */; };
 		A95D22E71B5E49F4A12BA9C0 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D24A7A3357F25362FA061 /* AccountRepository.swift */; };
 		A95D2316F14E00DE44DBE0A9 /* MessageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2B4C84D6FA1AE2736C20 /* MessageDTO.swift */; };
 		A95D2393A19DE1BFF79FD513 /* ContactEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2E50C466A1E420D9901F /* ContactEntity.swift */; };
@@ -317,6 +318,7 @@
 		A95D2999ACE9576DC2764264 /* MessageRequestDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageRequestDTO.swift; sourceTree = "<group>"; };
 		A95D2A1A701C2736396DA272 /* Traits+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Traits+Convenience.swift"; sourceTree = "<group>"; };
 		A95D2A2768A5BFF26487B5AF /* MessageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageRepository.swift; sourceTree = "<group>"; };
+		A95D2AB87E35F4DD9AA7F997 /* ChatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		A95D2AFAB951829F4AA789CE /* MessageDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDAO.swift; sourceTree = "<group>"; };
 		A95D2B0ABA10FA7E779C5C12 /* DataIntegrationEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataIntegrationEntity.swift; sourceTree = "<group>"; };
 		A95D2B0AEE98F56FBBE03C5C /* ContactRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactRepository.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 				A95D24706E931737A8398575 /* MessageService.swift */,
 				A95D2369971957C76F3FFB81 /* DTO */,
 				A95D2B1C139EA78E8B893C23 /* ContactService.swift */,
+				A95D2AB87E35F4DD9AA7F997 /* ChatService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1209,7 +1212,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = "LMIS AG";
+				ORGANIZATIONNAME = "Phillipp Bertram";
 				TargetAttributes = {
 					512A7D111EA503590075A91F = {
 						CreatedOnToolsVersion = 8.3.1;
@@ -1786,6 +1789,7 @@
 				A95D20A3F11AA3CC2AD12C3A /* ImportApiContactsUseCase.swift in Sources */,
 				A95D249DFCBDF6FFC107ED3C /* ContactService.swift in Sources */,
 				A95D2639A2A04F23AA7531E1 /* ImportApiChatsUseCase.swift in Sources */,
+				A95D22D0FA8FF37E44D5F9F8 /* ChatService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

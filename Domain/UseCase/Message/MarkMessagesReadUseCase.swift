@@ -36,6 +36,8 @@ public final class MarkMessagesReadUseCase: CompletableUseCase<Chat> {
                     }
                     return Single.just(updatedMessages)
                 }
-                .flatMap(messageRepository.updateAll)
-        }
+                .flatMap { [unowned self] in
+                    self.messageRepository.updateAll($0)
+                }
+    }
 }

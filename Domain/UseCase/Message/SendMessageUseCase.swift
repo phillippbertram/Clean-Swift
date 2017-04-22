@@ -19,11 +19,7 @@ public struct SendMessageUseCaseParams {
 
 }
 
-public enum MessageResult {
-    case sending(progress: Double)
-}
-
-public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, MessageResult> {
+public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, Message> {
 
     fileprivate let messageService: MessageServiceType
     fileprivate let accountRepository: AccountRepositoryType
@@ -39,12 +35,11 @@ public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, M
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    public override func buildObservable(params: SendMessageUseCaseParams) -> Single<MessageResult> {
+    public override func buildObservable(params: SendMessageUseCaseParams) -> Single<Message> {
         return createMessage(params: params)
                 .flatMap { [unowned self] in
                     self.sendMessage($0, receiver: params.chat.participant.userName)
                 }
-                .map({ _ in MessageResult.sending(progress: 1) })
     }
 }
 

@@ -7,7 +7,10 @@ import RxSwift
 
 public protocol SchedulerProviderType {
 
+    /// Scheduler that runs on the main thread
     var mainScheduler: ImmediateSchedulerType { get }
+
+    /// Scheduler that runs on a background thread
     var backgroundScheduler: ImmediateSchedulerType { get }
 
 }

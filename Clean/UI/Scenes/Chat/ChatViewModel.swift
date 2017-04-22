@@ -104,7 +104,7 @@ extension ChatViewModel {
                                     })
                     }
                 }
-                .flatMap { [unowned self] chat -> Single<MessageResult> in
+                .flatMap { [unowned self] chat in
                     return self.sendMessageUseCase
                             .build(SendMessageUseCaseParams.from(chat: chat, messageText: text))
                 }

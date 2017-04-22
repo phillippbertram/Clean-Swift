@@ -14,14 +14,14 @@ def logging
 end
 
 def persistence
-  pod 'RealmSwift', '~> 2.5.1'
+  pod 'RealmSwift', '~> 2.6.2'
   pod 'RxRealm', '~> 0.6.0'
 end
 
 def networking
   pod 'Alamofire', '~> 4.4.0'
   pod 'RxAlamofire', '~> 3.0.2'
-  pod 'ObjectMapper', '~> 2.2.5'
+  pod 'ObjectMapper', '~> 2.2.6'
   pod 'AlamofireObjectMapper', '~> 4.1.0'
 end
 
@@ -38,9 +38,9 @@ target 'Clean-Swift' do
   rx_swift
   rx_cocoa
   logging
-  pod 'Action', '~> 2.2.2'
-  pod 'Swinject', '~> 2.0.0'
-  pod 'SwinjectStoryboard', '~> 1.0.0'
+  pod 'Action', '~> 2.3.0'
+  pod 'Swinject', '~> 2.1.0'
+  pod 'SwinjectStoryboard', '~> 1.1.1'
   pod 'Material', '~> 2.6.3'
   pod 'R.swift', '~> 3.2.0'
   pod 'SwiftLint', '~> 0.18.1'

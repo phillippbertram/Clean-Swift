@@ -15,7 +15,7 @@ public final class LogoutUseCase: CompletableUseCase<Void> {
     }
 
     override func buildObservable(params: Void) -> Completable {
-        return self.currentUserRepository.logout()
+        return currentUserRepository.logout()
     }
 
 }
