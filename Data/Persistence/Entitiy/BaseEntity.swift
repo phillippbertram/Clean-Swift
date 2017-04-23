@@ -17,9 +17,3 @@ public class BaseEntity: Object {
     }
 
 }
-
-public class RemoteEntity: BaseEntity, RemoteEntityType {
-
-    public dynamic var remoteId: String?
-
-}

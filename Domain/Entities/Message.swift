@@ -33,7 +33,7 @@ public struct Message {
     public var content: Content
     public var status: Status
 
-    public let sender: Contact
+    public let senderId: String
     public var isIncoming: Bool
     public var isRead: Bool
 
@@ -45,7 +45,7 @@ public struct Message {
             chatId: String,
             content: Content,
             status: Status,
-            sender: Contact,
+            senderId: String,
             isIncoming: Bool,
             isRead: Bool,
             timestamp: Date) {
@@ -53,7 +53,7 @@ public struct Message {
         self.chatId = chatId
         self.content = content
         self.status = status
-        self.sender = sender
+        self.senderId = senderId
         self.isRead = isRead
         self.isIncoming = isIncoming
         self.timestamp = timestamp

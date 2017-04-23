@@ -19,6 +19,10 @@ public struct SendMessageUseCaseParams {
 
 }
 
+public enum SendMessageUseCaseError: Error {
+    case emptyMessage
+}
+
 public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, Message> {
 
     fileprivate let messageService: MessageServiceType
@@ -36,10 +40,17 @@ public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, M
     }
 
     public override func buildObservable(params: SendMessageUseCaseParams) -> Single<Message> {
-        return createMessage(params: params)
+        return Single.deferred { [unowned self] in
+
+            guard !params.messageText.isEmpty else {
+                throw SendMessageUseCaseError.emptyMessage
+            }
+
+            return self.createMessage(params: params)
                 .flatMap { [unowned self] in
                     self.sendMessage($0, receiver: params.chat.participant.userName)
-                }
+            }
+        }
     }
 }
 

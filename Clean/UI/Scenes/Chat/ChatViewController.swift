@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import Common
 import Material
 import RxSwift
 import RxCocoa
@@ -64,8 +65,9 @@ extension ChatViewController: UITableViewDataSource {
 
         let message = viewModel.messages.value[indexPath.item]
 
-        cell.textLabel?.text = message.sender.displayName
-        cell.detailTextLabel?.text = "[\(message.status)] \(String(describing: message.text))"
+        cell.textLabel?.textColor = message.isIncoming ? .black : .purple
+        cell.textLabel?.text = message.senderId
+        cell.detailTextLabel?.text = "[\(message.status)] \(String(optional: message.text))"
 
         return cell
     }

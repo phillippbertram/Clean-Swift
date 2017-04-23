@@ -50,15 +50,11 @@ extension MessageRepository: MessageRepositoryType {
         return Observable.deferred { [unowned self] in
                     return self.messageDAO.write { () -> MessageEntity in
 
-                        guard let senderEntity = self.contactDAO.find(byUserName: message.sender.userName) else {
-                            throw MessageRepositoryError.contactNotFound
-                        }
-
                         guard let chatEntity = self.chatDAO.find(byPrimaryKey: message.chatId) else {
                             throw MessageRepositoryError.chatNotFound
                         }
 
-                        let entity = MessageEntity(sender: senderEntity, chat: chatEntity)
+                        let entity = MessageEntity(senderId: message.sender.userName, chat: chatEntity)
                         entity.isIncoming = message.isIncoming
                         entity.isRead = message.isRead
                         entity.status = MessageEntity.Status.from(message.status)

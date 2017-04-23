@@ -15,7 +15,7 @@ public final class MessageEntity: RemoteEntity {
     dynamic var isIncoming: Bool = true
     dynamic var isRead: Bool = true
 
-    dynamic var sender: ContactEntity!
+    dynamic var senderId: String!
     dynamic var chat: ChatEntity!
 
     private dynamic var rawStatus: String = Status.sent.rawValue
@@ -28,9 +28,9 @@ public final class MessageEntity: RemoteEntity {
         }
     }
 
-    convenience init(sender: ContactEntity, chat: ChatEntity) {
+    convenience init(senderId: String, chat: ChatEntity) {
         self.init()
-        self.sender = sender
+        self.senderId = senderId
         self.chat = chat
     }
 

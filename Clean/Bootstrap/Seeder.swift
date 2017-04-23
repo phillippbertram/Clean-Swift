@@ -21,10 +21,10 @@ final class Seeder {
     }
 
     private func createContacts() -> Completable {
-        let c1 = createContactUseCase.build(CreateContactParam(userName: "pbe", firstName: "Phillipp", lastName: "Bertram"))
+//        let c1 = createContactUseCase.build(CreateContactParam(userName: "pbe", firstName: "Phillipp", lastName: "Bertram"))
         let c2 = createContactUseCase.build(CreateContactParam(userName: "alb", firstName: "Alexander", lastName: "Brechmann"))
 
-        return Observable.of(c1, c2)
+        return Observable.of(c2)
             .merge()
             .toArray()
             .flatMap { _ in

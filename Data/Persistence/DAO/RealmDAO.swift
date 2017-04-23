@@ -97,7 +97,7 @@ public class RealmBaseDAO<Entity: BaseEntity> {
 
     // MARK: Writing
 
-    func write(block: @escaping (() throws ->[Entity])) -> Observable<[Entity]> {
+    func write(block: @escaping (() throws -> [Entity])) -> Observable<[Entity]> {
         return Observable.deferred { [unowned self] in
             let realm = self.getRealm()
             do {
