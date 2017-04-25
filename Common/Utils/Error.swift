@@ -21,6 +21,12 @@ public struct ErrorModel: Error {
 }
 
 // used for do … catch branches
-public func ~= (lhs: Error, rhs: Error) -> Bool {
+public func ~=(lhs: Error, rhs: Error) -> Bool {
     return lhs._domain == rhs._domain && rhs._code == rhs._code
+}
+
+public enum GeneralError: Error {
+
+    case notImplemented
+
 }

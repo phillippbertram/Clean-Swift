@@ -70,13 +70,11 @@ final class DomainAssembly: Assembly {
 
         container.register(SendMessageUseCase.self) { resolver in
             let messageRepository = resolver.resolve(MessageRepositoryType.self)!
-            let messageAPI = resolver.resolve(MessageServiceType.self)!
             let accountRepository = resolver.resolve(AccountRepositoryType.self)!
             let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
             return SendMessageUseCase(schedulerProvider: schedulerProvider,
                                       accountRepository: accountRepository,
-                                      messageRepository: messageRepository,
-                                      messageAPI: messageAPI)
+                                      messageRepository: messageRepository)
         }
 
         container.register(ObserveMessagesUseCase.self) { resolver in

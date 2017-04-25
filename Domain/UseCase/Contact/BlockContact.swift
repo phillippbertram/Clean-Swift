@@ -3,6 +3,7 @@
 // Copyright (c) 2017 Phillipp Bertram. All rights reserved.
 //
 
+import Common
 import RxSwift
 
 final class BlockContactUseCase: CompletableUseCase<Contact> {
@@ -16,7 +17,7 @@ final class BlockContactUseCase: CompletableUseCase<Contact> {
     }
 
     override func buildObservable(params: Contact) -> Completable {
-        return Completable.empty()
+        return Completable.error(GeneralError.notImplemented)
     }
 
 }

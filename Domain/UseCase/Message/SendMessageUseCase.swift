@@ -25,15 +25,12 @@ public enum SendMessageUseCaseError: Error {
 
 public final class SendMessageUseCase: SingleUseCase<SendMessageUseCaseParams, Message> {
 
-    fileprivate let messageService: MessageServiceType
     fileprivate let accountRepository: AccountRepositoryType
     fileprivate let messageRepository: MessageRepositoryType
 
     public init(schedulerProvider: SchedulerProviderType,
                 accountRepository: AccountRepositoryType,
-                messageRepository: MessageRepositoryType,
-                messageAPI: MessageServiceType) {
-        self.messageService = messageAPI
+                messageRepository: MessageRepositoryType) {
         self.accountRepository = accountRepository
         self.messageRepository = messageRepository
         super.init(schedulerProvider: schedulerProvider)
@@ -78,9 +75,8 @@ fileprivate extension SendMessageUseCase {
     }
 
     fileprivate func sendMessage(_ message: Message, receiver: String) -> Single<Message> {
-        let messageRequest = MessageRequestDTO()
-        return messageService
-                .send(message: messageRequest, receiver: receiver)
+        return messageRepository
+                .send(message: message, receiver: receiver)
                 .flatMap { [unowned self] messageDTO -> Single<Message> in
                     log.debug("successfully sent message with result: \(messageDTO)")
                     var modifiedMessage = message

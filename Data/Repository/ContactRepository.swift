@@ -4,16 +4,18 @@
 //
 
 import Domain
+import Common
 import RxSwift
 
 public final class ContactRepository {
 
-    fileprivate let contactMapper = ContactEntityDomainMapper()
+    fileprivate let localDataSource: ContactDataSourceLocal
+    fileprivate let networkDataSource: ContactDataSourceNetwork
 
-    fileprivate let contactDao: ContactDAO
-
-    public init(contactDao: ContactDAO) {
-        self.contactDao = contactDao
+    public init(localDataSource: ContactDataSourceLocal,
+                networkDataSource: ContactDataSourceNetwork) {
+        self.localDataSource = localDataSource
+        self.networkDataSource = networkDataSource
     }
 
 }
@@ -23,57 +25,44 @@ public final class ContactRepository {
 extension ContactRepository: ContactRepositoryType {
 
     public func getAll() -> Single<[Contact]> {
-        return Single.deferred { [unowned self] in
-            let contacts = self.contactDao
-                    .findAll()
-            return Single.just(contacts)
-        }.map {
-            self.mapAll($0)
-        }
+        let local = localDataSource.getAll().asObservable().flatMapResult()
+        let network = networkDataSource
+                .getAll()
+                .flatMap { [unowned self] in
+                    self.localDataSource.persistAll($0)
+                }
+                .asObservable()
+                .flatMapResult()
+
+        return Observable
+                .concat([local, network])
+                .single({ $0.isSuccess && !$0.value!.isEmpty})
+                .map({ $0.value! })
+                .take(1)
+                .asSingle()
     }
 
     public func getBy(userName: String) -> Single<Contact> {
-        return Single.deferred { [unowned self] in
-            let contact = self.contactDao.find(byUserName: userName)
-            return Single.just(contact!)
-        }
-        .map { [unowned self] contactEntity in
-            return self.mapContact(contactEntity)
-        }
+        let local = localDataSource.get(byUserName: userName).asObservable().flatMapResult()
+        let network = networkDataSource
+                .get(byUserName: userName)
+                .flatMap { [unowned self] in
+                    self.localDataSource.persist($0)
+                }
+                .asObservable()
+                .flatMapResult()
+
+        return Observable
+                .concat(local, network)
+                .single({ $0.isSuccess })
+                .map({ $0.value! })
+                .take(1)
+                .asSingle()
     }
 
     public func create(params: CreateContactParam) -> Single<Contact> {
-        return Observable.deferred { [unowned self] in
-            log.debug("Creating Contact: \(params)")
-            return self.contactDao.write { () -> ContactEntity in
-                let entity = ContactEntity()
-                entity.userName = params.userName
-                entity.firstName = params.firstName
-                entity.lastName = params.lastName
-                return entity
-            }
-        }.map { [unowned self] in
-            self.contactMapper.map($0)
-        }.asSingle()
-    }
-
-}
-
-// MARK: - Mapping
-
-extension ContactRepository {
-
-    func mapAll(_ contactEntities: [ContactEntity]) -> [Contact] {
-        return contactEntities.map { [unowned self] contactEntity in
-            self.mapContact(contactEntity)
-        }
-    }
-
-    func mapContact(_ contactEntity: ContactEntity) -> Contact {
-        return Contact(userName: contactEntity.userName,
-                       firstName: contactEntity.firstName,
-                       lastName: contactEntity.lastName)
-
+        let contact = Contact(userName: params.userName, firstName: params.firstName, lastName: params.lastName)
+        return localDataSource.persist(contact)
     }
 
 }

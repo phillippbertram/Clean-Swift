@@ -11,12 +11,13 @@ import RxSwift
 
 public final class ChatRepository {
 
-    fileprivate let chatMapper = ChatEntityDomainMapper()
+    fileprivate let localDataSource: ChatDataSourceLocal
+    fileprivate let networkDataSource: ChatDataSourceNetwork
 
-    fileprivate let chatDao: ChatDAO
-
-    public init(chatDao: ChatDAO) {
-        self.chatDao = chatDao
+    public init(localDataSource: ChatDataSourceLocal,
+                networkDataSource: ChatDataSourceNetwork) {
+        self.localDataSource = localDataSource
+        self.networkDataSource = networkDataSource
     }
 }
 
@@ -25,68 +26,49 @@ public final class ChatRepository {
 extension ChatRepository: ChatRepositoryType {
 
     public func observeAll() -> Observable<[Chat]> {
-        return chatDao.observeAll().map { [unowned self] chatEntities in
-            self.chatMapper.mapAll(chatEntities)
-        }
+        return localDataSource.observeAll()
     }
 
     public func create(chat: CreateChatParam) -> Single<Chat> {
-        return Observable.deferred { [unowned self] in
-            return self.chatDao.write { () -> ChatEntity in
-                let contact = chat.participant
-                let contactEntity = ContactEntity()
-                contactEntity.id = contact.userName
-                contactEntity.firstName = contact.firstName
-                contactEntity.lastName = contact.lastName
-                let chatEntity = ChatEntity(participant: contactEntity)
-                return chatEntity
-            }
-        }
-        .map { [unowned self] in
-            self.chatMapper.map($0)
-        }
-        .asSingle()
+        return localDataSource.persist(chat: chat)
     }
 
     public func get(byId chatId: String) -> Single<Chat> {
-        return Single.deferred { [unowned self] () -> Single<ChatEntity> in
-            guard let chat = self.chatDao.find(byPrimaryKey: chatId) else {
-                return Single.error(ChatRepositoryError.chatNotFound)
-
-            }
-
-            return Single.just(chat)
-        }.map(chatMapper.map)
+        let local = localDataSource.get(byId: chatId).asObservable().flatMapResult()
+        let remote = networkDataSource.get(byId: chatId).asObservable().flatMapResult()
+        return Observable
+                .concat(local, remote)
+                .single({ $0.isSuccess })
+                .map({ $0.value! })
+                .take(1)
+                .asSingle()
     }
 
     public func get(forContact contact: Contact) -> Single<Chat> {
-        return getAll()
-                .map { chats in
-                    guard let chat = chats.filter({ $0.participant == contact }).first else {
-                        throw ChatRepositoryError.chatNotFound
-                    }
-                    return chat
-                }
+        let local = localDataSource.get(forContact: contact).asObservable().flatMapResult()
+        return Observable
+                .concat(local)
+                .single({ $0.isSuccess })
+                .map({ $0.value! })
+                .take(1)
+                .asSingle()
     }
 
     public func getAll() -> Single<[Chat]> {
-        return Single.deferred { [unowned self] in
-            let entities = self.chatDao.findAll()
-            return Single.just(entities)
-        }.map(chatMapper.mapAll)
+        let local = localDataSource.getAll().asObservable().flatMapResult()
+        let remote = networkDataSource.getAll().asObservable().flatMapResult()
+        return Observable
+                .concat(local, remote)
+                .single({ $0.isSuccess })
+                .map({ $0.value! })
+                .take(1)
+                .asSingle()
     }
 
     // MARK: Deleting
 
     public func delete(chat: Chat) -> Completable {
-        return Completable.deferred { [unowned self] in
-            do {
-                try self.chatDao.delete(byId: chat.id)
-            } catch {
-                log.error("Could not delete Chat: \(chat)")
-            }
-            return Completable.empty()
-        }
+        return localDataSource.delete(chat: chat)
     }
 
 }
