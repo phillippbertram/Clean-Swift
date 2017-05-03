@@ -9,10 +9,10 @@ import RxSwift
 
 public final class MessageRepository {
 
-    fileprivate let localDataSource: MessageDataSourceLocal
+    fileprivate let localDataSource: MessageDataSourceDb
     fileprivate let messageApi: MessageApiType
 
-    public init(localDataSource: MessageDataSourceLocal,
+    public init(localDataSource: MessageDataSourceDb,
                 messageApi: MessageApiType) {
         self.localDataSource = localDataSource
         self.messageApi = messageApi
@@ -29,7 +29,7 @@ extension MessageRepository: MessageRepositoryType {
             let request = ApiMessageRequest()
             return self.messageApi.send(message: request, receiver: receiver)
         }.map { _ in
-            // TODO: return update message
+            // TODO: return updated message
             return message
         }
     }

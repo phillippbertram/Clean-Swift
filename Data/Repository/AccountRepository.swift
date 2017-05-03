@@ -8,25 +8,12 @@ import RxSwift
 
 public final class AccountRepository {
 
-    fileprivate var data: Set<CurrentUser> = []
     fileprivate let currentUser: Variable<CurrentUser?> = Variable(nil)
 
-    public init() {
+    fileprivate let loginApi: LoginApiType
 
-        let pbe = CurrentUser(userName: "pbe", password: "pbe", firstName: "Phillipp", lastName: "Bertram")
-        let alb = CurrentUser(userName: "alb", password: "alb", firstName: "Alexander", lastName: "Brechmann")
-        let nih = CurrentUser(userName: "nih", password: "nih", firstName: "Nils", lastName: "Hohmann")
-        let waw = CurrentUser(userName: "waw", password: "waw", firstName: "Waldemar", lastName: "Weißhaar")
-        let cwo = CurrentUser(userName: "cwo", password: "cwo", firstName: "Christof", lastName: "Wolke")
-        let mdr = CurrentUser(userName: "mdr", password: "mdr", firstName: "Matthias", lastName: "Dierker")
-
-        data.insert(pbe)
-        data.insert(alb)
-        data.insert(nih)
-        data.insert(waw)
-        data.insert(cwo)
-        data.insert(mdr)
-
+    public init(loginApi: LoginApiType) {
+        self.loginApi = loginApi
     }
 
 }
@@ -36,19 +23,14 @@ public final class AccountRepository {
 extension AccountRepository: AccountRepositoryType {
 
     public func login(withUserName userName: String, andPassword password: String) -> Single<CurrentUser> {
-        return Single.deferred { [unowned self] in
-
-            guard let user = self.data.filter({$0.userName == userName}).first else {
-                return Single.error(AccountRepositoryError.invalidCredentials)
-            }
-
-            guard user.password == password else {
-                return Single.error(AccountRepositoryError.invalidCredentials)
-            }
-
-            self.currentUser.value = user
-            return Single.just(user)
-        }
+        return loginApi
+                .login(with: userName, and: password)
+                .map { loginData in
+                    CurrentUser(userName: loginData.userName,
+                                password: password,
+                                firstName: loginData.firstName,
+                                lastName: loginData.lastName)
+                }
     }
 
     public func logout() -> Completable {

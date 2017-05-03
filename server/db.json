@@ -1,0 +1,25 @@
+{
+  "contacts": [
+    { "username": "pbe", "firstName": "Phillipp", "lastName": "Bertram" },
+    { "username": "alb", "firstName": "Alexander", "lastName": "Brechmann" },
+    { "username": "mdr", "firstName": "Matthias", "lastName": "Dierker" },
+    { "username": "nih", "firstName": "Nils", "lastName": "Hohmann" },
+    { "username": "cwo", "firstName": "Christof", "lastName": "Wolke" },
+    { "username": "waw", "firstName": "Waldemar", "lastName": "Weißhaar" },
+    { "id": "legacy", "fn": "Thron", "ln": "Legacy" },
+    { "username": "another-legacy", "fn": "Hannibal", "ln": "Rising" }
+  ],
+  "chats": [
+    { "id": "pbe-alb", "participant": "alb" },
+    { "id": "pbe-mdr", "participant": "mdr" },
+    { "id": "pbe-nih", "participant": "nih" }
+  ],
+  "messages": [
+    { "id": "1", "chatId": "pbe-alb", "content": "Hi Alex", "sender": "pbe", "status": "DELIVERED", "timestamp": "2017-05-03T08:53Z" },
+    { "id": "2", "chatId": "pbe-alb", "content": "Hola Phillipp", "sender": "alb", "status": "DELIVERED", "timestamp": "2017-05-03T09:53Z"},
+    { "id": "3", "chatId": "pbe-mdr", "content": "Was geht ab?", "sender": "mdr", "status": "DELIVERED", "timestamp": "2017-05-03T10:53Z"},
+    { "id": "4", "chatId": "pbe-mdr", "content": "Was geht ab?", "sender": "pbe", "status": "DELIVERED", "timestamp": "2017-05-03T11:53Z"},
+    { "id": "5", "chatId": "pbe-mdr", "content": "Was geht ab?", "sender": "pbe", "status": "DELIVERED", "timestamp": "2017-05-03T12:53Z"},
+    { "id": "6", "chatId": "pbe-mdr", "content": "Was geht ab?", "sender": "pbe", "status": "DELIVERED", "timestamp": "2017-05-03T13:53Z"}
+  ]
+}

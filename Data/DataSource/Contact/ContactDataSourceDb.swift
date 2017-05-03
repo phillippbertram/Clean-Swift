@@ -6,7 +6,7 @@
 import Domain
 import RxSwift
 
-public final class ContactDataSourceLocal {
+public final class ContactDataSourceDb {
 
     fileprivate let contactMapper = ContactEntityDomainMapper()
     fileprivate let contactDAO: ContactDAO
@@ -16,22 +16,21 @@ public final class ContactDataSourceLocal {
     }
 
     public func persist(_ contact: Contact) -> Single<Contact> {
-        return Observable.deferred { [unowned self] in
+        return Single.deferred { [unowned self] in
                     log.debug("Creating Contact: \(contact)")
-                    return self.contactDAO.write { () -> ContactEntity in
+                    return self.contactDAO.write { _ -> ContactEntity in
                         return self.mapContactToEntity(contact)
                     }
                 }
                 .map { [unowned self] in
                     self.contactMapper.map($0)
                 }
-                .asSingle()
     }
 
     public func persistAll(_ contacts: [Contact]) -> Single<[Contact]> {
-        return Observable.deferred { [unowned self] in
+        return Single.deferred { [unowned self] in
                     log.debug("Creating Contacts: \(contacts)")
-                    return self.contactDAO.write { () -> [ContactEntity] in
+                    return self.contactDAO.write { _ -> [ContactEntity] in
                         return contacts.map { [unowned self] contact -> ContactEntity in
                             self.mapContactToEntity(contact)
                         }
@@ -40,14 +39,13 @@ public final class ContactDataSourceLocal {
                 .map { [unowned self] in
                     self.contactMapper.mapAll($0)
                 }
-                .asSingle()
     }
 
 }
 
 // MARK: - ContactDataSource
 
-extension ContactDataSourceLocal: ContactDataSource {
+extension ContactDataSourceDb: ContactDataSource {
 
     func getAll() -> Single<[Contact]> {
         return Single.deferred { [unowned self] () -> Single<[Contact]> in
@@ -75,7 +73,7 @@ extension ContactDataSourceLocal: ContactDataSource {
 
 // MARK: - Mapping
 
-private extension ContactDataSourceLocal {
+private extension ContactDataSourceDb {
 
     func mapAll(_ contactEntities: [ContactEntity]) -> [Contact] {
         return contactEntities.map { [unowned self] contactEntity in

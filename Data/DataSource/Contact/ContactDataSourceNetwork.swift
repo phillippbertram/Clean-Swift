@@ -9,19 +9,11 @@ import RxSwiftExt
 
 public final class ContactDataSourceNetwork {
 
-    private let maxAttempts: UInt = 3
-    private let retryDelay: TimeInterval = 0.3
-
+    fileprivate let apiContactMapper: ApiContactDomainMapper = ApiContactDomainMapper()
     fileprivate let contactApi: ContactApiType
 
     public init(contactApi: ContactApiType) {
         self.contactApi = contactApi
-    }
-
-    fileprivate func requestPolicy<E>(_ request: Observable<E>) -> Observable<E> {
-        return request
-                .retry(RepeatBehavior.delayed(maxCount: maxAttempts, time: retryDelay))
-                .delay(4, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
     }
 }
 
@@ -33,8 +25,7 @@ extension ContactDataSourceNetwork: ContactDataSource {
         return contactApi
                 .get(byUsername: userName)
                 .asObservable()
-                .map(Contact.init)
-                .apply(requestPolicy)
+                .map(apiContactMapper.map)
                 .asSingle()
     }
 
@@ -42,21 +33,8 @@ extension ContactDataSourceNetwork: ContactDataSource {
         return contactApi
                 .getAll()
                 .asObservable()
-                .flatMap({ Observable.from($0) })
-                .map(Contact.init)
-                .apply(requestPolicy)
-                .toArray()
+                .map(apiContactMapper.mapAll)
                 .asSingle()
-    }
-
-}
-
-extension Contact {
-
-    init(contactDTO: ApiContact) {
-        self.userName = contactDTO.userName
-        self.firstName = contactDTO.firstName
-        self.lastName = contactDTO.lastName
     }
 
 }

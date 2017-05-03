@@ -35,7 +35,7 @@ final class LoginViewController: UIViewController, SegueHandlerType {
         viewModel
                 .loginAction
                 .elements
-                .subscribe(onNext: {
+                .subscribe(onNext: { [unowned self] in
                     self.performSegue(withIdentifier: .showMain)
                 })
                 .addDisposableTo(disposeBag)

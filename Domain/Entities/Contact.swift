@@ -10,6 +10,11 @@ import Foundation
 
 public struct Contact {
 
+    public enum Status {
+        case normal
+        case blocked
+    }
+
     /// The unique username
     public let userName: String
 
@@ -19,6 +24,8 @@ public struct Contact {
     /// last name
     public let lastName: String
 
+    public var status: Status = .normal
+
     public init(userName: String, firstName: String, lastName: String) {
         self.userName = userName
         self.firstName = firstName
@@ -27,7 +34,15 @@ public struct Contact {
 
 }
 
-// MARK: - Comparable
+extension Contact {
+
+    var isBlocked: Bool {
+        return status == .blocked
+    }
+
+}
+
+// MARK: - Comparable, Hashable
 
 extension Contact: Comparable, Hashable {
 
@@ -35,11 +50,11 @@ extension Contact: Comparable, Hashable {
         return userName.hash
     }
 
-    public static func < (lhs: Contact, rhs: Contact) -> Bool {
+    public static func <(lhs: Contact, rhs: Contact) -> Bool {
         return lhs.lastName < rhs.lastName
     }
 
-    public static func == (lhs: Contact, rhs: Contact) -> Bool {
+    public static func ==(lhs: Contact, rhs: Contact) -> Bool {
         return lhs.userName == rhs.userName
     }
 

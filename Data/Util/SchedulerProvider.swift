@@ -11,6 +11,7 @@ public final class SchedulerProvider: SchedulerProviderType {
 
     public let mainScheduler: ImmediateSchedulerType = MainScheduler.instance
     public let backgroundScheduler: ImmediateSchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)
+    public let throttlingScheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)
 
     public init() {
 

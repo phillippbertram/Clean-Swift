@@ -6,9 +6,9 @@
 import Domain
 import RxSwift
 
-protocol ChatDataSource {
+protocol ChatDataSource: DataSource {
 
-    func getAll() -> Single<[Chat]>
+    func get(forUserName: String) -> Single<Chat>
 
     func get(byId chatId: String) -> Single<Chat>
 

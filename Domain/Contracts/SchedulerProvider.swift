@@ -13,4 +13,6 @@ public protocol SchedulerProviderType {
     /// Scheduler that runs on a background thread
     var backgroundScheduler: ImmediateSchedulerType { get }
 
+    var throttlingScheduler: SchedulerType { get }
+
 }

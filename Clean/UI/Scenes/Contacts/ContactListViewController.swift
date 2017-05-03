@@ -6,8 +6,11 @@
 import Material
 import RxSwift
 import RxCocoa
+import Action
 
 public final class ContactListViewController: UITableViewController {
+
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
 
     var viewModel: ContactListViewModel!
 
@@ -23,6 +26,7 @@ public final class ContactListViewController: UITableViewController {
             self.tableView.reloadData()
         }.addDisposableTo(disposeBag)
 
+        refreshButton.rx.action = viewModel.refreshAction
     }
 
     // MARK: UITableViewDataSource

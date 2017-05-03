@@ -1,11 +1,12 @@
 //
-// Created by Phillipp Bertram on 05/04/2017.
+// Created by Phillipp Bertram on 18.04.17.
 // Copyright (c) 2017 Phillipp Bertram. All rights reserved.
 //
 
 import RxSwift
+import Common
 
-public class UseCase<Input, Output> {
+public class SingleUseCase<Input, Output> {
 
     let schedulerProvider: SchedulerProviderType
 
@@ -13,11 +14,11 @@ public class UseCase<Input, Output> {
         self.schedulerProvider = schedulerProvider
     }
 
-    func buildObservable(params: Input) -> Observable<Output> {
-        fatalError("Has to be implemented by subclass")
+    func buildObservable(params: Input) -> Single<Output> {
+        abstractMethod()
     }
 
-    public final func build(_ params: Input) -> Observable<Output> {
+    public final func build(_ params: Input) -> Single<Output> {
         return buildObservable(params: params)
                 .subscribeOn(schedulerProvider.backgroundScheduler)
                 .observeOn(schedulerProvider.mainScheduler)

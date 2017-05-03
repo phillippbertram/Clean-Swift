@@ -5,6 +5,7 @@
 
 import Domain
 import RxSwift
+import RxAlamofire
 
 public protocol ContactApiType {
 
@@ -21,27 +22,18 @@ public protocol ContactApiType {
 
 }
 
-public final class ContactApi: ContactApiType {
+public final class ContactApi: BaseApi<ApiContact>, ContactApiType {
 
     public init() {
-
+        super.init("http://localhost:3000")
     }
 
     public func getAll() -> Single<[ApiContact]> {
-        return Single.deferred {
-            let c1 = ApiContact(userName: "alb", firstName: "Alexander", lastName: "Brechmann")
-            let c2 = ApiContact(userName: "nih", firstName: "Nils", lastName: "Hohmann")
-            return Single.just([c1, c2])
-        }
+        return getItems("contacts")
     }
 
     public func get(byUsername userName: String) -> Single<ApiContact> {
-        return getAll().map {
-            if let contact = $0.filter({ $0.userName == userName }).first {
-                return contact
-            }
-            throw ApiError.contactNotFound
-        }
+        return getItem("contacts", itemId: userName)
     }
 
 }

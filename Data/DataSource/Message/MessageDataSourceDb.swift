@@ -4,23 +4,45 @@
 //
 
 import Domain
+import Common
 import RxSwift
 
-public final class MessageDataSourceLocal {
+public final class MessageDataSourceDb {
 
     fileprivate let messageMapper = MessageEntityDomainMapper()
 
     fileprivate let messageDao: MessageDAO
+    fileprivate let sessionManager: SessionManager
 
-    public init(messageDao: MessageDAO) {
+    public init(messageDao: MessageDAO, sessionManager: SessionManager) {
         self.messageDao = messageDao
+        self.sessionManager = sessionManager
+    }
+
+    public func persist(messages: [Message]) {
+
+    }
+
+    public func `import`(apiMessages: [ApiMessage]) -> Single<[Message]> {
+        return messageDao.write { [unowned self] realm -> [MessageEntity] in
+                    return apiMessages.map { apiMessage in
+                        if let existingMessage = self.messageDao.find(realm: realm, byRemoteId: apiMessage.id) {
+                            existingMessage.remoteId = apiMessage.id
+                            existingMessage.message = apiMessage.content
+                        }
+                        notImplemented()
+                    }
+                }
+                .map { [unowned self] in
+                    self.messageMapper.mapAll($0)
+                }
     }
 
 }
 
 // MARK: - MessageDataSource
 
-extension MessageDataSourceLocal: MessageDataSource {
+extension MessageDataSourceDb: MessageDataSource {
 
     public func getAll(for chat: Chat) -> Single<[Message]> {
         return Single.deferred { [unowned self] in
@@ -50,6 +72,5 @@ extension MessageDataSourceLocal: MessageDataSource {
                     self.messageMapper.mapAll($0)
                 }
     }
-
 
 }

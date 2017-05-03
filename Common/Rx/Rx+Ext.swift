@@ -15,3 +15,11 @@ extension ObservableType {
     }
 
 }
+
+extension ObservableType {
+
+    public func mapToVoid() -> Observable<Void> {
+        return map ({ _ in })
+    }
+
+}

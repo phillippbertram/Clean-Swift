@@ -30,3 +30,11 @@ public enum GeneralError: Error {
     case notImplemented
 
 }
+
+public func abstractMethod() -> Never {
+    fatalError("abstract method")
+}
+
+public func notImplemented() -> Never {
+    fatalError("has to be implemented")
+}

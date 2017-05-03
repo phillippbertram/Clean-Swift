@@ -27,7 +27,7 @@ class LoginUseCaseSpec: QuickSpec {
                 currentUserRepository = MockCurrentUserRepository()
 
                 sut = LoginUseCase(schedulerProvider: schedulerProvider,
-                                   currentUserRepository: currentUserRepository)
+                                   accountUserRepository: currentUserRepository)
             }
 
             context("success") {

@@ -7,14 +7,15 @@
 //
 
 import Domain
+import Common
 import RxSwift
 
 public final class ChatRepository {
 
-    fileprivate let localDataSource: ChatDataSourceLocal
+    fileprivate let localDataSource: ChatDataSourceCache
     fileprivate let networkDataSource: ChatDataSourceNetwork
 
-    public init(localDataSource: ChatDataSourceLocal,
+    public init(localDataSource: ChatDataSourceCache,
                 networkDataSource: ChatDataSourceNetwork) {
         self.localDataSource = localDataSource
         self.networkDataSource = networkDataSource
@@ -30,7 +31,7 @@ extension ChatRepository: ChatRepositoryType {
     }
 
     public func create(chat: CreateChatParam) -> Single<Chat> {
-        return localDataSource.persist(chat: chat)
+        notImplemented()
     }
 
     public func get(byId chatId: String) -> Single<Chat> {
@@ -45,13 +46,7 @@ extension ChatRepository: ChatRepositoryType {
     }
 
     public func get(forContact contact: Contact) -> Single<Chat> {
-        let local = localDataSource.get(forContact: contact).asObservable().flatMapResult()
-        return Observable
-                .concat(local)
-                .single({ $0.isSuccess })
-                .map({ $0.value! })
-                .take(1)
-                .asSingle()
+        return localDataSource.get(forUserName: contact.userName)
     }
 
     public func getAll() -> Single<[Chat]> {
@@ -68,7 +63,8 @@ extension ChatRepository: ChatRepositoryType {
     // MARK: Deleting
 
     public func delete(chat: Chat) -> Completable {
-        return localDataSource.delete(chat: chat)
+        notImplemented()
+        //return localDataSource.delete(chat: chat)
     }
 
 }

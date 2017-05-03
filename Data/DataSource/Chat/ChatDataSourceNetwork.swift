@@ -3,6 +3,7 @@
 // Copyright (c) 2017 Phillipp Bertram. All rights reserved.
 //
 
+import Common
 import Domain
 import RxSwift
 
@@ -19,7 +20,7 @@ public final class ChatDataSourceNetwork {
 
 extension ChatDataSourceNetwork: ChatDataSource {
 
-    func getAll() -> Single<[Chat]> {
+    public func getAll() -> Single<[Chat]> {
         return chatApi
                 .getAll()
                 .asObservable()
@@ -31,7 +32,11 @@ extension ChatDataSourceNetwork: ChatDataSource {
                 .asSingle()
     }
 
-    func get(byId chatId: String) -> Single<Chat> {
+    public func get(forUserName: String) -> Single<Chat> {
+        notImplemented()
+    }
+
+    public func get(byId chatId: String) -> Single<Chat> {
         return chatApi
                 .get(byId: chatId)
                 .map { [unowned self] in

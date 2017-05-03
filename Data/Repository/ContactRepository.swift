@@ -9,12 +9,12 @@ import RxSwift
 
 public final class ContactRepository {
 
-    fileprivate let localDataSource: ContactDataSourceLocal
+    fileprivate let localDataSource: ContactDataSourceCache
     fileprivate let networkDataSource: ContactDataSourceNetwork
 
-    public init(localDataSource: ContactDataSourceLocal,
+    public init(localDataSource: ContactDataSourceDb,
                 networkDataSource: ContactDataSourceNetwork) {
-        self.localDataSource = localDataSource
+        self.localDataSource = ContactDataSourceCache()
         self.networkDataSource = networkDataSource
     }
 
@@ -29,14 +29,14 @@ extension ContactRepository: ContactRepositoryType {
         let network = networkDataSource
                 .getAll()
                 .flatMap { [unowned self] in
-                    self.localDataSource.persistAll($0)
+                    self.localDataSource.persist(entities: $0)
                 }
                 .asObservable()
                 .flatMapResult()
 
         return Observable
                 .concat([local, network])
-                .single({ $0.isSuccess && !$0.value!.isEmpty})
+                .single({ $0.isSuccess && !$0.value!.isEmpty })
                 .map({ $0.value! })
                 .take(1)
                 .asSingle()
@@ -47,7 +47,7 @@ extension ContactRepository: ContactRepositoryType {
         let network = networkDataSource
                 .get(byUserName: userName)
                 .flatMap { [unowned self] in
-                    self.localDataSource.persist($0)
+                    self.localDataSource.persist(entity: $0)
                 }
                 .asObservable()
                 .flatMapResult()
@@ -62,7 +62,7 @@ extension ContactRepository: ContactRepositoryType {
 
     public func create(params: CreateContactParam) -> Single<Contact> {
         let contact = Contact(userName: params.userName, firstName: params.firstName, lastName: params.lastName)
-        return localDataSource.persist(contact)
+        return localDataSource.persist(entity: contact)
     }
 
 }

@@ -5,25 +5,19 @@
 
 import RxSwift
 
-enum LoginError: Error {
-
-    case invalidCredentials
-
-}
-
 public final class LoginUseCase: SingleUseCase<LoginUseCaseParams, CurrentUser> {
 
-    private let currentUserRepository: AccountRepositoryType
+    private let accountRepository: AccountRepositoryType
 
     public init(schedulerProvider: SchedulerProviderType,
-                currentUserRepository: AccountRepositoryType) {
-        self.currentUserRepository = currentUserRepository
+                accountUserRepository: AccountRepositoryType) {
+        self.accountRepository = accountUserRepository
         super.init(schedulerProvider: schedulerProvider)
     }
 
     public override func buildObservable(params: LoginUseCaseParams) -> Single<CurrentUser> {
-        return currentUserRepository
-            .login(withUserName: params.userName, andPassword: params.password)
+        return accountRepository
+                .login(withUserName: params.userName, andPassword: params.password)
     }
 
 }

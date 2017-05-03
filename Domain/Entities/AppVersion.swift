@@ -14,5 +14,5 @@ public struct AppVersion {
         self.version = version
         self.build = build
     }
-    
+
 }

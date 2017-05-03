@@ -7,6 +7,8 @@ import Foundation
 
 enum ApiError: Error {
     case http(statusCode: Int)
+    case invalidCredentials
+
     case contactNotFound
     case chatNotFound
 }

@@ -17,7 +17,7 @@ final class DomainAssembly: Assembly {
         container.register(LoginUseCase.self) { resolver in
             let currentUserRepository = resolver.resolve(AccountRepositoryType.self)!
             let schedulerProvider = resolver.resolve(SchedulerProviderType.self)!
-            return LoginUseCase(schedulerProvider: schedulerProvider, currentUserRepository: currentUserRepository)
+            return LoginUseCase(schedulerProvider: schedulerProvider, accountUserRepository: currentUserRepository)
         }
 
         container.register(LogoutUseCase.self) { resolver in

@@ -9,6 +9,7 @@
 import Foundation
 
 /// Entity that represents a conversation with a user
+
 public struct Chat {
 
     /// Unique identifier
@@ -37,6 +38,16 @@ public struct Chat {
         self.lastMessage = lastMessage
         self.modifiedAt = modifiedAt
         self.createdAt = createdAt
+    }
+
+}
+
+// MARK: - Convenience
+
+extension Chat {
+
+    var canSendMessage: Bool {
+        return true
     }
 
 }

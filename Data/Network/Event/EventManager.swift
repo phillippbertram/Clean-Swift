@@ -5,6 +5,7 @@
 
 import RxSwift
 import Domain
+import Common
 
 class ImportReceivedMessageUseCase {
 
@@ -36,18 +37,7 @@ public final class EventManager: EventManagerType {
     }
 
     private func handleEvent(_ event: ApiEvent) -> Observable<Void> {
-        fatalError("not implemented")
-        //        switch event.type {
-        //
-        //            case .receivedMessage(let messageDTO):
-        //                return contactRepository
-        //                        .getBy(userName: messageDTO.sender)
-        //                        .map { contact in
-        //                            Message(dto: messageDTO, sender: contact)
-        //                        }
-        //                        .flatMap(messageRepository.createMessage)
-        //                        .map({ _ in () })
-        //        }
+        notImplemented()
     }
 
 }

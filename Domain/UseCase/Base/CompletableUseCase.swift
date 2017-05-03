@@ -4,6 +4,7 @@
 //
 
 import RxSwift
+import Common
 
 public class CompletableUseCase<Input> {
 
@@ -14,7 +15,7 @@ public class CompletableUseCase<Input> {
     }
 
     func buildObservable(params: Input) -> Completable {
-        fatalError("Has to be implemented by subclass")
+        abstractMethod()
     }
 
     public final func build(_ params: Input) -> Completable {

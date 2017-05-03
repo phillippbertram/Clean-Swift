@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxSwiftExt
 
 public final class ObserveContactsUseCase: UseCase<Void, [Contact]> {
 
@@ -17,11 +18,13 @@ public final class ObserveContactsUseCase: UseCase<Void, [Contact]> {
         super.init(schedulerProvider: schedulerProvider)
     }
 
-    public override func buildObservable(params: Void) -> Observable<[Contact]> {
+    override func buildObservable(params: Void) -> Observable<[Contact]> {
         return contactRepository
-            .getAll()
-            .map({ $0.sorted(by: <) })
-            .asObservable()
+                .getAll()
+                .asObservable()
+                .throttle(0.25, scheduler: schedulerProvider.throttlingScheduler)
+                .map({ $0.sorted(by: <) })
+                .catchErrorJustComplete()
     }
 
 }

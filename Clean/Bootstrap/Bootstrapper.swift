@@ -13,8 +13,8 @@ final class Bootstrapper {
 
     static func bootstrap() -> Container {
         let container = SwinjectStoryboard.defaultContainer
-        let asselmber = Assembler(container: container)
-        asselmber.apply(assemblies: [
+        let assembler = Assembler(container: container)
+        assembler.apply(assemblies: [
             ViewAssembly(),
             DomainAssembly(),
             DataAssembly()])

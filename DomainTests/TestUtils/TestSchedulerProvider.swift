@@ -18,10 +18,13 @@ class TestSchedulerProvider: SchedulerProviderType {
         return backgroundTestScheduler
     }
 
-//    var mainTestScheduler = TestScheduler(initialClock: 0)
-//    var backgroundTestScheduler = TestScheduler(initialClock: 0)
-    
+    var var throttlingScheduler: SchedulerType {
+        return throttlingTestScheduler
+    }
+
     var mainTestScheduler = CurrentThreadScheduler.instance
     var backgroundTestScheduler = CurrentThreadScheduler.instance
-    
+    var throttlingTestScheduler = CurrentThreadScheduler.instance
+
+
 }

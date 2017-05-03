@@ -6,18 +6,27 @@
 import Common
 import RxSwift
 
+protocol ContactService {
+
+    func block(userName: String) -> Completable
+
+}
+
 final class BlockContactUseCase: CompletableUseCase<Contact> {
 
     fileprivate let contactRepository: ContactRepositoryType
+    fileprivate let contactService: ContactService
 
     init(schedulerProvider: SchedulerProviderType,
-         contactRepository: ContactRepositoryType) {
+         contactRepository: ContactRepositoryType,
+         contactService: ContactService) {
         self.contactRepository = contactRepository
+        self.contactService = contactService
         super.init(schedulerProvider: schedulerProvider)
     }
 
     override func buildObservable(params: Contact) -> Completable {
-        return Completable.error(GeneralError.notImplemented)
+        notImplemented()
     }
 
 }

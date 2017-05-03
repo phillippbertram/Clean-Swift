@@ -12,7 +12,7 @@ enum RealmError: Error {
     case entityNotFound
 }
 
-public class RealmBaseDAO<Entity: BaseEntity> {
+public class RealmBaseDAO<Entity:BaseEntity> {
 
     private let config: Realm.Configuration
 
@@ -26,19 +26,22 @@ public class RealmBaseDAO<Entity: BaseEntity> {
     /// Returns a realm instance
     ///
     /// - Returns: realm
-    func getRealm() -> Realm {
+    func getRealm(_ realm: Realm? = nil) -> Realm {
+        if let realm = realm {
+            return realm
+        }
         // swiftlint:disable:next force_try
         return try! Realm(configuration: config)
     }
 
     // MARK: Query
 
-    func queryAll() -> Results<Entity> {
-        return getRealm().objects(Entity.self)
+    func queryAll(realm: Realm? = nil) -> Results<Entity> {
+        return getRealm(realm).objects(Entity.self)
     }
 
-    func query(withFilter predicate: NSPredicate) -> Results<Entity> {
-        return queryAll().filter(predicate)
+    func query(realm: Realm? = nil, withFilter predicate: NSPredicate) -> Results<Entity> {
+        return queryAll(realm: realm).filter(predicate)
     }
 
     // MARK: Reading
@@ -46,8 +49,8 @@ public class RealmBaseDAO<Entity: BaseEntity> {
     /// Finds all entities
     ///
     /// - Returns: all entities for generic type
-    func findAll() -> [Entity] {
-        let entities = queryAll()
+    func findAll(realm: Realm? = nil) -> [Entity] {
+        let entities = queryAll(realm: realm)
         return Array(entities)
     }
 
@@ -55,24 +58,24 @@ public class RealmBaseDAO<Entity: BaseEntity> {
     ///
     /// - Parameter filter: Filter
     /// - Returns: filtered results
-    func find(withFilter filter: (Entity) -> Bool) -> [Entity] {
-        return queryAll().filter(filter)
+    func find(realm: Realm? = nil, withFilter filter: (Entity) -> Bool) -> [Entity] {
+        return queryAll(realm: realm).filter(filter)
     }
 
     /// Finds all entities matching given filter
     ///
     /// - Parameter filter: Filter
     /// - Returns: filtered results
-    func findOne(withFilter filter: (Entity) -> Bool) -> Entity? {
-        return find(withFilter: filter).first
+    func findOne(realm: Realm? = nil, withFilter filter: (Entity) -> Bool) -> Entity? {
+        return find(realm: realm, withFilter: filter).first
     }
 
     /// Finds an entity by given primary key
     ///
     /// - Parameter primaryKey: primary key
     /// - Returns: entity
-    func find(byPrimaryKey primaryKey: String) -> Entity? {
-        return find(withFilter: ({ $0.id == primaryKey })).first
+    func find(realm: Realm? = nil, byPrimaryKey primaryKey: String) -> Entity? {
+        return find(realm: realm, withFilter: ({ $0.id == primaryKey })).first
     }
 
     // MARK: Observing
@@ -97,43 +100,43 @@ public class RealmBaseDAO<Entity: BaseEntity> {
 
     // MARK: Writing
 
-    func write(block: @escaping (() throws -> [Entity])) -> Observable<[Entity]> {
-        return Observable.deferred { [unowned self] in
+    func write(block: @escaping ((Realm) throws -> [Entity])) -> Single<[Entity]> {
+        return Single.deferred { [unowned self] in
             let realm = self.getRealm()
             do {
                 realm.beginWrite()
-                let entities = try block()
+                let entities = try block(realm)
                 for entity in entities {
                     realm.add(entity, update: true)
                 }
                 try realm.commitWrite()
                 realm.refresh()
-                return Observable.just(entities)
+                return Single.just(entities)
             } catch (let error) {
-                return Observable.error(error)
+                return Single.error(error)
             }
         }
 
     }
 
-    func write(block: @escaping (() throws -> Entity)) -> Observable<Entity> {
-        return Observable.deferred { [unowned self] in
-            let realm = self.getRealm()
+    func write(realm: Realm? = nil, block: @escaping ((Realm) throws -> Entity)) -> Single<Entity> {
+        return Single.deferred { [unowned self] in
+            let realm = self.getRealm(realm)
             do {
                 realm.beginWrite()
-                let entity = try block()
+                let entity = try block(realm)
                 realm.add(entity, update: true)
                 try realm.commitWrite()
-                return Observable.just(entity)
+                return Single.just(entity)
             } catch (let error) {
-                return Observable.error(error)
+                return Single.error(error)
             }
         }
     }
 
-    func update(primaryKey: String, block: @escaping ((Entity) throws -> Entity)) -> Observable<Entity> {
-        return Observable.deferred { [unowned self] in
-            let realm = self.getRealm()
+    func update(realm: Realm? = nil, primaryKey: String, block: @escaping ((Entity) throws -> Entity)) -> Single<Entity> {
+        return Single.deferred { [unowned self] in
+            let realm = self.getRealm(realm)
             do {
                 realm.beginWrite()
                 guard let existing = self.find(byPrimaryKey: primaryKey) else {
@@ -142,9 +145,9 @@ public class RealmBaseDAO<Entity: BaseEntity> {
                 let entity = try block(existing)
                 realm.add(entity, update: true)
                 try realm.commitWrite()
-                return Observable.just(entity)
+                return Single.just(entity)
             } catch (let error) {
-                return Observable.error(error)
+                return Single.error(error)
             }
         }
     }
@@ -157,9 +160,16 @@ public class RealmBaseDAO<Entity: BaseEntity> {
     func delete(entity: Entity) throws {
         let realm = getRealm()
         do {
-            realm.beginWrite()
+            var shouldCommit = false
+            if !realm.isInWriteTransaction {
+                realm.beginWrite()
+                shouldCommit = true
+            }
             realm.delete(entity)
-            try realm.commitWrite()
+
+            if shouldCommit {
+                try realm.commitWrite()
+            }
         } catch let error as NSError {
             log.error("error deleting entity: \(error)")
             throw error
@@ -208,8 +218,8 @@ public class RealmBaseDAO<Entity: BaseEntity> {
 
 extension RealmBaseDAO where Entity: RemoteEntityType {
 
-    func find(byRemoteId remoteId: String) -> Entity? {
-        return findOne(withFilter: ({ $0.remoteId == remoteId }))
+    func find(realm: Realm? = nil, byRemoteId remoteId: String) -> Entity? {
+        return findOne(realm: realm, withFilter: ({ $0.remoteId == remoteId }))
     }
 
 }

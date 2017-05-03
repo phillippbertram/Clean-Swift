@@ -20,11 +20,17 @@ public protocol ChatApiType {
 
 }
 
-public final class ChatApi: ChatApiType {
+public final class ChatApi {
 
     public init() {
 
     }
+
+}
+
+// MARK: - ChatAPIType
+
+extension ChatApi: ChatApiType {
 
     public func getAll() -> Single<[ApiChat]> {
         return Single.just([])

@@ -29,7 +29,7 @@ extension UserDefaultsPreferences: PreferencesRepositoryType {
 
         let build: Int = {
             if let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-                if let intVersion = Int(version) {
+                if let intVersion = Int(build) {
                     return intVersion
                 }
             }

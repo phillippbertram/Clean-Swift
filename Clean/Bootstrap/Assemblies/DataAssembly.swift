@@ -34,23 +34,24 @@ fileprivate extension DataAssembly {
 
     fileprivate func registerRepositories(container: Container, scope: ObjectScope) {
         container.register(ChatRepositoryType.self) { resolver in
-            let localDataSource = resolver.resolve(ChatDataSourceLocal.self)!
+            let localDataSource = resolver.resolve(ChatDataSourceCache.self)!
             let networkDataSource = resolver.resolve(ChatDataSourceNetwork.self)!
             return ChatRepository(localDataSource: localDataSource, networkDataSource: networkDataSource)
         }.inObjectScope(scope)
 
         container.register(ContactRepositoryType.self) { resolver in
-            let dbDataSource = resolver.resolve(ContactDataSourceLocal.self)!
+            let dbDataSource = resolver.resolve(ContactDataSourceDb.self)!
             let networkDataSource = resolver.resolve(ContactDataSourceNetwork.self)!
             return ContactRepository(localDataSource: dbDataSource, networkDataSource: networkDataSource)
         }.inObjectScope(scope)
 
-        container.register(AccountRepositoryType.self) { _ in
-            return AccountRepository()
+        container.register(AccountRepositoryType.self) { resolver in
+            let loginApi = resolver.resolve(LoginApiType.self)!
+            return AccountRepository(loginApi: loginApi)
         }.inObjectScope(scope)
 
         container.register(MessageRepositoryType.self) { resolver in
-            let localDataSource = resolver.resolve(MessageDataSourceLocal.self)!
+            let localDataSource = resolver.resolve(MessageDataSourceDb.self)!
             let messageApi = resolver.resolve(MessageApiType.self)!
             return MessageRepository(localDataSource: localDataSource,
                                      messageApi: messageApi)
@@ -64,9 +65,9 @@ fileprivate extension DataAssembly {
             return ContactDataSourceNetwork(contactApi: contactApi)
         }.inObjectScope(scope)
 
-        container.register(ContactDataSourceLocal.self) { resolver in
+        container.register(ContactDataSourceDb.self) { resolver in
             let contactDao = resolver.resolve(ContactDAO.self)!
-            return ContactDataSourceLocal(contactDAO: contactDao)
+            return ContactDataSourceDb(contactDAO: contactDao)
         }.inObjectScope(scope)
 
         container.register(ChatDataSourceNetwork.self) { resolver in
@@ -74,9 +75,8 @@ fileprivate extension DataAssembly {
             return ChatDataSourceNetwork(chatApi: chatApi)
         }.inObjectScope(scope)
 
-        container.register(ChatDataSourceLocal.self) { resolver in
-            let chatDao = resolver.resolve(ChatDAO.self)!
-            return ChatDataSourceLocal(chatDao: chatDao)
+        container.register(ChatDataSourceCache.self) { _ in
+            return ChatDataSourceCache()
         }.inObjectScope(scope)
     }
 
@@ -114,6 +114,10 @@ fileprivate extension DataAssembly {
 
         container.register(ChatApiType.self) { _ in
             return ChatApi()
+        }.inObjectScope(scope)
+
+        container.register(LoginApiType.self) { _ in
+            return LoginApi()
         }.inObjectScope(scope)
     }
 
