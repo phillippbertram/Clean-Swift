@@ -15,7 +15,7 @@ public final class ObserveMessagesUseCase: UseCase<Chat, [Message]> {
     }
 
     override func buildObservable(params chat: Chat) -> Observable<[Message]> {
-        return messageRepository.observeAll(for: chat)
+        return messageRepository.getAll(for: chat).asObservable()
     }
 
 }

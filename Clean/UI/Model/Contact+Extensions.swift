@@ -9,6 +9,9 @@ import Domain
 extension Contact {
 
     var displayName: String {
+        if fullName.isEmpty {
+            return userName
+        }
         return fullName
     }
 

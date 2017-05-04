@@ -27,7 +27,12 @@ public final class ChatRepository {
 extension ChatRepository: ChatRepositoryType {
 
     public func observeAll() -> Observable<[Chat]> {
-        return localDataSource.observeAll()
+        let local = localDataSource.getAll().asObservable().flatMapResult()
+        let remote = networkDataSource.getAll().asObservable().flatMapResult()
+        return Observable
+                .concat(local, remote)
+                .single({ $0.isSuccess && !$0.value!.isEmpty })
+                .map({ $0.value! })
     }
 
     public func create(chat: CreateChatParam) -> Single<Chat> {

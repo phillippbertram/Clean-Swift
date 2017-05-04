@@ -20,10 +20,10 @@ public protocol ChatApiType {
 
 }
 
-public final class ChatApi {
+public final class ChatApi: BaseApi<ApiChat> {
 
     public init() {
-
+        super.init("http://localhost:3000")
     }
 
 }
@@ -33,11 +33,11 @@ public final class ChatApi {
 extension ChatApi: ChatApiType {
 
     public func getAll() -> Single<[ApiChat]> {
-        return Single.just([])
+        return getItems("chats")
     }
 
     public func get(byId id: String) -> Single<ApiChat> {
-        return Single.error(ApiError.chatNotFound)
+        return getItem("chat", itemId: id)
     }
 
 }

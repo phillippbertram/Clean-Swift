@@ -44,7 +44,6 @@ final class MessageEntityDomainMapper {
 
     func map(_ entity: MessageEntity) -> Message {
         return Message(id: entity.id,
-                       remoteId: entity.remoteId,
                        chatId: entity.chat.id,
                        content: .text(entity.message),
                        status: Message.Status.from(entity.status),

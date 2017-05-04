@@ -4,6 +4,7 @@
 //
 
 import RxSwift
+import RxSwiftExt
 import Domain
 
 public final class ChatDataSourceCache: DataSourceCache<Chat> {
@@ -15,7 +16,7 @@ public final class ChatDataSourceCache: DataSourceCache<Chat> {
 extension ChatDataSourceCache: ChatDataSource {
 
     func get(forUserName userName: String) -> Single<Chat> {
-        return get(byFilter: {$0.participant.userName == userName}).map({$0.first!})
+        return get(byFilter: {$0.participant.userName == userName}).map({$0.first}).asObservable().unwrap().asSingle()
     }
 
 }

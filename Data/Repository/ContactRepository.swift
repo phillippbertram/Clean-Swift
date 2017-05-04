@@ -12,9 +12,9 @@ public final class ContactRepository {
     fileprivate let localDataSource: ContactDataSourceCache
     fileprivate let networkDataSource: ContactDataSourceNetwork
 
-    public init(localDataSource: ContactDataSourceDb,
+    public init(localDataSource: ContactDataSourceCache,
                 networkDataSource: ContactDataSourceNetwork) {
-        self.localDataSource = ContactDataSourceCache()
+        self.localDataSource = localDataSource
         self.networkDataSource = networkDataSource
     }
 

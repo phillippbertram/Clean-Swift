@@ -10,9 +10,12 @@ import RxSwift
 public final class ChatDataSourceNetwork {
 
     fileprivate let chatApi: ChatApiType
+    fileprivate let contactApi: ContactApiType
+    fileprivate let contactMapper = ApiContactDomainMapper()
 
-    public init(chatApi: ChatApiType) {
+    public init(chatApi: ChatApiType, contactApi: ContactApiType) {
         self.chatApi = chatApi
+        self.contactApi = contactApi
     }
 }
 
@@ -25,8 +28,11 @@ extension ChatDataSourceNetwork: ChatDataSource {
                 .getAll()
                 .asObservable()
                 .flatMap({ Observable.from($0) })
-                .map { [unowned self] in
-                    self.map(apiChat: $0)
+                .flatMap { apiChat in
+                    self.contactApi.get(byUsername: apiChat.participant).map({ (apiChat, $0) })
+                }
+                .map { [unowned self] (apiChat, apiContact) in
+                    self.map(apiChat: apiChat, participant: apiContact)
                 }
                 .toArray()
                 .asSingle()
@@ -37,11 +43,14 @@ extension ChatDataSourceNetwork: ChatDataSource {
     }
 
     public func get(byId chatId: String) -> Single<Chat> {
-        return chatApi
-                .get(byId: chatId)
-                .map { [unowned self] in
-                    self.map(apiChat: $0)
+        return chatApi.get(byId: chatId)
+                .flatMap { apiChat in
+                    self.contactApi.get(byUsername: apiChat.participant).map({ (apiChat, $0) })
                 }
+                .map { [unowned self] (apiChat, apiContact) in
+                    self.map(apiChat: apiChat, participant: apiContact)
+                }
+
     }
 
 }
@@ -50,9 +59,10 @@ extension ChatDataSourceNetwork: ChatDataSource {
 
 private extension ChatDataSourceNetwork {
 
-    func map(apiChat: ApiChat) -> Chat {
+    func map(apiChat: ApiChat, participant: ApiContact) -> Chat {
+        let contact = contactMapper.map(apiContact: participant)
         return Chat(id: apiChat.id,
-                    participant: Contact(userName: "", firstName: "", lastName: ""), // TODO:
+                    participant: contact,
                     lastMessage: nil,
                     modifiedAt: apiChat.modifiedAt,
                     createdAt: apiChat.createdAt)

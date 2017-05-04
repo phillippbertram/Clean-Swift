@@ -55,6 +55,7 @@
 		A95D20486178393EB7B3F332 /* DeleteChatUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21727E8B8436E9643102 /* DeleteChatUseCase.swift */; };
 		A95D2082FACE39825513D924 /* ApiContactDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2CCDDA645F677F6F66F0 /* ApiContactDomainMapper.swift */; };
 		A95D209296B5644A673A0955 /* Seeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D22B28A5BF4102C03A85D /* Seeder.swift */; };
+		A95D20E285E4E1D78AD533DD /* MessageDataSourceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2F1D64C07FB5DC26AAAA /* MessageDataSourceCache.swift */; };
 		A95D215ECAAE0473F16B0FFB /* ContactDataSourceNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2E78BBE199FB488D3C48 /* ContactDataSourceNetwork.swift */; };
 		A95D21A36CF1969036074E78 /* ContactDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2B5CAB8AA23C2911B784 /* ContactDataSource.swift */; };
 		A95D21BEC437D4B5F675FD82 /* DataSourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D26092B389A2A38970A76 /* DataSourceError.swift */; };
@@ -117,6 +118,7 @@
 		A95D2989BF9451F26EA3503F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2CF219F0AFDD537A3116 /* TestHelper.swift */; };
 		A95D29996835EF11473414F4 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2EC76D5F35DDF2970B89 /* AppVersion.swift */; };
 		A95D29A3A3CFF7C0A54070B8 /* ContactRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2D0E6FF9441BBB96A093 /* ContactRepository.swift */; };
+		A95D29AD61D2B51E74A59C5D /* MessageDataSourceNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2B1BAEE30139CD786B7F /* MessageDataSourceNetwork.swift */; };
 		A95D2A607E8E64CD1328E5A0 /* ContactDataSourceDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2B1FDF78FBFEF2CC1280 /* ContactDataSourceDb.swift */; };
 		A95D2ABA5C49FEA4B2411C09 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D21FA86B7757A66817102 /* Logger.swift */; };
 		A95D2AFDB0AEA5EB41AC0FC9 /* BaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95D2352B2BC2AB5BB5CA12D /* BaseApi.swift */; };
@@ -357,6 +359,7 @@
 		A95D2AC344DDD6F9844F70FA /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		A95D2AFAB951829F4AA789CE /* MessageDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDAO.swift; sourceTree = "<group>"; };
 		A95D2B0AEE98F56FBBE03C5C /* ContactRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactRepository.swift; sourceTree = "<group>"; };
+		A95D2B1BAEE30139CD786B7F /* MessageDataSourceNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDataSourceNetwork.swift; sourceTree = "<group>"; };
 		A95D2B1FDF78FBFEF2CC1280 /* ContactDataSourceDb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDataSourceDb.swift; sourceTree = "<group>"; };
 		A95D2B5CAB8AA23C2911B784 /* ContactDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDataSource.swift; sourceTree = "<group>"; };
 		A95D2B7E58552EACE66F919B /* MessageEntityDomainMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEntityDomainMapper.swift; sourceTree = "<group>"; };
@@ -386,6 +389,7 @@
 		A95D2EAB17D4B551DF29703B /* ChatApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatApi.swift; sourceTree = "<group>"; };
 		A95D2EC76D5F35DDF2970B89 /* AppVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
 		A95D2ED9EF43407A9AEDFAC9 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		A95D2F1D64C07FB5DC26AAAA /* MessageDataSourceCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDataSourceCache.swift; sourceTree = "<group>"; };
 		A95D2F25E11530D13D74EB2E /* UseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		A95D2F3290B12523266173D6 /* ContactApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactApi.swift; sourceTree = "<group>"; };
 		A95D2F4DB128524712A7BA91 /* SendMessageUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMessageUseCase.swift; sourceTree = "<group>"; };
@@ -1108,6 +1112,8 @@
 			children = (
 				A95D2A201E8FBA589683CBA6 /* MessageDataSource.swift */,
 				A95D287B7ECF2776FFE5A7E5 /* MessageDataSourceDb.swift */,
+				A95D2F1D64C07FB5DC26AAAA /* MessageDataSourceCache.swift */,
+				A95D2B1BAEE30139CD786B7F /* MessageDataSourceNetwork.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -2003,6 +2009,8 @@
 				A95D2200E9574679D31B6FCF /* MessageApi.swift in Sources */,
 				A95D2AFDB0AEA5EB41AC0FC9 /* BaseApi.swift in Sources */,
 				A95D2E30CC7D2FA8D21DD721 /* ContactDataSourceCache.swift in Sources */,
+				A95D20E285E4E1D78AD533DD /* MessageDataSourceCache.swift in Sources */,
+				A95D29AD61D2B51E74A59C5D /* MessageDataSourceNetwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

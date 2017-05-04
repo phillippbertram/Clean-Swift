@@ -10,9 +10,9 @@
     { "username": "another-legacy", "fn": "Hannibal", "ln": "Rising" }
   ],
   "chats": [
-    { "id": "pbe-alb", "participant": "alb" },
-    { "id": "pbe-mdr", "participant": "mdr" },
-    { "id": "pbe-nih", "participant": "nih" }
+    { "id": "pbe-alb", "participant": "alb", "createdAt": "2017-05-03T09:53Z", "modifiedAt": "2017-05-03T09:53Z" },
+    { "id": "pbe-mdr", "participant": "mdr", "createdAt": "2017-05-03T09:53Z", "modifiedAt": "2017-05-03T09:53Z" },
+    { "id": "pbe-nih", "participant": "nih", "createdAt": "2017-05-03T09:53Z", "modifiedAt": "2017-05-03T09:53Z" }
   ],
   "messages": [
     { "id": "1", "chatId": "pbe-alb", "content": "Hi Alex", "sender": "pbe", "status": "DELIVERED", "timestamp": "2017-05-03T08:53Z" },
